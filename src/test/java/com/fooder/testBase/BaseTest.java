@@ -24,7 +24,7 @@ public class BaseTest {
     public void startDriverSession(@Optional("chrome") String browser) {
         try {
             initializeDriver(browser);
-//            startReporting();
+            startReporting();
         } catch (Exception e) {
             throw new RuntimeException("Failed to start WebDriver session", e);
         }
@@ -55,11 +55,11 @@ public class BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void beforMethod(Method method) throws IOException {
-//       beforeMethod(method);
+       beforeMethod(method);
     }
     @AfterMethod(alwaysRun = true)
     public void takeScreenShot(ITestResult result) throws IOException, InterruptedException {
-//        takeScreenshot(result,driver);
+        takeScreenshot(result,driver);
         System.out.println("screenshot captured");
     }
     @AfterSuite(alwaysRun = true)
@@ -67,7 +67,7 @@ public class BaseTest {
             if (driver != null){
                 driver.quit();
             }
-//            flushReport();
+            flushReport();
         System.out.println("Report path is here :  " );
 
         }
