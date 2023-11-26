@@ -11,12 +11,38 @@ public class WelcomeScreenTest extends BaseTest {
     public void initiateObject(){
         welcPage = new WelcomePage(driver);
     }
-    @Test
-    public void validateLogo(){
-        welcPage.validateLogo();
+    @Test(priority = 0)
+    public void validateFooderLogoDisplayed(){
+        welcPage.checkFooderLogo();
     }
-    @Test(dependsOnMethods = "validateLogo")
-    public void validateLogo2(){
-        welcPage.validateContactLabel();
+    @Test(dependsOnMethods ="validateFooderLogoDisplayed" )
+    public void validateSubTitleText(){
+        welcPage.checkSubTitleText();
     }
+    @Test(dependsOnMethods ="validateFooderLogoDisplayed" )
+    public void validateLoginToYourAccSubTitleText(){
+        welcPage.checkLoginToYourAccountSubTitleText();
+    }
+
+    @Test(dependsOnMethods = "validateFooderLogoDisplayed")
+    public void validateContactLabelText(){
+        welcPage.checkContactLabelText();
+    }
+    @Test(dependsOnMethods = "validateFooderLogoDisplayed")
+    public void validatePasswordLabelText(){
+        welcPage.checkPasswordLabelText();
+    }
+    @Test(dependsOnMethods = "validatePasswordLabelText")
+    public void validateForgetPasswordLabelText(){
+        welcPage.checkForgetPasswordLabelText();
+    }
+    @Test(dependsOnMethods = "validateForgetPasswordLabelText")
+    public void validateZohoDisplayed(){
+        welcPage.checkZohoDisplayed();
+    }
+    @Test(dependsOnMethods = "validateZohoDisplayed")
+    public void validateZohoOpenSuccessfully(){
+        welcPage.checkZohoOpenSuccessfully();
+    }
+
 }

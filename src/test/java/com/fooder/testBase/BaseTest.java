@@ -4,19 +4,18 @@ import com.fooder.Utilities.ExtentReportManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
+import static Utilities.PropertiesLoader.readEnvFile;
 import static com.fooder.Utilities.ExtentReportManager.*;
 
 public class BaseTest {
+    private String URL = System.getProperty("URL",readEnvFile("URL"));
     public WebDriver driver;
 
     @BeforeSuite(alwaysRun = true)
@@ -47,8 +46,7 @@ public class BaseTest {
 
     private void configureDriver() {
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.get("https://kobra.fooder.in/");
+        driver.get(URL);
     }
 
 
@@ -68,7 +66,7 @@ public class BaseTest {
                 driver.quit();
             }
             flushReport();
-        System.out.println("Report path is here :  " );
+        System.out.println("Report path is here :  " + reportName );
 
         }
     }
