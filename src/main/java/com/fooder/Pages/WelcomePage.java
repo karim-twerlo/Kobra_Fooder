@@ -16,8 +16,12 @@ public class WelcomePage extends PageBase {
     private final By Sub_Title_Text = By.xpath("//h1[@class='title mb-1']");
     private final By Login_To_Your_Acc_Sub_Title = By.xpath("//p[@class='subtitle']");
     private final By Zoho_chat_bot = By.id("zohohc-asap-web-launcherbox");
-    private final By Zoho_chat_Home = By.xpath("//span[@class='zohohc-c4e6cc89c5 zohohc-36bf2072ee']");
-    private final By Language_Zoho = By.xpath("//div[@class='zohohc-0afe37d1a4']");
+    private final By Zoho_chat_Home = By.xpath("//span[@class='zohohc-7163ec77ec zohohc-31dc758684']");
+    private final By Language_Zoho = By.xpath("//div[@class='zohohc-763e08d653']");
+    private final By Zoho_Close = By.id("zohohc-asap-web-closemain");
+    private final By sign_up  = By.xpath("//a[@href='/onboarding']");
+    private final By Register_SubTitle = By.xpath("//p[@class='onboarding__subtitle']");
+    
 
     public void checkFooderLogo(){
         waitForVisibilityOfElement(Fooder_Logo);
@@ -52,5 +56,12 @@ public class WelcomePage extends PageBase {
         System.out.println("**** " + driver.findElement(Language_Zoho).getText());
         Assert.assertTrue(checkForLocalization(Zoho_chat_Home ,
                 "Home","الرئيسية",Language_Zoho));
+        clickOnelement(Zoho_Close);
+    }
+    public void checkSignUpLinkOpenSuccessfully(){
+        Assert.assertTrue(checkForLocalization(sign_up ,
+                "Sign up","اشتراك"));
+        clickOnelement(sign_up);
+        Assert.assertTrue(assertElementDisplayed(Register_SubTitle));
     }
 }

@@ -18,7 +18,7 @@ public class BaseTest {
     private String URL = System.getProperty("URL",readEnvFile("URL"));
     public WebDriver driver;
 
-    @BeforeSuite(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
     @Parameters("browser")
     public void startDriverSession(@Optional("chrome") String browser) {
         try {
@@ -60,13 +60,13 @@ public class BaseTest {
         takeScreenshot(result,driver);
         System.out.println("screenshot captured");
     }
-    @AfterSuite(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
         public void tearDown(){
             if (driver != null){
                 driver.quit();
             }
             flushReport();
-        System.out.println("Report path is here :  " + reportName );
+        System.out.println("Report path is here:  " + reportName );
 
         }
     }

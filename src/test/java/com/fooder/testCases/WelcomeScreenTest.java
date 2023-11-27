@@ -36,13 +36,17 @@ public class WelcomeScreenTest extends BaseTest {
     public void validateForgetPasswordLabelText(){
         welcPage.checkForgetPasswordLabelText();
     }
-    @Test(dependsOnMethods = "validateForgetPasswordLabelText")
+    @Test (dependsOnMethods = "validateForgetPasswordLabelText")
     public void validateZohoDisplayed(){
         welcPage.checkZohoDisplayed();
     }
     @Test(dependsOnMethods = "validateZohoDisplayed")
     public void validateZohoOpenSuccessfully(){
         welcPage.checkZohoOpenSuccessfully();
+    }
+    @Test(dependsOnMethods = "validateZohoOpenSuccessfully")
+    public void validateSignUpScreenOpenSuccessfully(){
+        welcPage.checkSignUpLinkOpenSuccessfully();
     }
 
 }
