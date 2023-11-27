@@ -8,6 +8,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -37,35 +38,51 @@ public class ExtentReportManager {
         test = extent.createTest(method.getName());
 
     }
-    public static void takeScreenshot(ITestResult result , WebDriver driver)
+    public static void takeScreenshot(ITestResult result, WebDriver driver)
             throws IOException, InterruptedException {
 
-        String pathFail = System.getProperty("user.dir") + "//reports//screenshotsFailure//" + result.getName() + ".png";
-        String PathSkip = System.getProperty("user.dir") + "//reports//screenshotsSkip//" + result.getName() + ".png";
-        String pathSuccess = System.getProperty("user.dir") + "//reports//screenshotsSuccess//" + result.getName() + ".png";
-        if (ITestResult.FAILURE == result.getStatus()){
+        String baseDir = System.getProperty("user.dir") + "//reports//";
+        String pathFail = baseDir + "screenshotsFailure//" + result.getName() + ".png";
+        String PathSkip = baseDir + "screenshotsSkip//" + result.getName() + ".png";
+        String pathSuccess = baseDir + "screenshotsSuccess//" + result.getName() + ".png";
+
+        // Create directories if they don't exist
+        createDirectory(baseDir + "screenshotsFailure");
+        createDirectory(baseDir + "screenshotsSkip");
+        createDirectory(baseDir + "screenshotsSuccess");
+
+        if (ITestResult.FAILURE == result.getStatus()) {
             try {
                 test.fail(result.getThrowable().getMessage(), MediaEntityBuilder
-                        .createScreenCaptureFromPath(Utilities.captureScreenshot(pathFail , driver)).build());
-            }catch (IOException e){
+                        .createScreenCaptureFromPath(Utilities.captureScreenshot(pathFail, driver)).build());
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else if (ITestResult.SUCCESS == result.getStatus()) {
+        } else if (ITestResult.SUCCESS == result.getStatus()) {
             try {
                 test.pass("test has passed: ", MediaEntityBuilder
                         .createScreenCaptureFromPath(Utilities.captureScreenshot(pathSuccess, driver)).build());
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         } else if (ITestResult.SKIP == result.getStatus()) {
             try {
-                test.skip(result.getThrowable().getMessage(),MediaEntityBuilder
-                        .createScreenCaptureFromPath(Utilities.captureScreenshot(PathSkip,driver)).build());
-
-            }catch (IOException e){
+                test.skip(result.getThrowable().getMessage(), MediaEntityBuilder
+                        .createScreenCaptureFromPath(Utilities.captureScreenshot(PathSkip, driver)).build());
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
 
+    private static void createDirectory(String path) {
+        File directory = new File(path);
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directory created: " + path);
+            } else {
+                System.err.println("Failed to create directory: " + path);
+            }
         }
     }
     public static void flushReport(){
