@@ -2,9 +2,9 @@
 <suite name="ParallelSuite">
     <test name="ChromeTest">
         <parameter name="browser" value="chrome" />
-        <classes>
-            <class name="com.fooder.testCases.WelcomeScreenTest" />
-        </classes>
+        <packages>
+            <package name="com.fooder.testCases" />
+        </packages>
     </test>
 
 <!--    <test name="SafariTest">-->
@@ -16,8 +16,8 @@
 
     <test name="edgeTest">
         <parameter name="browser" value="edge" />
-        <classes>
-            <class name="com.fooder.testCases.WelcomeScreenTest2" />
-        </classes>
+        <packages>
+            <package name="com.fooder.testCases" />
+        </packages>
     </test>
 </suite>
