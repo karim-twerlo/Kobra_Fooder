@@ -21,8 +21,17 @@ public class WelcomePage extends PageBase {
     private final By Zoho_Close = By.id("zohohc-asap-web-closemain");
     private final By sign_up  = By.xpath("//a[@href='/onboarding']");
     private final By Register_SubTitle = By.xpath("//p[@class='onboarding__subtitle']");
-    
-
+    private final By Country = By.xpath("//img[@alt='country']");
+    private final By CountryCode = By.xpath("//span[@class='phoneInput-country_code']");
+    private final By Phone_code = By.xpath("//span[@class='phoneInput-number_dialCode']");
+    private final By SearchCountriesBar = By.xpath("//input[@placeholder='أبحث' or @placeholder='Search']");
+    private final By Countries_List = By.xpath("//button[@type='button']");
+    private final By Egypt_Country = By.xpath("//span[contains(text(),'Egypt (‫مصر‬‎)')]");
+    private final By Forget_Password_Page_Title = By.xpath("//span[contains(text(),'Please enter the contact associated with your cont') or contains(text(),'الرجاء إدخال جهة الاتصال المرتبطة بجهة الاتصال الخ')]");
+    private final By My_Acc_Icon = By.xpath("//a[@id='menu-drop']//*[name()='svg']");
+    private final By Number_Field = By.xpath("//*[@type='tel']");
+    private final By Password_Field = By.xpath("//*[@type='password']");
+    private final By Login = By.xpath("//button[@type='submit']");
     public void checkFooderLogo(){
         waitForVisibilityOfElement(Fooder_Logo);
         Assert.assertTrue(driver.findElement(Fooder_Logo).isDisplayed());
@@ -58,10 +67,67 @@ public class WelcomePage extends PageBase {
                 "Home","الرئيسية",Language_Zoho));
         clickOnelement(Zoho_Close);
     }
-    public void checkSignUpLinkOpenSuccessfully(){
+    public void checkSignUpLinkOpenSuccessfully(String URL){
         Assert.assertTrue(checkForLocalization(sign_up ,
                 "Sign up","اشتراك"));
         clickOnelement(sign_up);
         Assert.assertTrue(assertElementDisplayed(Register_SubTitle));
+        Assert.assertTrue(driver.getCurrentUrl().contains("onboarding"));
+        driver.get(URL);
+        Assert.assertTrue(assertElementDisplayed(password_Label));
+    }
+    /**/
+
+    private void checkCountryDisplayed()   {
+        Assert.assertTrue(assertElementDisplayed(Country));
+    }
+    private void checkCountryCodeDisplayed(){
+        Assert.assertTrue(assertElementDisplayed(CountryCode));
+        Assert.assertTrue(driver.findElement(CountryCode).getText().length()==2);
+    }
+    public void checkCountryAndCountryCode(){
+        checkCountryDisplayed();
+        checkCountryCodeDisplayed();
+        checkPhoneCode();
+    }
+    private void checkPhoneCode(){
+        Assert.assertTrue(assertElementDisplayed(Phone_code));
+    }
+    private void openCountries(){
+        clickOnelement(Countries_List);
+    }
+    public void checkCountriesOPen(){
+        openCountries();
+        Assert.assertTrue(assertElementDisplayed(SearchCountriesBar));
+    }
+    public void searchForEgypt(){
+        checkCountriesOPen();
+        clickOnelement(SearchCountriesBar);
+        sendTextToInputField("egy",SearchCountriesBar);
+    }
+    public void selectEgypt(){
+        searchForEgypt();
+        clickOnelement(Egypt_Country);
+    }
+    public void checkEgyptSelected(){
+        selectEgypt();
+        Assert.assertTrue(assertElementDisplayed(CountryCode));
+        Assert.assertTrue(driver.findElement(CountryCode).getText().contains("EG"));
+    }
+    public void checkForgetPasswordJourney(String URL){
+        checkForgetPasswordLabelText();
+        clickOnelement(Forget_password_label);
+        Assert.assertTrue(assertElementDisplayed(Forget_Password_Page_Title));
+        Assert.assertTrue(driver.getCurrentUrl().contains("forgot-password"));
+        driver.get(URL);
+        Assert.assertTrue(assertElementDisplayed(password_Label));
+    }
+    public void loginWithValidateData(String username , String password){
+        checkEgyptSelected();
+        sendTextToInputField(username,Number_Field);
+        sendTextToInputField(password, Password_Field);
+        clickOnelement(Login);
+        Assert.assertTrue(assertElementDisplayed(My_Acc_Icon));
+        Assert.assertTrue(driver.getCurrentUrl().contains("business"));
     }
 }

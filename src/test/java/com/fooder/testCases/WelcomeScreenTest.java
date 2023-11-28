@@ -36,7 +36,7 @@ public class WelcomeScreenTest extends BaseTest {
     public void validateForgetPasswordLabelText(){
         welcPage.checkForgetPasswordLabelText();
     }
-    @Test (dependsOnMethods = "validateForgetPasswordLabelText")
+    @Test (dependsOnMethods = "validateCountryAndCountryCode")
     public void validateZohoDisplayed(){
         welcPage.checkZohoDisplayed();
     }
@@ -46,7 +46,23 @@ public class WelcomeScreenTest extends BaseTest {
     }
     @Test(dependsOnMethods = "validateZohoOpenSuccessfully")
     public void validateSignUpScreenOpenSuccessfully(){
-        welcPage.checkSignUpLinkOpenSuccessfully();
+        welcPage.checkSignUpLinkOpenSuccessfully(URL);
+    }
+    @Test(dependsOnMethods = "validateForgetPasswordLabelText")
+    public void validateCountryAndCountryCode(){
+        welcPage.checkCountryAndCountryCode();
+    }
+    @Test(dependsOnMethods = "validateCountryAndCountryCode")
+    public void validateEgyptAfterSelecting(){
+        welcPage.checkEgyptSelected();
+    }
+    @Test(dependsOnMethods ="validatePasswordLabelText" )
+    public void ValidateForgetPasswordJourney(){
+        welcPage.checkForgetPasswordJourney(URL);
+    }
+    @Test(dependsOnMethods = "validateSignUpScreenOpenSuccessfully")
+    public void ValidateLoginWithValidateData(){
+        welcPage.loginWithValidateData(username,password);
     }
 
 }

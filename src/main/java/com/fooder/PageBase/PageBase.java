@@ -36,8 +36,6 @@ public class PageBase {
         jsExec.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});" , driver.findElement(element));
     }
     public static Boolean checkForLocalization(By by , String Eng , String arb){
-        System.out.println("you can change to:  " + driver.findElement(language).getText());
-        System.out.println("here is the current text:  " + driver.findElement(by).getText());
         scrollToElement(language);
         scrollToElement(by);
         waitForVisibilityOfElement(by);
@@ -46,6 +44,7 @@ public class PageBase {
         } else  {
            return driver.findElement(by).getText().contains(Eng);
         }
+
 
     }
 
@@ -66,5 +65,9 @@ public class PageBase {
         waitForVisibilityOfElement(by);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].dispatchEvent(new Event('click'));", driver.findElement(by));
+    }
+    public static void sendTextToInputField(String text , By by){
+        waitForVisibilityOfElement(by);
+        driver.findElement(by).sendKeys(text);
     }
 }

@@ -15,7 +15,9 @@ import static Utilities.PropertiesLoader.readEnvFile;
 import static com.fooder.Utilities.ExtentReportManager.*;
 
 public class BaseTest {
-    private String URL = System.getProperty("URL",readEnvFile("URL"));
+    public String URL = System.getProperty("URL",readEnvFile("URL"));
+    public String username = System.getProperty("username",readEnvFile("username"));
+    public String password = System.getProperty("password",readEnvFile("password"));
     public WebDriver driver;
 
     @BeforeClass(alwaysRun = true)
