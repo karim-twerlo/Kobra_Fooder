@@ -11,58 +11,66 @@ public class WelcomeScreenTest extends BaseTest {
     public void initiateObject(){
         welcPage = new WelcomePage(driver);
     }
-    @Test(priority = 0)
-    public void validateFooderLogoDisplayed(){
+    @Test(groups = "welcome")
+    public void TC_Welcome01_validateFooderLogoDisplayed(){
         welcPage.checkFooderLogo();
     }
-    @Test(dependsOnMethods ="validateFooderLogoDisplayed" )
-    public void validateSubTitleText(){
+    @Test(groups = "welcome")
+    public void TC_Welcome02_validateSubTitleText(){
         welcPage.checkSubTitleText();
     }
-    @Test(dependsOnMethods ="validateFooderLogoDisplayed" )
-    public void validateLoginToYourAccSubTitleText(){
+    @Test(groups = "welcome")
+    public void TC_Welcome03_validateLoginToYourAccSubTitleText(){
         welcPage.checkLoginToYourAccountSubTitleText();
     }
 
-    @Test(dependsOnMethods = "validateFooderLogoDisplayed")
-    public void validateContactLabelText(){
+    @Test(groups = "welcome")
+    public void TC_Welcome04_validateContactLabelText(){
         welcPage.checkContactLabelText();
     }
-    @Test(dependsOnMethods = "validateFooderLogoDisplayed")
-    public void validatePasswordLabelText(){
+    @Test(groups = "welcome")
+    public void TC_Welcome05_validatePasswordLabelText(){
         welcPage.checkPasswordLabelText();
     }
-    @Test(dependsOnMethods = "validatePasswordLabelText")
-    public void validateForgetPasswordLabelText(){
+    @Test(groups = "welcome")
+    public void TC_Welcome06_validateForgetPasswordLabelText(){
         welcPage.checkForgetPasswordLabelText();
     }
-    @Test (dependsOnMethods = "validateCountryAndCountryCode")
-    public void validateZohoDisplayed(){
+    @Test (groups = "welcome")
+    public void TC_Welcome07_validateZohoDisplayed(){
         welcPage.checkZohoDisplayed();
     }
-    @Test(dependsOnMethods = "validateZohoDisplayed")
-    public void validateZohoOpenSuccessfully(){
+    @Test(groups = "welcome")
+    public void TC_Welcome08_validateZohoOpenSuccessfully(){
         welcPage.checkZohoOpenSuccessfully();
     }
-    @Test(dependsOnMethods = "validateZohoOpenSuccessfully")
-    public void validateSignUpScreenOpenSuccessfully(){
+    @Test(groups = "welcome")
+    public void TC_Welcome12_validateSignUpScreenOpenSuccessfully(){
         welcPage.checkSignUpLinkOpenSuccessfully(URL);
     }
-    @Test(dependsOnMethods = "validateForgetPasswordLabelText")
-    public void validateCountryAndCountryCode(){
+    @Test(groups = "welcome")
+    public void TC_Welcome09_validateCountryAndCountryCode(){
         welcPage.checkCountryAndCountryCode();
     }
-    @Test(dependsOnMethods = "validateCountryAndCountryCode")
-    public void validateEgyptAfterSelecting(){
+    @Test(groups = "welcome")
+    public void TC_Welcome10_validateEgyptAfterSelecting(){
         welcPage.checkEgyptSelected();
     }
-    @Test(dependsOnMethods ="validatePasswordLabelText" )
-    public void ValidateForgetPasswordJourney(){
+    @Test(groups = "welcome")
+    public void TC_Welcome11_ValidateForgetPasswordJourney(){
         welcPage.checkForgetPasswordJourney(URL);
     }
-    @Test(dependsOnMethods = "validateSignUpScreenOpenSuccessfully")
-    public void ValidateLoginWithValidateData(){
+    @Test(groups = "login" )
+    public void TC_Welcome15_ValidateLoginWithValidData(){
         welcPage.loginWithValidateData(username,password);
+    }
+    @Test(groups = "login")
+    public void TC_Welcome14_validateLoginWithInvalidDataInput(){
+        welcPage.loginWithInValidPassword(username);
+    }
+    @Test(groups = "login")
+    public void TC_Welcome13_validateLoginWithInvalidNumberOrPassword(){
+        welcPage.checkErrorMessageForInvalidNumberOrPassword();
     }
 
 }

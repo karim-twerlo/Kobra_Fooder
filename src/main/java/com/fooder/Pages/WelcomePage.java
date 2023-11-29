@@ -32,6 +32,9 @@ public class WelcomePage extends PageBase {
     private final By Number_Field = By.xpath("//*[@type='tel']");
     private final By Password_Field = By.xpath("//*[@type='password']");
     private final By Login = By.xpath("//button[@type='submit']");
+    private final By Error_Message = By.xpath("//p[text()='بيانات العميل غير صالحة' or text()='Invalid credentials']");
+    private final By Empty_Number_Error_Message = By.xpath("//span[contains(text(),'رقم الواتساب مطلوب') or contains(text(),'WhatsApp number is required')]");
+    private final By Empty_Password_Error_Message = By.xpath("//span[contains(text(),'كلمة المرور مطلوبة') or contains(text(),'Password is required')]");
     public void checkFooderLogo(){
         waitForVisibilityOfElement(Fooder_Logo);
         Assert.assertTrue(driver.findElement(Fooder_Logo).isDisplayed());
@@ -62,7 +65,6 @@ public class WelcomePage extends PageBase {
     public void checkZohoOpenSuccessfully(){
         clickOnelement(Zoho_chat_bot);
         Assert.assertTrue(assertElementDisplayed(Zoho_chat_Home));
-        System.out.println("**** " + driver.findElement(Language_Zoho).getText());
         Assert.assertTrue(checkForLocalization(Zoho_chat_Home ,
                 "Home","الرئيسية",Language_Zoho));
         clickOnelement(Zoho_Close);
@@ -129,5 +131,21 @@ public class WelcomePage extends PageBase {
         clickOnelement(Login);
         Assert.assertTrue(assertElementDisplayed(My_Acc_Icon));
         Assert.assertTrue(driver.getCurrentUrl().contains("business"));
+    }
+    public void loginWithInValidPassword(String username){
+        checkEgyptSelected();
+        sendTextToInputField(username,Number_Field);
+        sendTextToInputField("111111111", Password_Field);
+        clickOnelement(Login);
+        Assert.assertTrue(assertElementDisplayed(Error_Message));
+        Assert.assertTrue(checkForLocalization(Error_Message,"Invalid credentials","بيانات العميل غير صالحة"));
+    }
+    public void checkErrorMessageForInvalidNumberOrPassword(){
+        clickOnelement(Number_Field);
+        clickOnelement(Password_Field);
+        Assert.assertTrue(assertElementDisplayed(Empty_Number_Error_Message));
+        clickOnelement(Number_Field);
+        Assert.assertTrue(assertElementDisplayed(Empty_Password_Error_Message));
+
     }
 }

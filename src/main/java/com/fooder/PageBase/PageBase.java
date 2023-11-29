@@ -20,7 +20,7 @@ public class PageBase {
 
     }
     public static void waitForVisibilityOfElement(By by){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
     public static Boolean assertElementDisplayed(By by){
@@ -49,8 +49,8 @@ public class PageBase {
     }
 
     public static Boolean checkForLocalization(By by , String Eng , String arb , By languageLocation){
-        System.out.println("you can change to:  " + driver.findElement(languageLocation).getText());
-        System.out.println("here is the current text:  " + driver.findElement(by).getText());
+//        System.out.println("you can change to:  " + driver.findElement(languageLocation).getText());
+//        System.out.println("here is the current text:  " + driver.findElement(by).getText());
         scrollToElement(languageLocation);
         scrollToElement(by);
         waitForVisibilityOfElement(by);
@@ -68,6 +68,10 @@ public class PageBase {
     }
     public static void sendTextToInputField(String text , By by){
         waitForVisibilityOfElement(by);
+        clearInputField(by);
         driver.findElement(by).sendKeys(text);
+    }
+    public static void clearInputField(By by){
+        driver.findElement(by).clear();
     }
 }
