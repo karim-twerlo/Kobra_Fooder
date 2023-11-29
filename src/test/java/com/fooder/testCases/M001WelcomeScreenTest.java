@@ -5,7 +5,7 @@ import com.fooder.testBase.BaseTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class WelcomeScreenTest extends BaseTest {
+public class M001WelcomeScreenTest extends BaseTest {
     WelcomePage welcPage;
     @BeforeClass
     public void initiateObject(){

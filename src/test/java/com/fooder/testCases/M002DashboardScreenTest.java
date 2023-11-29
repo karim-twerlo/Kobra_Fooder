@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class DashboardScreenTest extends BaseTest {
+public class M002DashboardScreenTest extends BaseTest {
     DashBoardPage dashboard = new DashBoardPage((WebDriver) driver);
     WelcomePage wlcPage = new WelcomePage((WebDriver) driver);
 

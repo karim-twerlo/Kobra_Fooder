@@ -98,5 +98,10 @@ public class DashBoardPage extends PageBase {
         checkOperations();
 
     }
+    public void openSettingsMenu(){
+        Assert.assertTrue(assertElementDisplayed(Settings));
+        Assert.assertTrue(checkForLocalization(Settings,"Settings" , "الإعدادات"));
+        clickOnelement(Settings);
+    }
 
 }

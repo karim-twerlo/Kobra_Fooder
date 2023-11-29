@@ -18,6 +18,7 @@ public class BaseTest {
     public String URL = System.getProperty("URL",readEnvFile("URL"));
     public String username = System.getProperty("username",readEnvFile("username"));
     public String password = System.getProperty("password",readEnvFile("password"));
+    public String email = System.getProperty("email",readEnvFile("email"));
     public WebDriver driver;
 
     @BeforeClass(alwaysRun = true)
