@@ -3,28 +3,34 @@ package com.fooder.testCases;
 import com.fooder.Pages.P002DashBoardPage;
 import com.fooder.Pages.P003P001SettingsDashboardPage;
 import com.fooder.Pages.P001WelcomePage;
+import com.fooder.Pages.P004BranchesPage;
 import com.fooder.testBase.BaseTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static com.fooder.testBase.ReadProperties.password;
-import static com.fooder.testBase.ReadProperties.username;
+import static com.fooder.testBase.ReadProperties.*;
 
-public class M003DashboardSettingsTest extends BaseTest {
+public class M004BranchesTest extends BaseTest {
     P003P001SettingsDashboardPage settings;
     P002DashBoardPage dashboard;
     P001WelcomePage wlcPage;
+    P004BranchesPage branch;
 
     @BeforeClass
     public void initiateObject() {
         dashboard = new P002DashBoardPage(driver);
         wlcPage = new P001WelcomePage(driver);
         settings= new P003P001SettingsDashboardPage(driver);
+        branch = new P004BranchesPage(driver);
     }
     @Test
-    public void validateSettingsItems(){
-        wlcPage.loginWithValidateData(username,password);
+    public void TC_001ValidateBranchCreatedSuccessfullyThenDeleteIt() {
+        wlcPage.loginWithValidateData(username, password);
         dashboard.openSettingsMenu();
-        settings.checkSettingsMenuItems();
+        settings.checkBranchesSettings();
+        branch.checkBranchCreation(Branch_Name_Localized,Branch_Name,Contact_Name , Contact_Number
+        ,Location , City , state , Country ,MapSearch );
+        settings.checkBranchesSettings();
+        branch.deleteBranch();
     }
 }

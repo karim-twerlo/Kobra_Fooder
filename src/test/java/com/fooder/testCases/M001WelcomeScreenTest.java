@@ -1,15 +1,17 @@
 package com.fooder.testCases;
 
-import com.fooder.Pages.WelcomePage;
+import com.fooder.Pages.P001WelcomePage;
 import com.fooder.testBase.BaseTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static com.fooder.testBase.ReadProperties.*;
+
 public class M001WelcomeScreenTest extends BaseTest {
-    WelcomePage welcPage;
+    P001WelcomePage welcPage;
     @BeforeClass
     public void initiateObject(){
-        welcPage = new WelcomePage(driver);
+        welcPage = new P001WelcomePage(driver);
     }
     @Test(groups = "welcome")
     public void TC_Welcome01_validateFooderLogoDisplayed(){

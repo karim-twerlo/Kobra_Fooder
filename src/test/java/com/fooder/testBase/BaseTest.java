@@ -13,12 +13,10 @@ import java.util.concurrent.TimeUnit;
 
 import static Utilities.PropertiesLoader.readEnvFile;
 import static com.fooder.Utilities.ExtentReportManager.*;
+import static com.fooder.testBase.ReadProperties.URL;
 
 public class BaseTest {
-    public String URL = System.getProperty("URL",readEnvFile("URL"));
-    public String username = System.getProperty("username",readEnvFile("username"));
-    public String password = System.getProperty("password",readEnvFile("password"));
-    public String email = System.getProperty("email",readEnvFile("email"));
+
     public WebDriver driver;
 
     @BeforeClass(alwaysRun = true)

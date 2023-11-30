@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-public class WelcomePage extends PageBase {
-    public WelcomePage(WebDriver driver) {
+public class P001WelcomePage extends PageBase {
+    public P001WelcomePage(WebDriver driver) {
         super(driver);
     }
     private final By Fooder_Logo = By.cssSelector("img[alt='brand-logo']");

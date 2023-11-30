@@ -5,9 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-public class DashBoardPage extends PageBase {
+public class P002DashBoardPage extends PageBase {
 
-    public DashBoardPage(WebDriver driver) {
+    public P002DashBoardPage(WebDriver driver) {
         super(driver);
     }
     private final By Small_Logo =By.xpath("//img[@class='menu-header__img']");
