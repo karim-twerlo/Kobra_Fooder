@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-public class SettingsDashboarddPage extends PageBase {
-    public SettingsDashboarddPage(WebDriver driver) {
+public class P003P001SettingsDashboardPage extends PageBase {
+    public P003P001SettingsDashboardPage(WebDriver driver) {
         super(driver);
     }
     private final By BusinessSettings = By.xpath("(//span[@class='menu-title text-truncate mx-75' and contains(text(),'Business settings') or contains(text(),'الإعدادات')])[2]");

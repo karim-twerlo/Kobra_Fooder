@@ -1,22 +1,25 @@
 package com.fooder.testCases;
 
-import com.fooder.Pages.DashBoardPage;
-import com.fooder.Pages.SettingsDashboarddPage;
-import com.fooder.Pages.WelcomePage;
+import com.fooder.Pages.P002DashBoardPage;
+import com.fooder.Pages.P003P001SettingsDashboardPage;
+import com.fooder.Pages.P001WelcomePage;
 import com.fooder.testBase.BaseTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static com.fooder.testBase.ReadProperties.password;
+import static com.fooder.testBase.ReadProperties.username;
+
 public class M003DashboardSettingsTest extends BaseTest {
-    SettingsDashboarddPage settings;
-    DashBoardPage dashboard;
-    WelcomePage wlcPage;
+    P003P001SettingsDashboardPage settings;
+    P002DashBoardPage dashboard;
+    P001WelcomePage wlcPage;
 
     @BeforeClass
     public void initiateObject() {
-        dashboard = new DashBoardPage(driver);
-        wlcPage = new WelcomePage(driver);
-        settings= new SettingsDashboarddPage(driver);
+        dashboard = new P002DashBoardPage(driver);
+        wlcPage = new P001WelcomePage(driver);
+        settings= new P003P001SettingsDashboardPage(driver);
     }
     @Test
     public void validateSettingsItems(){

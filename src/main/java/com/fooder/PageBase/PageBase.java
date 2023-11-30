@@ -1,6 +1,7 @@
 package com.fooder.PageBase;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -73,5 +74,9 @@ public class PageBase {
     }
     public static void clearInputField(By by){
         driver.findElement(by).clear();
+    }
+    public static void doubleClickOnAnElement(By by){
+        Actions actions = new Actions(driver);
+        actions.doubleClick(driver.findElement(by)).perform();
     }
 }
