@@ -36,23 +36,35 @@ public class P004BranchesPage extends PageBase {
     private final By DeleteIcon = By.xpath("(//*[name()='svg'][@class='icon-lg icon-danger'])[1]");
     private final By Confirm_Deleting = By.xpath("//button[@class='btn btn-danger mx-1']/span[contains(text(),' Yes, delete it! ') or contains(text(),'نعم ، إحذفها!')]");
     private final By Confirm_Delete_Message = By.xpath("//p[text()='تم حذف السجل.' or text()='The record has been deleted.']");
+    private final By Submit_Branch_CTA = By.xpath("//button[@type='submit']");
+    private final By Map_Zoom_In = By.xpath("//button[@title='Zoom in']");
+    private final By Map_Zoom_Out = By.xpath("//button[@title='Zoom out']");
+    private final By Branch_name_is_required = By.xpath("//div[contains(text(),'Branch name is required') or contains(text(),'أسم الفرع مطلوب')]");
+    private final By Branch_name_localized_is_required = By.xpath("//div[contains(text(),'Branch name localized is required') or contains(text(),'مطلوب أسم الفرع المترجم')]");
+    private final By Contact_Name_is_required = By.xpath("//div[contains(text(),'Contact Name is required') or contains(text(),'إسم جهة الإتصال مطلوب')]");
+    private final By Contact_Number_is_required = By.xpath("//div[contains(text(),'Contact Number is required') or contains(text(),'رقم الإتصال مطلوب')]");
+    private final By The_location_is_required = By.xpath("//div[contains(text(),'The location is required') or contains(text(),'الموقع مطلوب')]");
+    private final By The_city_is_required = By.xpath("//div[contains(text(),'The city is required') or contains(text(),'المدينة مطلوبة')]");
+    private final By The_state_is_required = By.xpath("//div[contains(text(),'The state is required') or contains(text(),'الدولة مطلوبة')]");
+    private final By The_country_is_required = By.xpath("//div[contains(text(),'The country is required') or contains(text(),'البلد مطلوب')]");
 
     public void checkBranchCreation(String Branch_Name_Localized , String Branch_Name ,String Contact_Name ,
                                     String Contact_Number, String Location , String City , String state , String Country , String MapSearch){
-        checkBranchesOpenSuccessfully();
-        checkBasicInformationOfBranchDisplayed();
+        checkCreateBranchesOpenSuccessfully();
         insertLocationData( Location , City , state , Country , MapSearch);
         insertBasicInformation(Branch_Name_Localized , Branch_Name , Contact_Name , Contact_Number);
+        checkBasicInformationOfBranchDisplayed();
+        submitBranch();
         Assert.assertTrue(assertElementDisplayed(Success_Message));
-//        clickOnelement(Back_Arrow);
 
     }
-    private void checkBranchesOpenSuccessfully(){
+    public void checkCreateBranchesOpenSuccessfully(){
         waitForVisibilityOfElement(Crete_Branch_CTA);
         clickOnelement(Crete_Branch_CTA);
         waitForVisibilityOfElement(Create_Branch_Title_Text);
     }
     private void checkBasicInformationOfBranchDisplayed(){
+        scrollToElement(Basic_Info);
         Assert.assertTrue(assertElementDisplayed(Create_Branch_Title_Text));
         Assert.assertTrue(assertElementDisplayed(Basic_Info));
         Assert.assertTrue(assertElementDisplayed(Back_Arrow));
@@ -85,6 +97,7 @@ public class P004BranchesPage extends PageBase {
         sendTextToInputField(Country , Country_Input);
         scrollToElement(Input_Search_Map);
         sendTextToInputField(MapSearch , Input_Search_Map);
+        driver.findElement(Input_Search_Map).sendKeys(Keys.ENTER);
     }
     private void insertBasicInformation(String Branch_Name_Localized , String Branch_Name ,String Contact_Name , String Contact_Number){
         checkBasicInformationOfBranchDisplayed();
@@ -92,8 +105,6 @@ public class P004BranchesPage extends PageBase {
         sendTextToInputField(Branch_Name_Localized , Input_Branch_Name_Localized);
         sendTextToInputField(Contact_Name,Input_Contact_Name);
         sendTextToInputField(Contact_Number,Input_Contact_Number);
-        driver.findElement(Input_Search_Map).sendKeys(Keys.ENTER);
-        ////button[@type="submit"]
 
     }
     public void deleteBranch(){
@@ -104,5 +115,48 @@ public class P004BranchesPage extends PageBase {
         Assert.assertTrue(assertElementDisplayed(Confirm_Delete_Message));
 
     }
+    private void submitBranch(){
+        scrollToElement(Submit_Branch_CTA);
+        clickOnelement(Submit_Branch_CTA);
+    }
+    public void checkBackArrowFunctionality(){
+        clickOnelement(Back_Arrow);
+    }
+    public void checkMapsFunctionality(){
+        waitForVisibilityOfElement(Create_Branch_Title_Text);
+        try{
+            Thread.sleep(10000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+        scrollToElement(Map_Zoom_In);
+        Assert.assertTrue(assertElementDisplayed(Map_Zoom_In));
+        Assert.assertTrue(assertElementDisplayed(Map_Zoom_Out));
+        doubleClickOnAnElement(Map_Zoom_In);
+        doubleClickOnAnElement(Map_Zoom_Out);
+    }
+    private void validateErrorMessage(By inputField , By secondInput , By Message){
+        scrollToElement(inputField);
+        clickOnelement(inputField);
+        clickOnelement(secondInput);
+        Assert.assertTrue(assertElementDisplayed(Message));
+    }
+    private void checkErrorMessagesForBasicInfo(){
+        validateErrorMessage(Input_Branch_Name , Input_Branch_Name_Localized , Branch_name_is_required);
+        validateErrorMessage(Input_Branch_Name_Localized , Input_Contact_Name , Branch_name_localized_is_required);
+        validateErrorMessage(Input_Contact_Name , Input_Contact_Number , Contact_Name_is_required);
+//        validateErrorMessage(Input_Contact_Number , Input_Contact_Name , Contact_Number_is_required);
+    }
+    private void checkErrorMessagesForLocationInfo(){
+        validateErrorMessage(Input_Location , City_Input , The_location_is_required);
+        validateErrorMessage(City_Input , State_Input , The_city_is_required);
+        validateErrorMessage(State_Input , Country_Input , The_state_is_required);
+        validateErrorMessage(Country_Input , State_Input , The_country_is_required);
+    }
+    public void checkErrorMessagesForBranchesScreen(){
+        checkErrorMessagesForBasicInfo();
+        checkErrorMessagesForLocationInfo();
+    }
+
     
 }
