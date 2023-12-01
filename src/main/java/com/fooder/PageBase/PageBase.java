@@ -79,4 +79,10 @@ public class PageBase {
         Actions actions = new Actions(driver);
         actions.doubleClick(driver.findElement(by)).perform();
     }
+    public static void validateErrorMessage(By inputField , By secondInput , By Message){
+        scrollToElement(inputField);
+        clickOnelement(inputField);
+        clickOnelement(secondInput);
+        Assert.assertTrue(assertElementDisplayed(Message));
+    }
 }

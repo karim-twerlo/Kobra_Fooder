@@ -42,7 +42,7 @@ public class P004BranchesPage extends PageBase {
     private final By Branch_name_is_required = By.xpath("//div[contains(text(),'Branch name is required') or contains(text(),'أسم الفرع مطلوب')]");
     private final By Branch_name_localized_is_required = By.xpath("//div[contains(text(),'Branch name localized is required') or contains(text(),'مطلوب أسم الفرع المترجم')]");
     private final By Contact_Name_is_required = By.xpath("//div[contains(text(),'Contact Name is required') or contains(text(),'إسم جهة الإتصال مطلوب')]");
-    private final By Contact_Number_is_required = By.xpath("//div[contains(text(),'Contact Number is required') or contains(text(),'رقم الإتصال مطلوب')]");
+    private final By Contact_Number_is_required = By.xpath("//span[contains(text(),'Contact Number is required') or contains(text(),'رقم الإتصال مطلوب')]");
     private final By The_location_is_required = By.xpath("//div[contains(text(),'The location is required') or contains(text(),'الموقع مطلوب')]");
     private final By The_city_is_required = By.xpath("//div[contains(text(),'The city is required') or contains(text(),'المدينة مطلوبة')]");
     private final By The_state_is_required = By.xpath("//div[contains(text(),'The state is required') or contains(text(),'الدولة مطلوبة')]");
@@ -135,17 +135,11 @@ public class P004BranchesPage extends PageBase {
         doubleClickOnAnElement(Map_Zoom_In);
         doubleClickOnAnElement(Map_Zoom_Out);
     }
-    private void validateErrorMessage(By inputField , By secondInput , By Message){
-        scrollToElement(inputField);
-        clickOnelement(inputField);
-        clickOnelement(secondInput);
-        Assert.assertTrue(assertElementDisplayed(Message));
-    }
     private void checkErrorMessagesForBasicInfo(){
         validateErrorMessage(Input_Branch_Name , Input_Branch_Name_Localized , Branch_name_is_required);
         validateErrorMessage(Input_Branch_Name_Localized , Input_Contact_Name , Branch_name_localized_is_required);
         validateErrorMessage(Input_Contact_Name , Input_Contact_Number , Contact_Name_is_required);
-//        validateErrorMessage(Input_Contact_Number , Input_Contact_Name , Contact_Number_is_required);
+        validateErrorMessage(Input_Contact_Number , Input_Contact_Name , Contact_Number_is_required);
     }
     private void checkErrorMessagesForLocationInfo(){
         validateErrorMessage(Input_Location , City_Input , The_location_is_required);

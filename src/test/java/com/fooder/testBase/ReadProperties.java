@@ -18,6 +18,12 @@ public class ReadProperties {
     public static final String state = getProperty("state");
     public static final String Country = getProperty("Country");
     public static final String MapSearch = getProperty("MapSearch");
+    public static final String deliveryAreaName = getProperty("deliveryAreaName");
+    public static final String deliveryDistance = getProperty("deliveryDistance");
+    public static final String deliveryFees = getProperty("deliveryFees");
+    public static final String extraDistanceFees = getProperty("extraDistanceFees");
+    public static final String deliveryAreaType = getProperty("deliveryAreaType");
+
 
     private static String getProperty(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readEnvFile(propertyName));

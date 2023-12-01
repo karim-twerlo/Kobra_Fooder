@@ -7,6 +7,7 @@
             <class name="com.fooder.testCases.M002DashboardScreenTest" />
             <class name="com.fooder.testCases.M003DashboardSettingsTest" />
             <class name="com.fooder.testCases.M004BranchesTest" />
+            <class name="com.fooder.testCases.M005DeliveryAreaTest" />
         </classes>
     </test>
 
@@ -24,6 +25,7 @@
             <class name="com.fooder.testCases.M002DashboardScreenTest" />
             <class name="com.fooder.testCases.M003DashboardSettingsTest" />
             <class name="com.fooder.testCases.M004BranchesTest" />
+            <class name="com.fooder.testCases.M005DeliveryAreaTest" />
         </classes>
     </test>
 </suite>
