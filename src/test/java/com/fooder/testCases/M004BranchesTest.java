@@ -24,7 +24,7 @@ public class M004BranchesTest extends BaseTest {
         branch = new P004BranchesPage(driver);
     }
 
-    @Test
+    @Test(groups = "createBranch")
     public void TC_001ValidateAllFlowsOFBranchCreatedSuccessfully() {
         wlcPage.loginWithValidateData(username, password);
         dashboard.openSettingsMenu();

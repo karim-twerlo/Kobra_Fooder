@@ -20,7 +20,7 @@ public class M002DashboardScreenTest extends BaseTest {
         wlcPage = new P001WelcomePage(driver);
     }
 
-    @Test
+    @Test(groups = "dashboard")
     public void validateDashboardLoadedSuccessfully() {
         wlcPage.loginWithValidateData(username , password);
         dashboard.checkDashboardLoadedSuccessfully();

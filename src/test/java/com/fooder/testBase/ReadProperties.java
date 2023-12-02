@@ -23,6 +23,13 @@ public class ReadProperties {
     public static final String deliveryFees = getProperty("deliveryFees");
     public static final String extraDistanceFees = getProperty("extraDistanceFees");
     public static final String deliveryAreaType = getProperty("deliveryAreaType");
+    public static final String New_Branch_Name_Localized = getProperty("New_Branch_Name_Localized");
+    public static final String Mini_Card_Value = getProperty("Mini_Card_Value");
+    public static final String Average_Cancellation_Time = getProperty("Average_Cancellation_Time");
+    public static final String Max_Cash_Value = getProperty("Max_Cash_Value");
+    public static final String Average_Preparation_Time = getProperty("Average_Preparation_Time");
+
+
 
 
     private static String getProperty(String propertyName) {

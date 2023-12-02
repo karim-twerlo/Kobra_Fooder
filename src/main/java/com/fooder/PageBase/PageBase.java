@@ -21,7 +21,7 @@ public class PageBase {
 
     }
     public static void waitForVisibilityOfElement(By by){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(90));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
     public static Boolean assertElementDisplayed(By by){
