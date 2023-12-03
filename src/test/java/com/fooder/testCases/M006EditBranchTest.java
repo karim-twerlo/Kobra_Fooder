@@ -40,6 +40,7 @@ public class M006EditBranchTest extends BaseTest {
         editBranch.EnablePaymentMethodsSections();
         editBranch.editBranchOperations(Mini_Card_Value ,  Average_Cancellation_Time,  Max_Cash_Value ,  Average_Preparation_Time);
         editBranch.branchTimingSection();
+        editBranch.checkOrderScheduling();
         settings.checkBranchesSettings();
         branch.deleteBranch();
     }

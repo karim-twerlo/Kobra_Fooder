@@ -51,13 +51,7 @@ public class P006EditBranchPage extends PageBase {
     private final By Preparation_Time_INPUT = By.xpath("//input[@id='preparation_time']");
     private final By Edit_Branch_Timing = By.xpath("(//button[@class='btn btn-primary ng-star-inserted' and (contains(text(),'تعديل') or contains(text(),'update'))])[2]");
     private final By Branch_Timing = By.xpath("//p[contains(text(),'توقيت الفرع') or normalize-space()='Branch Timing']");
-    private final By sundayLabel = By.xpath("//label[contains(text(),'SUNDAY') or contains(text(),'الأحد')]");
-    private final By mondayLabel = By.xpath("//label[contains(text(),'MONDAY') or contains(text(),'الاثنين')]");
-    private final By tuesdayLabel = By.xpath("//label[contains(text(),'TUESDAY') or contains(text(),'الثلاثاء')]");
-    private final By wednesdayLabel = By.xpath("//label[contains(text(),'WEDNESDAY') or contains(text(),'الأربعاء')]");
-    private final By thursdayLabel = By.xpath("//label[contains(text(),'THURSDAY') or contains(text(),'الخميس')]");
-    private final By fridayLabel = By.xpath("//label[contains(text(),'FRIDAY') or contains(text(),'الجمعة')]");
-    private final By saturdayLabel = By.xpath("//label[contains(text(),'SATURDAY') or contains(text(),'السبت')]");
+
     private final By sunday_Toggle = By.cssSelector("div.custom-control.custom-switch.custom-switch-success.my-50 input#SUNDAY");
     private final By monday_Toggle = By.xpath("//label[@for='MONDAY']");
     private final By tuesday_Toggle = By.xpath("//label[@for='TUESDAY']");
@@ -194,7 +188,7 @@ public class P006EditBranchPage extends PageBase {
             try {
                 Thread.sleep(1000);
             } catch (Exception e) {
-                e.printStackTrace();
+                e.getStackTrace();
             }
 
             setHourAndMinute(false);
@@ -241,6 +235,15 @@ public class P006EditBranchPage extends PageBase {
         setHourAndMinute(needExtraTime);
 
     }
+    private final By Order_Scheduling = By.xpath("//p[contains(text(),'جدولة الطلب') or contains(text(),'Order Scheduling')]");
+    private final By Accept_ASAP_orders_Toggle = By.xpath("//label[@for='asap']");
+    private final By Accept_pre_orders_Toggle = By.xpath("//label[@for='accept-pre']");
 
+    public void checkOrderScheduling(){
+        scrollToElement(Order_Scheduling);
+        Assert.assertTrue(assertElementDisplayed(Order_Scheduling));
+        enableToggle(Accept_ASAP_orders_Toggle);
+        enableToggle(Accept_pre_orders_Toggle);
+    }
 
 }
