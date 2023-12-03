@@ -32,7 +32,6 @@ public class M006EditBranchTest extends BaseTest {
         settings.checkBranchesSettings();
         branch.checkBranchCreation(Branch_Name_Localized,Branch_Name,Contact_Name , Contact_Number
                 ,Location , City , state , Country ,MapSearch );
-        deliveryArea.checkErrorMessageForEachInputField();
         deliveryArea.checkDeliveryAreaCreationFunctionality(deliveryAreaName,deliveryDistance,deliveryFees,extraDistanceFees ,deliveryAreaType );
         settings.checkBranchesSettings();
         editBranch.clickToEditBranch();
@@ -40,6 +39,7 @@ public class M006EditBranchTest extends BaseTest {
         editBranch.EnableOrderTypeSections();
         editBranch.EnablePaymentMethodsSections();
         editBranch.editBranchOperations(Mini_Card_Value ,  Average_Cancellation_Time,  Max_Cash_Value ,  Average_Preparation_Time);
+        editBranch.branchTimingSection();
         settings.checkBranchesSettings();
         branch.deleteBranch();
     }

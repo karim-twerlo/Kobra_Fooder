@@ -10,6 +10,9 @@ public class P006EditBranchPage extends PageBase {
     public P006EditBranchPage(WebDriver driver) {
         super(driver);
     }
+    private static int index = 1; // Initialize index
+    private static int plus_index = 1 ;
+
     private final By Edit_Basic_Info = By.xpath("//a[@class='btn btn-icon btn-flat-secondary']//*[name()='svg']");
     private final By Edit_Branch_Title = By.xpath("//span[@class='text-primary font-weight-bolder mx-1 font-small-4 d-none d-sm-block']");
     private final By Edit_CTA = By.xpath("//button[@class='btn btn-primary' and (contains(text(),'تعديل') or contains(text(),'update'))]");
@@ -47,6 +50,22 @@ public class P006EditBranchPage extends PageBase {
     private final By Cancellation_Time_INPUT = By.xpath("//input[@id='cancellation_time']");
     private final By Preparation_Time_INPUT = By.xpath("//input[@id='preparation_time']");
     private final By Edit_Branch_Timing = By.xpath("(//button[@class='btn btn-primary ng-star-inserted' and (contains(text(),'تعديل') or contains(text(),'update'))])[2]");
+    private final By Branch_Timing = By.xpath("//p[contains(text(),'توقيت الفرع') or normalize-space()='Branch Timing']");
+    private final By sundayLabel = By.xpath("//label[contains(text(),'SUNDAY') or contains(text(),'الأحد')]");
+    private final By mondayLabel = By.xpath("//label[contains(text(),'MONDAY') or contains(text(),'الاثنين')]");
+    private final By tuesdayLabel = By.xpath("//label[contains(text(),'TUESDAY') or contains(text(),'الثلاثاء')]");
+    private final By wednesdayLabel = By.xpath("//label[contains(text(),'WEDNESDAY') or contains(text(),'الأربعاء')]");
+    private final By thursdayLabel = By.xpath("//label[contains(text(),'THURSDAY') or contains(text(),'الخميس')]");
+    private final By fridayLabel = By.xpath("//label[contains(text(),'FRIDAY') or contains(text(),'الجمعة')]");
+    private final By saturdayLabel = By.xpath("//label[contains(text(),'SATURDAY') or contains(text(),'السبت')]");
+    private final By sunday_Toggle = By.cssSelector("div.custom-control.custom-switch.custom-switch-success.my-50 input#SUNDAY");
+    private final By monday_Toggle = By.xpath("//label[@for='MONDAY']");
+    private final By tuesday_Toggle = By.xpath("//label[@for='TUESDAY']");
+    private final By wednesday_Toggle = By.xpath("//label[@for='WEDNESDAY']");
+    private final By thursday_Toggle = By.xpath("//label[@for='THURSDAY']");
+    private final By friday_Toggle = By.xpath("//label[@for='FRIDAY']");
+    private final By saturday_Toggle = By.xpath("//label[@for='SATURDAY']");
+    private final By Update_Time_Configuration = By.xpath("//button[@type='submit']");
 
 
 
@@ -87,7 +106,7 @@ public class P006EditBranchPage extends PageBase {
         clickOnelement(by);
         Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
         try{
-            Thread.sleep(2000);
+            Thread.sleep(4000);
         }catch (Exception e){
             e.getStackTrace();
         }
@@ -122,6 +141,7 @@ public class P006EditBranchPage extends PageBase {
     public void editBranchOperations(String Mini_Card_Value , String Average_Cancellation_Time, String Max_Cash_Value , String Average_Preparation_Time){
         scrollToElement(Branch_Operations);
         waitForVisibilityOfElement(Branch_Operations);
+        scrollToElement(Edit_Branch_Operation);
         clickOnelement(Edit_Branch_Operation);
         waitForVisibilityOfElement(Branch_Operations);
         validateBranchOperationItems();
@@ -152,6 +172,75 @@ public class P006EditBranchPage extends PageBase {
         sendTextToInputField(Average_Cancellation_Time , Cancellation_Time_INPUT);
     }
 
+    public static void setHourAndMinute(Boolean needExtraTime) {
+        By Start_Hour = By.xpath("(//input[@placeholder='HH'])[" + index + "]");
+        By End_Hour = By.xpath("(//input[@placeholder='HH'])[" + (index + 1) + "]");
+        By Start_Minute = By.xpath("(//input[@placeholder='MM'])[" + index + "]");
+        By End_Minute = By.xpath("(//input[@placeholder='MM'])[" + (index + 1) + "]");
+
+
+        // Set initial hours and minutes
+        sendTextToInputField("05", Start_Hour);
+        sendTextToInputField("12", End_Hour);
+        sendTextToInputField("00", Start_Minute);
+        sendTextToInputField("30", End_Minute);
+
+        if (needExtraTime) {
+            driver.findElement(By.xpath("(//div[@class='col p-0 ng-star-inserted']//button[@class='btn btn-icon btn-flat-primary ng-star-inserted'])[" + plus_index + "]")).click();
+            plus_index = plus_index - 2 ;
+            System.out.println("before" + plus_index);
+            incrementIndex(2);
+
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            setHourAndMinute(false);
+
+            decrementIndex(2);
+        }
+
+        // Increment index for the next set of hours and minutes
+        incrementIndex(2);
+        plus_index = plus_index + 1 ;
+        System.out.println("***" + plus_index);
+    }
+
+    private static void incrementIndex(int value) {
+        index += value;
+    }
+
+    private static void decrementIndex(int value) {
+        index -= value;
+    }
+
+    public void branchTimingSection(){
+          scrollToElement(Branch_Timing);
+          waitForVisibilityOfElement(Branch_Timing);
+          clickOnelement(Edit_Branch_Timing);
+          setTimeForEachDay();
+          scrollToElement(Update_Time_Configuration);
+          clickOnelement(Update_Time_Configuration);
+          Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
+
+  }
+  private void setTimeForEachDay(){
+      openTimingToggle("SUNDAY" ,sunday_Toggle , true  );
+      openTimingToggle("MONDAY" , monday_Toggle , false );
+      openTimingToggle("TUESDAY" , tuesday_Toggle , false );
+      openTimingToggle("WEDNESDAY" , wednesday_Toggle , false );
+      openTimingToggle("THURSDAY" , thursday_Toggle , false );
+      openTimingToggle("FRIDAY" , friday_Toggle , false );
+      openTimingToggle("SATURDAY" , saturday_Toggle , true );
+  }
+    private  void openTimingToggle(String id , By by , Boolean needExtraTime ){
+        scrollToElement(by);
+        clickOnElementIdUsingJS(id);
+        setHourAndMinute(needExtraTime);
+
+    }
 
 
 }

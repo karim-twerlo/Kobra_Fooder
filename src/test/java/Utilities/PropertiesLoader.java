@@ -41,6 +41,10 @@ public class PropertiesLoader {
         File file = new File("src/config/env.properties");
         return getPropertyValue(key,file);
     }
+    public static String readBBranchFile(String key){
+        File file = new File("src/config/branch.properties");
+        return getPropertyValue(key,file);
+    }
 
 
 }

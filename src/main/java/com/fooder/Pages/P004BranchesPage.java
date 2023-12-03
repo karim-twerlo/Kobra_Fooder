@@ -123,7 +123,7 @@ public class P004BranchesPage extends PageBase {
     private void submitBranch(){
         scrollToElement(Submit_Branch_CTA);
         try{
-            Thread.sleep(10000);
+            Thread.sleep(5000);
             waitForVisibilityOfElement(Map_Full_Screen);
         }catch (Exception e){
             System.out.println("MAp does not displayed!!");

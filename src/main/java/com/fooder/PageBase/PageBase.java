@@ -2,7 +2,6 @@ package com.fooder.PageBase;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -21,7 +20,7 @@ public class PageBase {
 
     }
     public static void waitForVisibilityOfElement(By by){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(90));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
     public static Boolean assertElementDisplayed(By by){
@@ -85,4 +84,26 @@ public class PageBase {
         clickOnelement(secondInput);
         Assert.assertTrue(assertElementDisplayed(Message));
     }
+    public static void clickOnElementIdUsingJS(String id){
+        WebElement CheckboxElement = driver.findElement(By.id(id));
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", CheckboxElement);
+        try{
+            Thread.sleep(200);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+    }public static void clickOnElementXpathUsingJS(String xpath){
+        try{
+            Thread.sleep(1000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+        WebElement svgElement = driver.findElement(By.xpath(xpath));
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", svgElement);
+    }
+
+
+
 }
