@@ -3,6 +3,8 @@ package com.fooder.Pages;
 import com.fooder.PageBase.PageBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 public class P006EditBranchPage extends PageBase {
@@ -60,6 +62,13 @@ public class P006EditBranchPage extends PageBase {
     private final By friday_Toggle = By.xpath("//label[@for='FRIDAY']");
     private final By saturday_Toggle = By.xpath("//label[@for='SATURDAY']");
     private final By Update_Time_Configuration = By.xpath("//button[@type='submit']");
+    private final By Order_Scheduling = By.xpath("//p[contains(text(),'جدولة الطلب') or contains(text(),'Order Scheduling')]");
+    private final By Accept_ASAP_orders_Toggle = By.xpath("//label[@for='asap']");
+    private final By Accept_pre_orders_Toggle = By.xpath("//label[@for='accept-pre']");
+    private final By Accept_Pre_In_Day = By.xpath("//label[@for='accept-pre-in-day']");
+    private final By Max_Days_In_Advance = By.xpath("//label[contains(text(),'الحد الأقصى من الأيام مقدما') or contains(text(),'Max days in advance')]");
+    private final By Slot_Length = By.xpath("//label[contains(text(),'المدة الزمنية') or contains(text(),'Slot length')]");
+
 
 
 
@@ -182,7 +191,6 @@ public class P006EditBranchPage extends PageBase {
         if (needExtraTime) {
             driver.findElement(By.xpath("(//div[@class='col p-0 ng-star-inserted']//button[@class='btn btn-icon btn-flat-primary ng-star-inserted'])[" + plus_index + "]")).click();
             plus_index = plus_index - 2 ;
-            System.out.println("before" + plus_index);
             incrementIndex(2);
 
             try {
@@ -199,7 +207,6 @@ public class P006EditBranchPage extends PageBase {
         // Increment index for the next set of hours and minutes
         incrementIndex(2);
         plus_index = plus_index + 1 ;
-        System.out.println("***" + plus_index);
     }
 
     private static void incrementIndex(int value) {
@@ -223,7 +230,7 @@ public class P006EditBranchPage extends PageBase {
   private void setTimeForEachDay(){
       openTimingToggle("SUNDAY" ,sunday_Toggle , true  );
       openTimingToggle("MONDAY" , monday_Toggle , false );
-      openTimingToggle("TUESDAY" , tuesday_Toggle , false );
+      openTimingToggle("TUESDAY" , tuesday_Toggle , true );
       openTimingToggle("WEDNESDAY" , wednesday_Toggle , false );
       openTimingToggle("THURSDAY" , thursday_Toggle , false );
       openTimingToggle("FRIDAY" , friday_Toggle , false );
@@ -235,15 +242,38 @@ public class P006EditBranchPage extends PageBase {
         setHourAndMinute(needExtraTime);
 
     }
-    private final By Order_Scheduling = By.xpath("//p[contains(text(),'جدولة الطلب') or contains(text(),'Order Scheduling')]");
-    private final By Accept_ASAP_orders_Toggle = By.xpath("//label[@for='asap']");
-    private final By Accept_pre_orders_Toggle = By.xpath("//label[@for='accept-pre']");
 
     public void checkOrderScheduling(){
         scrollToElement(Order_Scheduling);
         Assert.assertTrue(assertElementDisplayed(Order_Scheduling));
         enableToggle(Accept_ASAP_orders_Toggle);
         enableToggle(Accept_pre_orders_Toggle);
+        waitForVisibilityOfElement(Accept_Pre_In_Day);
+        scrollToElement(Accept_ASAP_orders_Toggle);
+        Assert.assertTrue(assertElementDisplayed(Accept_Pre_In_Day));
+        enableToggle(Accept_Pre_In_Day);
+        Assert.assertTrue(assertElementDisplayed(Max_Days_In_Advance));
+        Assert.assertTrue(assertElementDisplayed(Slot_Length));
+        scrollToElement(Slot_Length);
+        selectDays("5");
+        selectHours("3");
+        Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
     }
+    private void selectDays(String number) {
+        By days = By.xpath("//div[@class='d-flex flex-column p-2']//div[2]//div[1]//select[1]");
+        waitForVisibilityOfElement(days);
+        WebElement selectElement = driver.findElement(days);
+        Select select = new Select(selectElement);
+        select.selectByIndex(Integer.parseInt(number));
+    }
+
+    private void selectHours(String number) {
+        By hours = By.xpath("//div[@class='row ng-star-inserted']//div[3]//div[1]//select[1]");
+        waitForVisibilityOfElement(hours);
+        WebElement selectElement = driver.findElement(hours);
+        Select select = new Select(selectElement);
+        select.selectByIndex(Integer.parseInt(number));
+    }
+
 
 }
