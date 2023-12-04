@@ -24,7 +24,7 @@ public class M004BranchesTest extends BaseTest {
         branch = new P004BranchesPage(driver);
     }
 
-    @Test
+    @Test(groups = "createBranch")
     public void TC_001ValidateAllFlowsOFBranchCreatedSuccessfully() {
         wlcPage.loginWithValidateData(username, password);
         dashboard.openSettingsMenu();
@@ -41,19 +41,19 @@ public class M004BranchesTest extends BaseTest {
         branch.deleteBranch();
     }
 
-//    @Test
-//    public void TC_002ValidateBackArrowFunctionality(){
-//        settings.checkBranchesSettings();
-//        branch.checkCreateBranchesOpenSuccessfully();
-//        branch.checkBackArrowFunctionality();
-//        settings.checkBranchesSettings();
-//    }
-//    @Test
-//    public void TC_003validateErrorMessagesForBranchesScreen(){
-//        settings.checkBranchesSettings();
-//        branch.checkCreateBranchesOpenSuccessfully();
-//        branch.checkErrorMessagesForBranchesScreen();
-//        settings.checkBranchesSettings();
-//    }
+    @Test(groups = "createBranch")
+    public void TC_002ValidateBackArrowFunctionality(){
+        settings.checkBranchesSettings();
+        branch.checkCreateBranchesOpenSuccessfully();
+        branch.checkBackArrowFunctionality();
+        settings.checkBranchesSettings();
+    }
+    @Test(groups = "createBranch")
+    public void TC_003validateErrorMessagesForBranchesScreen(){
+        settings.checkBranchesSettings();
+        branch.checkCreateBranchesOpenSuccessfully();
+        branch.checkErrorMessagesForBranchesScreen();
+        settings.checkBranchesSettings();
+    }
 
 }

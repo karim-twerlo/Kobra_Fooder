@@ -21,7 +21,7 @@ public class M003DashboardSettingsTest extends BaseTest {
         wlcPage = new P001WelcomePage(driver);
         settings= new P003P001SettingsDashboardPage(driver);
     }
-    @Test
+    @Test(groups = "settingsItems")
     public void validateSettingsItems(){
         wlcPage.loginWithValidateData(username,password);
         dashboard.openSettingsMenu();

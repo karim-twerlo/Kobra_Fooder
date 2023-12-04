@@ -47,7 +47,7 @@ public class P004BranchesPage extends PageBase {
     private final By The_city_is_required = By.xpath("//div[contains(text(),'The city is required') or contains(text(),'المدينة مطلوبة')]");
     private final By The_state_is_required = By.xpath("//div[contains(text(),'The state is required') or contains(text(),'الدولة مطلوبة')]");
     private final By The_country_is_required = By.xpath("//div[contains(text(),'The country is required') or contains(text(),'البلد مطلوب')]");
-
+    private final By Map_Full_Screen = By.xpath("//button[@title='Toggle fullscreen view']");
     public void checkBranchCreation(String Branch_Name_Localized , String Branch_Name ,String Contact_Name ,
                                     String Contact_Number, String Location , String City , String state , String Country , String MapSearch){
         checkCreateBranchesOpenSuccessfully();
@@ -63,9 +63,9 @@ public class P004BranchesPage extends PageBase {
         clickOnelement(Crete_Branch_CTA);
         waitForVisibilityOfElement(Create_Branch_Title_Text);
     }
-    private void checkBasicInformationOfBranchDisplayed(){
-        scrollToElement(Basic_Info);
+    public void checkBasicInformationOfBranchDisplayed(){
         Assert.assertTrue(assertElementDisplayed(Create_Branch_Title_Text));
+        scrollToElement(Basic_Info);
         Assert.assertTrue(assertElementDisplayed(Basic_Info));
         Assert.assertTrue(assertElementDisplayed(Back_Arrow));
         Assert.assertTrue(assertElementDisplayed(Input_Branch_Name));
@@ -78,7 +78,7 @@ public class P004BranchesPage extends PageBase {
         Assert.assertTrue(assertElementDisplayed(Input_Contact_Number));
         Assert.assertTrue(driver.findElement(Contact_Number_Title).getText().contains("*"));
     }
-    private void checkInformationOfLocationDisplayed(){
+    public void checkInformationOfLocationDisplayed(){
         Assert.assertTrue(assertElementDisplayed(Location_Info));
         Assert.assertTrue(assertElementDisplayed(Input_Location));
         Assert.assertTrue(driver.findElement(Location_Title).getText().contains("*"));
@@ -107,6 +107,11 @@ public class P004BranchesPage extends PageBase {
         sendTextToInputField(Contact_Number,Input_Contact_Number);
 
     }
+    public void insertBranchLocalizedName(String newBranchLocalizedNAme){
+        scrollToElement(Input_Branch_Name_Localized);
+        clearInputField(Input_Branch_Name_Localized);
+        sendTextToInputField(newBranchLocalizedNAme , Input_Branch_Name_Localized);
+    }
     public void deleteBranch(){
         waitForVisibilityOfElement(DeleteIcon);
         clickOnelement(DeleteIcon);
@@ -116,6 +121,13 @@ public class P004BranchesPage extends PageBase {
 
     }
     private void submitBranch(){
+        scrollToElement(Submit_Branch_CTA);
+        try{
+            Thread.sleep(5000);
+            waitForVisibilityOfElement(Map_Full_Screen);
+        }catch (Exception e){
+            System.out.println("MAp does not displayed!!");
+        }
         scrollToElement(Submit_Branch_CTA);
         clickOnelement(Submit_Branch_CTA);
     }

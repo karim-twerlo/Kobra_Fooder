@@ -10,32 +10,6 @@ public class P005DeliveryAreaPage extends PageBase {
     public P005DeliveryAreaPage(WebDriver driver) {
         super(driver);
     }
-    /**
-     * "إنشاء منطقة التسليم"
-     *"//label[contains(text(),"اسم منطقة التسليم")]" or "Delivery Area Name*"
-     * //input[@placeholder="أدخل أسم منطقة التسليم"] or "Enter delivery area name"
-     *"//div[contains(text(),"أسم منطقة التوصيل مطلوب")]" or "Delivery area name is required"
-     *
-     *
-     *"//label[contains(text(),"رسوم التوصيل")]" or "Delivery Fees* SAR"
-     * //input[@placeholder="أدخل رسوم التوصيل"] or "Enter delivery fees"
-     * "//div[contains(text(),"مطلوب رسوم التوصيل")]" or "Delivery fees is required"
-     *
-     * //label[contains(text(),"مسافة التسليم")] or "Delivery Distance* KM"
-     * //input[@placeholder="أدخل مسافة التسليم"] or "Enter delivery distance"
-     * "//div[contains(text(),"مسافة التوصيل مطلوبة")]" or "Delivery distance is required"
-     *
-     * //input[@placeholder="أدخل رسوم المسافة الإضافية"] or "Enter extra distance fees"
-     * "//label[contains(text(),"رسوم المسافة الإضافية")]" or "Extra Distance Fees* SAR"
-     * "//div[contains(text(),"مطلوب رسوم المسافة الإضافية")]" or "Extra distance fees is required"
-     *
-     * "//label[contains(text(),"نوع منطقة التسليم")]" or "Delivery Area Type*"
-     * "//div[contains(text(),"نوع منطقة التوصيل مطلوب")]" or "Delivery area type is required"
-     *
-     *
-     *      *
-     *
-     */
     private final By deliveryAreaNameLabel = By.xpath("//label[contains(text(),'اسم منطقة التسليم') or contains(text(),'Delivery Area Name')]");
     private final By deliveryAreaNameInput = By.xpath("//input[@placeholder='أدخل أسم منطقة التسليم' or contains(@placeholder, 'Enter delivery area name')]");
     private final By deliveryAreaNameRequiredMessage = By.xpath("//div[contains(text(),'أسم منطقة التوصيل مطلوب') or contains(text(),'Delivery area name is required')]");
