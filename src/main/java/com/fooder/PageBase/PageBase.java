@@ -3,17 +3,19 @@ package com.fooder.PageBase;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.time.Duration;
+import java.util.Random;
 
 public class PageBase {
     public static WebDriver driver;
     public PageBase(WebDriver driver){
         this.driver = driver;
     }
-    private static By language = By.xpath("//span[@class='selected-language mx-50 font-small-2']");
+    public static By language = By.xpath("//span[@class='selected-language mx-50 font-small-2']");
     public static void clickOnelement(By by){
         waitForVisibilityOfElement(by);
         driver.findElement(by).click();
@@ -43,6 +45,17 @@ public class PageBase {
            return driver.findElement(by).getText().contains(arb);
         } else  {
            return driver.findElement(by).getText().contains(Eng);
+        }
+
+
+    }
+
+    public static String SetLocalization(String Eng , String arb){
+        scrollToElement(language);
+        if(driver.findElement(language).getText().contains("English")){
+            return arb;
+        } else  {
+            return Eng;
         }
 
 
@@ -103,6 +116,32 @@ public class PageBase {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", svgElement);
     }
+    public static void selectByIndexFromDropDownList(By by , String index){
+        WebElement selectElement = driver.findElement(by);
+        Select select = new Select(selectElement);
+        select.selectByIndex(Integer.parseInt(index));
+    }
+    public static void sendKeysWithJs(By by , String text){
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("arguments[0].value = arguments[1];", driver.findElement(by), text);
+    }
+    public static String generateRandomNumber() {
+        Random random = new Random();
+
+        // First digit can be 0, 1, 2, or 5
+        int firstDigit = random.nextInt(4);  // Generates a random number between 0 and 3
+        String formattedNumber = String.valueOf(firstDigit);
+
+        // Rest of the digits (8 digits in total)
+        for (int i = 0; i < 8; i++) {
+            int digit = random.nextInt(10);  // Generates a random number between 0 and 9
+            formattedNumber += digit;
+        }
+        System.out.println(formattedNumber);
+
+        return formattedNumber;
+    }
+
 
 
 

@@ -27,12 +27,31 @@ public class ReadProperties {
     public static final String Average_Cancellation_Time = getPropertyFromBranch("Average_Cancellation_Time");
     public static final String Max_Cash_Value = getPropertyFromBranch("Max_Cash_Value");
     public static final String Average_Preparation_Time = getPropertyFromBranch("Average_Preparation_Time");
-
-
+    public static final String Role_m = getPropertyFromManager("Role");
+    public static final String Role_l = getPropertyFromLeader("Role");
+    public static final String Role_c = getPropertyFromCashier("Role");
+    public static final String Role_email_l = getPropertyFromLeader("Role_email");
+    public static final String Role_email_c = getPropertyFromCashier("Role_email");
+    public static final String Role_email_m = getPropertyFromManager("Role_email");
+    public static final String Role_password_l = getPropertyFromLeader("Role_password");
+    public static final String Role_password_c = getPropertyFromCashier("Role_password");
+    public static final String Role_password_m = getPropertyFromManager("Role_password");
+    public static final String Role_name_l = getPropertyFromLeader("Role_name");
+    public static final String Role_name_c = getPropertyFromCashier("Role_name");
+    public static final String Role_name_m = getPropertyFromManager("Role_name");
 
 
     private static String getPropertyFromEnv(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readEnvFile(propertyName));
+    }
+    private static String getPropertyFromManager(String propertyName) {
+        return System.getProperty(propertyName, PropertiesLoader.readManagerFile(propertyName));
+    }
+    private static String getPropertyFromLeader(String propertyName) {
+        return System.getProperty(propertyName, PropertiesLoader.readLeaderFile(propertyName));
+    }
+    private static String getPropertyFromCashier(String propertyName) {
+        return System.getProperty(propertyName, PropertiesLoader.readCashierFile(propertyName));
     }
     private static String getPropertyFromBranch(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readBBranchFile(propertyName));
