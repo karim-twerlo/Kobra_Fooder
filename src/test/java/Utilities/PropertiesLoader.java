@@ -45,6 +45,18 @@ public class PropertiesLoader {
         File file = new File("src/config/branch.properties");
         return getPropertyValue(key,file);
     }
+    public static String readManagerFile(String key){
+        File file = new File("src/config/manager.properties");
+        return getPropertyValue(key,file);
+    }
+    public static String readLeaderFile(String key){
+        File file = new File("src/config/leader.properties");
+        return getPropertyValue(key,file);
+    }
+    public static String readCashierFile(String key){
+        File file = new File("src/config/cashier.properties");
+        return getPropertyValue(key,file);
+    }
 
 
 }
