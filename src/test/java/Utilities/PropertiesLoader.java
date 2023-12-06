@@ -57,6 +57,10 @@ public class PropertiesLoader {
         File file = new File("src/config/cashier.properties");
         return getPropertyValue(key,file);
     }
+    public static String readGroupFile(String key){
+        File file = new File("src/config/group.properties");
+        return getPropertyValue(key,file);
+    }
 
 
 }

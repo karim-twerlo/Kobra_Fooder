@@ -145,6 +145,11 @@ public class P006EditBranchPage extends PageBase {
         scrollToElement(Branch_Operations);
         waitForVisibilityOfElement(Branch_Operations);
         scrollToElement(Edit_Branch_Operation);
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
         clickOnelement(Edit_Branch_Operation);
         waitForVisibilityOfElement(Branch_Operations);
         validateBranchOperationItems();
