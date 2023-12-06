@@ -129,7 +129,7 @@ public class PageBase {
         Random random = new Random();
 
         // First digit can be 0, 1, 2, or 5
-        int firstDigit = random.nextInt(4);  // Generates a random number between 0 and 3
+        int firstDigit = random.nextInt(3);  // Generates a random number between 0 and 2
         String formattedNumber = String.valueOf(firstDigit);
 
         // Rest of the digits (8 digits in total)

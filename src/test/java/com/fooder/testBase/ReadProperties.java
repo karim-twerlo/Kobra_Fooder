@@ -39,7 +39,8 @@ public class ReadProperties {
     public static final String Role_name_l = getPropertyFromLeader("Role_name");
     public static final String Role_name_c = getPropertyFromCashier("Role_name");
     public static final String Role_name_m = getPropertyFromManager("Role_name");
-
+    public static final String Group_Name = getPropertyFromGroup("name");
+    public static final String Group_Localized_Name = getPropertyFromGroup("localizedName");
 
     private static String getPropertyFromEnv(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readEnvFile(propertyName));
@@ -55,6 +56,9 @@ public class ReadProperties {
     }
     private static String getPropertyFromBranch(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readBBranchFile(propertyName));
+    }
+    private static String getPropertyFromGroup(String propertyName) {
+        return System.getProperty(propertyName, PropertiesLoader.readGroupFile(propertyName));
     }
 
 }
