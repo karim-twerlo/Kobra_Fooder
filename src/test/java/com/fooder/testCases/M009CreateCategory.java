@@ -33,10 +33,15 @@ public class M009CreateCategory extends BaseTest {
 
     }
     @Test(groups = "Category")
-    public void validateGroupCreation(){
+    public void validateCreateCategory(){
         wlcPage.loginWithValidateData(username, password);
         category.checkCreateCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false);
-        category.checkEditCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false , "2");
+
+    }
+    @Test(groups = "Category")
+    public void validateEditCategory(){
+        wlcPage.loginWithValidateData(username, password);
+        category.checkEditCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false , "1");
 
     }
 }
