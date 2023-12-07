@@ -62,5 +62,9 @@ public class PropertiesLoader {
         return getPropertyValue(key,file);
     }
 
+    public static String readCategoryFile(String key){
+        File file = new File("src/config/category.properties");
+        return getPropertyValue(key,file);
+    }
 
 }

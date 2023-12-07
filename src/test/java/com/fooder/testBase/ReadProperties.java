@@ -42,6 +42,12 @@ public class ReadProperties {
     public static final String Group_Name = getPropertyFromGroup("name");
     public static final String Group_Localized_Name = getPropertyFromGroup("localizedName");
 
+    public static final String Category_Name = getPropertyFromCategory("name");
+    public static final String Category_localizedName = getPropertyFromCategory("localizedName");
+    public static final String Category_description = getPropertyFromCategory("description");
+    public static final String Category_localizedDescription = getPropertyFromCategory("localizedDescription");
+
+
     private static String getPropertyFromEnv(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readEnvFile(propertyName));
     }
@@ -60,5 +66,9 @@ public class ReadProperties {
     private static String getPropertyFromGroup(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readGroupFile(propertyName));
     }
+    private static String getPropertyFromCategory(String propertyName) {
+        return System.getProperty(propertyName, PropertiesLoader.readCategoryFile(propertyName));
+    }
+
 
 }
