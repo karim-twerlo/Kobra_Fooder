@@ -53,12 +53,11 @@ public class P008CreateGroup extends PageBase {
     private void validateGroupsScreen(){
         clickOnelement(Groups);
         Assert.assertTrue(assertElementDisplayed(Crete_CTA));
-//        Assert.assertTrue(assertElementDisplayed(Edit_Icon));
-//        Assert.assertTrue(assertElementDisplayed(Default));
+        Assert.assertTrue(assertElementDisplayed(Edit_Icon));
+        Assert.assertTrue(assertElementDisplayed(Default));
 //        Assert.assertTrue(assertElementDisplayed(Default_Badge));
-//        Assert.assertTrue(assertElementDisplayed(Products_Link));
-//        Assert.assertTrue(checkForLocalization(Products_Link,"Products (0)","منتجات (0)"));
-//        Assert.assertTrue(checkForLocalization(Default_Badge,"Default" ,"إفتراضي"));
+        Assert.assertTrue(assertElementDisplayed(Products_Link));
+        Assert.assertTrue(checkForLocalization(Products_Link,"Products (0)","منتجات (0)"));
     }
     public void checkGroupCreation(String name ,String localizedName){
         validateMenuItems();

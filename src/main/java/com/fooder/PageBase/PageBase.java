@@ -16,6 +16,15 @@ public class PageBase {
         this.driver = driver;
     }
     public static By language = By.xpath("//span[@class='selected-language mx-50 font-small-2']");
+    public static By myAccount = By.xpath("//a[@id='menu-drop']//*[name()='svg']");
+    public static By logout = By.xpath("//a[@class='dropdown-item logout-color']");
+    public static void backToLoinScreen(){
+        scrollToElement(myAccount);
+        clickOnelement(myAccount);
+        clickOnelement(logout);
+        Assert.assertTrue(driver.getCurrentUrl().contains("login"));
+
+    }
     public static void clickOnelement(By by){
         waitForVisibilityOfElement(by);
         driver.findElement(by).click();

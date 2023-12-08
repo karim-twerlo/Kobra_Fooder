@@ -56,7 +56,6 @@ public class M008CreateGroupTest extends BaseTest {
         role.createRole( Role_name_l ,   Role_password_l ,  Role_email_l ,  Role_l ,Branch_Name_Localized);
         role.createRole( Role_name_c ,   Role_password_c ,  Role_email_c ,  Role_c ,Branch_Name_Localized);
         settings.checkBranchesSettings();
-        settings.checkBranchesSettings();
         branch.deleteBranch();
         group.checkGroupCreation(Group_Name,Group_Localized_Name);
 
