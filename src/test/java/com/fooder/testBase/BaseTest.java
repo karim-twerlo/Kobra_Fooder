@@ -10,9 +10,7 @@ import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
 
-import static Utilities.PropertiesLoader.readEnvFile;
 import static com.fooder.Utilities.ExtentReportManager.*;
 import static com.fooder.testBase.ReadProperties.URL;
 
@@ -57,14 +55,15 @@ public class BaseTest {
 
 
     @BeforeMethod(alwaysRun = true)
-    public void beforMethod(Method method) throws IOException {
-       beforeMethod(method);
+    public void beforeMethod(Method method) throws IOException {
+       ExtentReportManager.beforeMethod(method);
     }
     @AfterMethod(alwaysRun = true)
     public void takeScreenShot(ITestResult result) throws IOException, InterruptedException {
         takeScreenshot(result,driver);
         System.out.println("screenshot captured");
     }
+
     @AfterClass(alwaysRun = true)
         public void tearDown(){
             if (driver != null){

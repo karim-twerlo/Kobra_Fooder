@@ -33,7 +33,7 @@ public class P009CreateCategory extends PageBase {
     private final By Success_Update_Message = By.xpath("//p[text()='تم تحديث السجل.' or text()='The record has been updated.']");
 
 //    Edit =
-    private final By Edit_Category = By.xpath("//button[@class='btn btn-primary']");
+    private final By Edit_Category = By.xpath("//button[contains(text(),'تعديل') or normalize-space()='Edit']");
     public void checkCreateCategory(String name , String localizedName , String desc , String localizedDesc ,Boolean IsEnglish){
         if(IsEnglish){
             selectEnglish();

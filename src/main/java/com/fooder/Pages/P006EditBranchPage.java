@@ -223,6 +223,7 @@ public class P006EditBranchPage extends PageBase {
     }
 
     public void branchTimingSection(){
+          driver.get(driver.getCurrentUrl());
           scrollToElement(Branch_Timing);
           waitForVisibilityOfElement(Branch_Timing);
           clickOnelement(Edit_Branch_Timing);

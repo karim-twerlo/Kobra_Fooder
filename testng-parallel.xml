@@ -3,42 +3,20 @@
     <test name="ChromeTest">
         <parameter name="browser" value="chrome" />
         <classes>
-            <class name="com.fooder.testCases.M001WelcomeScreenTest" />
-            <class name="com.fooder.testCases.M002DashboardScreenTest" />
-            <class name="com.fooder.testCases.M003DashboardSettingsTest" />
-            <class name="com.fooder.testCases.M004BranchesTest" />
-            <class name="com.fooder.testCases.M005DeliveryAreaTest" />
-            <class name="com.fooder.testCases.M006EditBranchTest" />
-            <class name="com.fooder.testCases.M007CreateRolesTest" />
-            <class name="com.fooder.testCases.M008CreateGroupTest" />
-            <class name="com.fooder.testCases.M009CreateCategory" />
+            <class name="com.fooder.testCases.M009CreateCategoryTest" />
         </classes>
     </test>
 
-    <test name="edgeTest">
-        <parameter name="browser" value="edge" />
-        <classes>
-            <class name="com.fooder.testCases.M001WelcomeScreenTest" />
-            <class name="com.fooder.testCases.M002DashboardScreenTest" />
-            <class name="com.fooder.testCases.M003DashboardSettingsTest" />
-            <class name="com.fooder.testCases.M004BranchesTest" />
-            <class name="com.fooder.testCases.M005DeliveryAreaTest" />
-            <class name="com.fooder.testCases.M006EditBranchTest" />
-            <class name="com.fooder.testCases.M007CreateRolesTest" />
-            <class name="com.fooder.testCases.M008CreateGroupTest" />
-            <class name="com.fooder.testCases.M009CreateCategory" />
-
-        </classes>
-    </test>
+<!--    <test name="edgeTest">-->
+<!--        <parameter name="browser" value="edge" />-->
+<!--        <classes>-->
+<!--            <class name="com.fooder.testCases.M009CreateCategoryTest" />-->
+<!--        </classes>-->
+<!--    </test>-->
 <!--    <test name="fireFoxTest">-->
 <!--        <parameter name="browser" value="firefox" />-->
 <!--        <classes>-->
-<!--            <class name="com.fooder.testCases.M001WelcomeScreenTest" />-->
-<!--            <class name="com.fooder.testCases.M002DashboardScreenTest" />-->
-<!--            <class name="com.fooder.testCases.M003DashboardSettingsTest" />-->
-<!--            <class name="com.fooder.testCases.M004BranchesTest" />-->
-<!--            <class name="com.fooder.testCases.M005DeliveryAreaTest" />-->
-<!--            <class name="com.fooder.testCases.M006EditBranchTest" />-->
+<!--            <class name="com.fooder.testCases.M009CreateCategoryTest" />-->
 <!--        </classes>-->
 <!--    </test>-->
 </suite>

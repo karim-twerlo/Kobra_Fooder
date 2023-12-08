@@ -2,14 +2,13 @@ package com.fooder.testCases;
 
 import com.fooder.Pages.*;
 import com.fooder.testBase.BaseTest;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static com.fooder.PageBase.PageBase.backToLoinScreen;
 import static com.fooder.testBase.ReadProperties.*;
 
-public class M007CreateRolesTest extends BaseTest {
+public class M009CreateCategoryTest extends BaseTest {
+    P008CreateGroup group ;
     P003P001SettingsDashboardPage settings;
     P002DashBoardPage dashboard;
     P001WelcomePage wlcPage;
@@ -17,6 +16,7 @@ public class M007CreateRolesTest extends BaseTest {
     P004BranchesPage branch;
     P005DeliveryAreaPage deliveryArea;
     P006EditBranchPage editBranch;
+    P009CreateCategory category;
 
 
     @BeforeClass
@@ -28,21 +28,24 @@ public class M007CreateRolesTest extends BaseTest {
         deliveryArea = new P005DeliveryAreaPage(driver);
         editBranch = new P006EditBranchPage(driver);
         branch = new P004BranchesPage(driver);
+        group = new P008CreateGroup(driver);
+        category = new P009CreateCategory(driver);
 
     }
-
-    @Test
-    public void TC_001validateEditBranch(){
+    @Test(groups = "Category")
+    public void validateCreateCategory(){
         wlcPage.loginWithValidateData(username, password);
-        dashboard.openSettingsMenu();
-        role.createRole( Role_name_m ,   Role_password_m ,  Role_email_m ,  Role_m ,Branch_Name_Localized);
-        role.createRole( Role_name_l ,   Role_password_l ,  Role_email_l ,  Role_l ,Branch_Name_Localized);
-        role.createRole( Role_name_c ,  Role_password_c ,  Role_email_c ,  Role_c ,Branch_Name_Localized);
-        backToLoinScreen();
+        category.checkCreateCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false);
+
+    }
+    @Test(groups = "Category")
+    public void validateEditCategory(){
+        wlcPage.loginWithValidateData(username, password);
+        category.checkEditCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false , "1");
 
     }
     @Test
-    public void TC_002createBranchWithALlRoles(){
+    public void validateE22ETillCategory(){
         wlcPage.loginWithValidateData(username, password);
         dashboard.openSettingsMenu();
         settings.checkBranchesSettings();
@@ -61,6 +64,9 @@ public class M007CreateRolesTest extends BaseTest {
         role.createRole( Role_name_l ,   Role_password_l ,  Role_email_l ,  Role_l ,Branch_Name_Localized);
         role.createRole( Role_name_c ,   Role_password_c ,  Role_email_c ,  Role_c ,Branch_Name_Localized);
         settings.checkBranchesSettings();
+//        settings.checkBranchesSettings();
         branch.deleteBranch();
+        category.checkEditCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false , "1");
+
     }
 }
