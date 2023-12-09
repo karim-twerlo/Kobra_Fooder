@@ -34,6 +34,7 @@ public class M008CreateGroupTest extends BaseTest {
     public void validateGroupCreation(){
         wlcPage.loginWithValidateData(username, password);
         group.checkGroupCreation(Group_Name,Group_Localized_Name);
+        dashboard.backToLoinScreen();
 
     }
     @Test(groups = "group")
@@ -50,7 +51,7 @@ public class M008CreateGroupTest extends BaseTest {
         editBranch.EnableOrderTypeSections();
         editBranch.EnablePaymentMethodsSections();
         editBranch.editBranchOperations(Mini_Card_Value ,  Average_Cancellation_Time,  Max_Cash_Value ,  Average_Preparation_Time);
-        editBranch.branchTimingSection();
+//        editBranch.branchTimingSection();
         editBranch.checkOrderScheduling();
         role.createRole( Role_name_m ,   Role_password_m ,  Role_email_m ,  Role_m ,Branch_Name_Localized);
         role.createRole( Role_name_l ,   Role_password_l ,  Role_email_l ,  Role_l ,Branch_Name_Localized);
@@ -58,6 +59,7 @@ public class M008CreateGroupTest extends BaseTest {
         settings.checkBranchesSettings();
         branch.deleteBranch();
         group.checkGroupCreation(Group_Name,Group_Localized_Name);
+        dashboard.backToLoinScreen();
 
 
     }

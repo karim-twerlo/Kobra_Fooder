@@ -32,10 +32,8 @@ public class P004BranchesPage extends PageBase {
     private final By State_Title = By.xpath("//label[contains(text(), 'State') or contains(text(), 'ولاية')]/span");
     private final By Country_Title = By.xpath("//label[contains(text(), 'Country') or contains(text(), 'دولة')]/span");
     private final By Input_Search_Map = By.xpath("//input[@placeholder='Search location' or @placeholder='موقع البحث']");
-    private final By Success_Message = By.xpath("//p[text()='تم إنشاء السجل.' or text()='The record has been created.']") ;
     private final By DeleteIcon = By.xpath("(//*[name()='svg'][@class='icon-lg icon-danger'])[1]");
     private final By Confirm_Deleting = By.xpath("//button[@class='btn btn-danger mx-1']/span[contains(text(),' Yes, delete it! ') or contains(text(),'نعم ، إحذفها!')]");
-    private final By Confirm_Delete_Message = By.xpath("//p[text()='تم حذف السجل.' or text()='The record has been deleted.']");
     private final By Submit_Branch_CTA = By.xpath("//button[@type='submit']");
     private final By Map_Zoom_In = By.xpath("//button[@title='Zoom in']");
     private final By Map_Zoom_Out = By.xpath("//button[@title='Zoom out']");
@@ -55,7 +53,7 @@ public class P004BranchesPage extends PageBase {
         insertBasicInformation(Branch_Name_Localized , Branch_Name , Contact_Name , Contact_Number);
         checkBasicInformationOfBranchDisplayed();
         submitBranch();
-        Assert.assertTrue(assertElementDisplayed(Success_Message));
+        validateSuccessMessage();
 
     }
     public void checkCreateBranchesOpenSuccessfully(){
@@ -117,7 +115,7 @@ public class P004BranchesPage extends PageBase {
         clickOnelement(DeleteIcon);
         Assert.assertTrue(assertElementDisplayed(Confirm_Deleting));
         clickOnelement(Confirm_Deleting);
-        Assert.assertTrue(assertElementDisplayed(Confirm_Delete_Message));
+        validateDeletedMessage();
 
     }
     private void submitBranch(){

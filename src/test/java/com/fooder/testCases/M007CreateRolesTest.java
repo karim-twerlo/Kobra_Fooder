@@ -2,11 +2,8 @@ package com.fooder.testCases;
 
 import com.fooder.Pages.*;
 import com.fooder.testBase.BaseTest;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import static com.fooder.PageBase.PageBase.backToLoinScreen;
 import static com.fooder.testBase.ReadProperties.*;
 
 public class M007CreateRolesTest extends BaseTest {
@@ -32,13 +29,13 @@ public class M007CreateRolesTest extends BaseTest {
     }
 
     @Test
-    public void TC_001validateEditBranch(){
+    public void TC_001validateCreateRole(){
         wlcPage.loginWithValidateData(username, password);
         dashboard.openSettingsMenu();
         role.createRole( Role_name_m ,   Role_password_m ,  Role_email_m ,  Role_m ,Branch_Name_Localized);
         role.createRole( Role_name_l ,   Role_password_l ,  Role_email_l ,  Role_l ,Branch_Name_Localized);
         role.createRole( Role_name_c ,  Role_password_c ,  Role_email_c ,  Role_c ,Branch_Name_Localized);
-        backToLoinScreen();
+        dashboard.backToLoinScreen();
 
     }
     @Test

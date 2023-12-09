@@ -32,17 +32,17 @@ public class M009CreateCategoryTest extends BaseTest {
         category = new P009CreateCategory(driver);
 
     }
-    @Test(groups = "Category")
+    @Test
     public void validateCreateCategory(){
         wlcPage.loginWithValidateData(username, password);
         category.checkCreateCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false);
-
+        dashboard.backToLoinScreen();
     }
-    @Test(groups = "Category")
+    @Test
     public void validateEditCategory(){
         wlcPage.loginWithValidateData(username, password);
         category.checkEditCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false , "1");
-
+        dashboard.backToLoinScreen();
     }
     @Test
     public void validateE22ETillCategory(){
@@ -64,9 +64,8 @@ public class M009CreateCategoryTest extends BaseTest {
         role.createRole( Role_name_l ,   Role_password_l ,  Role_email_l ,  Role_l ,Branch_Name_Localized);
         role.createRole( Role_name_c ,   Role_password_c ,  Role_email_c ,  Role_c ,Branch_Name_Localized);
         settings.checkBranchesSettings();
-//        settings.checkBranchesSettings();
         branch.deleteBranch();
         category.checkEditCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false , "1");
-
+        dashboard.backToLoinScreen();
     }
 }

@@ -14,7 +14,7 @@ public class P007CreateRolesPage extends PageBase {
     }
     private final By Create = By.xpath("//a[@class='btn btn-primary']");
     private final By BusinessSettings = By.xpath("(//span[@class='menu-title text-truncate mx-75' and contains(text(),'Settings') or contains(text(),'الإعدادات')])[2]");
-    private final By Users = By.xpath("//li[@class='nav-item has-sub open']//ul[@class='menu-content']//li//span[@class='menu-title text-truncate mx-75' and (contains(text(),'المستخدمون') or contains(text(),'Users'))]");
+    private final By Users = By.xpath("//li[contains(@class, 'nav-item') and contains(@class, 'has-sub') and contains(@class, 'open')]//ul[contains(@class, 'menu-content')]//li//span[contains(@class, 'menu-title') and contains(@class, 'text-truncate') and contains(@class, 'mx-75') and (contains(text(), 'المستخدمون') or contains(text(), 'Users'))]");
     private final By Contact = By.xpath("//label[contains(text(),'رقم الاتصال') or @for='contact']");
     private final By Email = By.xpath("//label[contains(text(),'كلمة المرور') or @for='email']");
     private final By Name = By.xpath("//label[contains(text(),'الأسم بالكامل') or @for='name']");
@@ -32,7 +32,6 @@ public class P007CreateRolesPage extends PageBase {
     private final By branchErrorMessage = By.xpath("//div[contains(text(),'At least one branch is required') or contains(text(),'مطلوب فرع واحد على الأقل')]");
     private final By userRoleErrorMessage = By.xpath("//div[contains(text(),'User role is required') or contains(text(),'دور المستخدم مطلوب')]");
     private final By CreateRole = By.xpath("//button[@type='submit']");
-    private final By Success_Message = By.xpath("//p[text()='تم إنشاء السجل.' or text()='The record has been created.']") ;
 
     public void createRole(String Role_name  , String Role_password , String Role_email , String Role , String Branch){
         checkUserCreation();
@@ -43,7 +42,7 @@ public class P007CreateRolesPage extends PageBase {
         fillForm( Role_name ,  "+201" + generateRandomNumber() ,  Role_password ,  Role_email ,  Role ,  Branch);
         waitForVisibilityOfElement(CreateRole);
         clickOnelement(CreateRole);
-        Assert.assertTrue(assertElementDisplayed(Success_Message));
+        validateSuccessMessage();
 
     }
     private void checkUserCreation(){

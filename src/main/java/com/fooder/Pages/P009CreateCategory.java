@@ -29,10 +29,7 @@ public class P009CreateCategory extends PageBase {
     private final By Error_Message_Name = By.xpath("//span[contains(text(),'الأسم مطلوب') or contains(text(),'Name is required')]");
     private final By Error_Message_Localized_Name  = By.xpath("//span[contains(text(),'الأسم المترجم مطلوب') or contains(text(),'Localized name is required')]");
     private final By Submit_Category_Creation = By.xpath("//span[@class='mx-50 align-middle']");
-    private final By Success_Message = By.xpath("//p[text()='تم إنشاء السجل.' or text()='The record has been created.']") ;
-    private final By Success_Update_Message = By.xpath("//p[text()='تم تحديث السجل.' or text()='The record has been updated.']");
 
-//    Edit =
     private final By Edit_Category = By.xpath("//button[contains(text(),'تعديل') or normalize-space()='Edit']");
     public void checkCreateCategory(String name , String localizedName , String desc , String localizedDesc ,Boolean IsEnglish){
         if(IsEnglish){
@@ -44,7 +41,7 @@ public class P009CreateCategory extends PageBase {
         validateErrorMessages();
         fillCategoryForm(name, desc , localizedName ,localizedDesc);
         clickOnelement(Submit_Category_Creation);
-        Assert.assertTrue(assertElementDisplayed(Success_Message));
+        validateSuccessMessage();
 
     }
     public void checkEditCategory(String name , String localizedName , String desc , String localizedDesc ,Boolean IsEnglish , String CategoryIndex){
@@ -56,7 +53,7 @@ public class P009CreateCategory extends PageBase {
         selectCategoryToEdit(CategoryIndex);
         fillCategoryForm(name, desc , localizedName ,localizedDesc);
         clickOnelement(Submit_Category_Creation);
-        Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
+        validateUpdateMessage();
 
     }
     private void selectCategoryToEdit(String CategoryIndex){

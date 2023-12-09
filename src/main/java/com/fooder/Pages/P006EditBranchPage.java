@@ -12,13 +12,12 @@ public class P006EditBranchPage extends PageBase {
     public P006EditBranchPage(WebDriver driver) {
         super(driver);
     }
-    private static int index = 1; // Initialize index
-    private static int plus_index = 1 ;
+    private  int index = 1; // Initialize index
+    private  int plus_index = 1 ;
 
     private final By Edit_Basic_Info = By.xpath("//a[@class='btn btn-icon btn-flat-secondary']//*[name()='svg']");
     private final By Edit_Branch_Title = By.xpath("//span[@class='text-primary font-weight-bolder mx-1 font-small-4 d-none d-sm-block']");
     private final By Edit_CTA = By.xpath("//button[@class='btn btn-primary' and (contains(text(),'تعديل') or contains(text(),'update'))]");
-    private final By Success_Update_Message = By.xpath("//p[text()='تم تحديث السجل.' or text()='The record has been updated.']");
     private final By Submit_Update_Branch = By.xpath("//button[@type='submit']");
     private final By ORDER_TYPE_ELEMENT = By.xpath("//p[normalize-space()='Order Type' or contains(text(),'نوع الطلب')]");
     private final By Location_Info = By.xpath("//h5[normalize-space()='Location Information' or contains(text(),'معلومات الموقع')]");
@@ -90,7 +89,7 @@ public class P006EditBranchPage extends PageBase {
         branch.insertBranchLocalizedName(newLocalizedName);
         scrollToElement(Submit_Update_Branch);
         clickOnelement(Submit_Update_Branch);
-        Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
+        validateUpdateMessage();
     }
     private void validateOrderTypeSection(){
         scrollToElement(ORDER_TYPE_ELEMENT);
@@ -107,7 +106,7 @@ public class P006EditBranchPage extends PageBase {
     private void enableToggle(By by){
         scrollToElement(by);
         clickOnelement(by);
-        Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
+        validateUpdateMessage();
         try{
             Thread.sleep(4000);
         }catch (Exception e){
@@ -155,7 +154,7 @@ public class P006EditBranchPage extends PageBase {
         validateBranchOperationItems();
         fillManageOperationsSection( Mini_Card_Value ,  Average_Cancellation_Time,  Max_Cash_Value ,  Average_Preparation_Time);
         clickOnelement(Submit_Update_Branch);
-        Assert.assertTrue(assertElementDisplayed(Success_Update_Message));    }
+        validateUpdateMessage();    }
     private void validateBranchOperationItems(){
         Assert.assertTrue(assertElementDisplayed(MINIMUM_CART_INPUT));
         Assert.assertTrue(assertElementDisplayed(MAXIMUM_CASH_INPUT));
@@ -180,7 +179,7 @@ public class P006EditBranchPage extends PageBase {
         sendTextToInputField(Average_Cancellation_Time , Cancellation_Time_INPUT);
     }
 
-    public static void setHourAndMinute(Boolean needExtraTime) {
+    public  void setHourAndMinute(Boolean needExtraTime) {
         By Start_Hour = By.xpath("(//input[@placeholder='HH'])[" + index + "]");
         By End_Hour = By.xpath("(//input[@placeholder='HH'])[" + (index + 1) + "]");
         By Start_Minute = By.xpath("(//input[@placeholder='MM'])[" + index + "]");
@@ -214,23 +213,22 @@ public class P006EditBranchPage extends PageBase {
         plus_index = plus_index + 1 ;
     }
 
-    private static void incrementIndex(int value) {
+    private  void incrementIndex(int value) {
         index += value;
     }
 
-    private static void decrementIndex(int value) {
+    private  void decrementIndex(int value) {
         index -= value;
     }
 
     public void branchTimingSection(){
-          driver.get(driver.getCurrentUrl());
           scrollToElement(Branch_Timing);
           waitForVisibilityOfElement(Branch_Timing);
           clickOnelement(Edit_Branch_Timing);
           setTimeForEachDay();
           scrollToElement(Update_Time_Configuration);
           clickOnelement(Update_Time_Configuration);
-          Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
+          validateUpdateMessage();
 
   }
   private void setTimeForEachDay(){
@@ -263,7 +261,7 @@ public class P006EditBranchPage extends PageBase {
         scrollToElement(Slot_Length);
         selectDays("5");
         selectHours("3");
-        Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
+        validateUpdateMessage();
     }
     private void selectDays(String number) {
         By days = By.xpath("//div[@class='d-flex flex-column p-2']//div[2]//div[1]//select[1]");

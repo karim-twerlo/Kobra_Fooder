@@ -41,14 +41,14 @@ public class M004BranchesTest extends BaseTest {
         branch.deleteBranch();
     }
 
-    @Test(groups = "createBranch")
+   @Test
     public void TC_002ValidateBackArrowFunctionality(){
         settings.checkBranchesSettings();
         branch.checkCreateBranchesOpenSuccessfully();
         branch.checkBackArrowFunctionality();
         settings.checkBranchesSettings();
     }
-    @Test(groups = "createBranch")
+    @Test
     public void TC_003validateErrorMessagesForBranchesScreen(){
         settings.checkBranchesSettings();
         branch.checkCreateBranchesOpenSuccessfully();
