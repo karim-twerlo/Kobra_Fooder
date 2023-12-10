@@ -31,7 +31,6 @@ public class P005DeliveryAreaPage extends PageBase {
     private final By deliveryAreaTypeInput = By.xpath("//input[@aria-autocomplete='list']");
 
     private final By submit = By.xpath("//button[@type='submit']");
-    private final By Success_Message = By.xpath("//p[text()='تم إنشاء السجل.' or text()='The record has been created.']") ;
 
     private void validateDeliveryAreaElements(){
         waitForVisibilityOfElement(deliveryAreaNameLabel);
@@ -63,7 +62,7 @@ public class P005DeliveryAreaPage extends PageBase {
         validateDeliveryAreaElements();
         insertDeliveryAreaData(deliveryAreaName,deliveryDistance,deliveryFees,extraDistanceFees,deliveryAreaType);
         submitDeliveryArea();
-        Assert.assertTrue(assertElementDisplayed(Success_Message));
+        validateSuccessMessage();
 
 
     }

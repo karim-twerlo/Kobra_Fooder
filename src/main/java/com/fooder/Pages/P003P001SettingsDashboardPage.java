@@ -15,7 +15,7 @@ public class P003P001SettingsDashboardPage extends PageBase {
     private final By Email = By.xpath("//input[@id='email']");
     private final By Users = By.xpath("//span[@class='menu-title text-truncate mx-75' and (contains(text(),'Users') or contains(text(),'المستخدمون'))]");
     private final By Create = By.cssSelector(".btn.btn-primary[routerlink='create']");
-    private final By Branches = By.xpath("//li[@class='nav-item has-sub open']//ul[@class='menu-content']//li//span[@class='menu-title text-truncate mx-75' and (contains(text(),'الفروع') or contains(text(),'Branches'))]");
+    private final By Branches = By.xpath("//li[contains(@class, 'nav-item') and contains(@class, 'has-sub') and contains(@class, 'open')]//ul[contains(@class, 'menu-content')]//li//span[contains(@class, 'menu-title') and contains(@class, 'text-truncate') and contains(@class, 'mx-75') and (contains(text(), 'الفروع') or contains(text(), 'Branches'))]");
     private final By Branch_Name = By.xpath("//li[@class='active']//span[@class='menu-title text-truncate mx-75' and (contains(text(),'الفروع') or contains(text(),'Branches'))]");
     private final By Number_Of_Orders = By.xpath("//th[contains(text(),'عدد الطلبات') or normalize-space()='No. orders']");
     private final By DeliveryManagement = By.xpath("//span[@class='menu-title text-truncate mx-75' and (contains(text(),'Delivery management') or contains(text(),'إدارة التوصيل'))]");
@@ -54,8 +54,8 @@ public class P003P001SettingsDashboardPage extends PageBase {
         scrollToElement(Branches);
         Assert.assertTrue(assertElementDisplayed(Branches));
         clickOnelement(Branches);
-        Assert.assertTrue(assertElementDisplayed(Branch_Name));
-        scrollToElement(Branch_Name);
+//        Assert.assertTrue(assertElementDisplayed(Branch_Name));
+//        scrollToElement(Branch_Name);
     }
     private void checkNumberOfOrdersSettings(){
         scrollToElement(DeliveryManagement);

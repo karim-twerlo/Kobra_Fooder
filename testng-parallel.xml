@@ -2,21 +2,21 @@
 <suite name="Kobra_Fooder_Cross_Browsers" >
     <test name="ChromeTest">
         <parameter name="browser" value="chrome" />
-        <classes>
-            <class name="com.fooder.testCases.M009CreateCategoryTest" />
-        </classes>
+        <packages>
+            <package name="com.fooder.testCases" />
+        </packages>
     </test>
 
-<!--    <test name="edgeTest">-->
-<!--        <parameter name="browser" value="edge" />-->
-<!--        <classes>-->
-<!--            <class name="com.fooder.testCases.M009CreateCategoryTest" />-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="edgeTest">
+        <parameter name="browser" value="edge" />
+        <packages>
+            <package name="com.fooder.testCases" />
+        </packages>
+    </test>
 <!--    <test name="fireFoxTest">-->
 <!--        <parameter name="browser" value="firefox" />-->
-<!--        <classes>-->
-<!--            <class name="com.fooder.testCases.M009CreateCategoryTest" />-->
-<!--        </classes>-->
+<!--        <packages>-->
+<!--            <package name="com.fooder.testCases" />-->
+<!--        </packages>-->
 <!--    </test>-->
 </suite>

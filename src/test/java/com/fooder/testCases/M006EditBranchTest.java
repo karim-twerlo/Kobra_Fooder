@@ -25,7 +25,7 @@ public class M006EditBranchTest extends BaseTest {
         deliveryArea = new P005DeliveryAreaPage(driver);
         editBranch = new P006EditBranchPage(driver);
     }
-    @Test(groups = "editBranch")
+    @Test
     public void TC_001validateEditBranch(){
         wlcPage.loginWithValidateData(username, password);
         dashboard.openSettingsMenu();
