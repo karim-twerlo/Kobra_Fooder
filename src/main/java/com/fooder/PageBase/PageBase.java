@@ -155,9 +155,9 @@ public class PageBase {
             int digit = random.nextInt(10);  // Generates a random number between 0 and 9
             formattedNumber += digit;
         }
-        System.out.println(formattedNumber);
+        System.out.println("+201" + formattedNumber);
 
-        return formattedNumber;
+        return "+201" + formattedNumber;
     }
     public void validateSuccessMessage(){
         Assert.assertTrue(assertElementDisplayed(Success_Message));
@@ -174,6 +174,30 @@ public class PageBase {
         waitForInVisibilityOfElement(Confirm_Delete_Message);
 
     }
+    public static String generateRandomDigits(int length) {
+        if (length <= 0) {
+            throw new IllegalArgumentException("Length should be greater than 0");
+        }
+
+        Random random = new Random();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int digit = random.nextInt(10); // Generates a random digit (0 to 9)
+            stringBuilder.append(digit);
+        }
+
+        return stringBuilder.toString();
+    }
+    public  void selectEnglish(){
+        clickOnelement(language);
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+    }
+
 
 
 

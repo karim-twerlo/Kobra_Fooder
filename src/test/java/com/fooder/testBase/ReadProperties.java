@@ -46,7 +46,16 @@ public class ReadProperties {
     public static final String Category_localizedName = getPropertyFromCategory("localizedName");
     public static final String Category_description = getPropertyFromCategory("description");
     public static final String Category_localizedDescription = getPropertyFromCategory("localizedDescription");
-
+    public static final String Product_tax_Group = getPropertyFromProduct("tax_Group");
+    public static final String Product_costing_Method = getPropertyFromProduct("costing_Method");
+    public static final String Product_name = getPropertyFromProduct("name");
+    public static final String Product_desc = getPropertyFromProduct("desc");
+    public static final String Product_descLocalized = getPropertyFromProduct("descLocalized");
+    public static final String Product_localized_name = getPropertyFromProduct("localized_name");
+    public static final String Product_calories = getPropertyFromProduct("calories");
+    public static final String Product_price = getPropertyFromProduct("price");
+    public static final String Product_sku = getPropertyFromProduct("sku");
+    public static final String Product_prepTime = getPropertyFromProduct("prepTime");
 
     private static String getPropertyFromEnv(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readEnvFile(propertyName));
@@ -68,6 +77,9 @@ public class ReadProperties {
     }
     private static String getPropertyFromCategory(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readCategoryFile(propertyName));
+    }
+    private static String getPropertyFromProduct(String propertyName) {
+        return System.getProperty(propertyName, PropertiesLoader.readProductFile(propertyName));
     }
 
 

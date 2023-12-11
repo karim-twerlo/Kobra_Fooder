@@ -60,15 +60,8 @@ public class P009CreateCategory extends PageBase {
         driver.findElement(By.xpath("//tbody/tr[" + CategoryIndex + "]/td[4]/a[1]//*[name()='svg']")).click();
         clickOnelement(Edit_Category);
     }
-    private void selectEnglish(){
-        clickOnelement(language);
-        try{
-            Thread.sleep(2000);
-        }catch (Exception e){
-            e.getStackTrace();
-        }
-    }
-    private void validateMenuItems(){
+
+    public void validateMenuItems(){
         scrollToElement(Menu);
         waitForVisibilityOfElement(Menu);
         clickOnelement(Menu);

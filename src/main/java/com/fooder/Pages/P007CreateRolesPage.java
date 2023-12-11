@@ -37,9 +37,9 @@ public class P007CreateRolesPage extends PageBase {
         checkUserCreation();
         clickOnelement(Create);
         Assert.assertTrue(driver.getCurrentUrl().contains("create"));
-        checkManagerForm();
+        checkRoleForm();
         checkErrorMessagesForBasicInfo();
-        fillForm( Role_name ,  "+201" + generateRandomNumber() ,  Role_password ,  Role_email ,  Role ,  Branch);
+        fillForm( Role_name ,   generateRandomNumber() ,  Role_password ,  Role_email ,  Role ,  Branch);
         waitForVisibilityOfElement(CreateRole);
         clickOnelement(CreateRole);
         validateSuccessMessage();
@@ -53,7 +53,7 @@ public class P007CreateRolesPage extends PageBase {
         clickOnelement(Users);
         Assert.assertTrue(assertElementDisplayed(Create));
     }
-    private void checkManagerForm(){
+    private void checkRoleForm(){
         waitForVisibilityOfElement(Email);
         Assert.assertTrue(assertElementDisplayed(Password));
         Assert.assertTrue(assertElementDisplayed(Contact));
@@ -117,7 +117,6 @@ public class P007CreateRolesPage extends PageBase {
     }
     private void SelectBranch(String text){
         clickOnelement(Branches);
-
 
         By optionLocator = By.xpath("//div[@role='option' and contains(text(), ' " + text + " ')]");
 
