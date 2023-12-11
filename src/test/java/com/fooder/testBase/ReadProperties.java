@@ -56,6 +56,12 @@ public class ReadProperties {
     public static final String Product_price = getPropertyFromProduct("price");
     public static final String Product_sku = getPropertyFromProduct("sku");
     public static final String Product_prepTime = getPropertyFromProduct("prepTime");
+    public static final String Modifier_Name = getPropertyFromModifier("name");
+    public static final String Modifier_Localized_Name = getPropertyFromModifier("localized_Name");
+    public static final String Modifier_Reference = getPropertyFromModifier("reference");
+    public static final String New_Modifier_Name = getPropertyFromModifier("new_name");
+    public static final String New_Modifier_Localized_Name = getPropertyFromModifier("new_localized_Name");
+    public static final String New_Modifier_Reference = getPropertyFromModifier("new_reference");
 
     private static String getPropertyFromEnv(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readEnvFile(propertyName));
@@ -80,6 +86,9 @@ public class ReadProperties {
     }
     private static String getPropertyFromProduct(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readProductFile(propertyName));
+    }
+    private static String getPropertyFromModifier(String propertyName) {
+        return System.getProperty(propertyName, PropertiesLoader.readModifierFile(propertyName));
     }
 
 
