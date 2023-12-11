@@ -34,10 +34,10 @@ public class P010CreateProduct extends PageBase {
     private final By Input_Tax_Group = By.xpath("(//input[@type='text'])[6]");
     private final By Input_Desc = By.xpath("//textarea[@id='desc']");
     private final By Input_Desc_Localized = By.xpath("//textarea[@id='desc-localized']");
-    private final By Name_Error_Message = By.xpath("//div[normalize-space()='Localized name is required' or contains(text(),'الأسم مطلوب')]");
-    private final By Localized_Name_Error_Message = By.xpath("//div[normalize-space()='Name is required' or contains(text(),'الأسم المترجم مطلوب')]");
-    private final By Price_Error_Message = By.xpath("//div[normalize-space()='Category is required' or contains(text(),'السعر مطلوب')]");
-    private final By Category_Error_Message = By.xpath("//div[normalize-space()='Price is required' or contains(text(),'إختيار القسم مطلوب')]");
+    private final By Name_Error_Message = By.xpath("//div[normalize-space()='Name is required' or contains(text(),'الأسم مطلوب')]");
+    private final By Localized_Name_Error_Message = By.xpath("//div[normalize-space()='Localized name is required' or contains(text(),'الأسم المترجم مطلوب')]");
+    private final By Price_Error_Message = By.xpath("//div[normalize-space()='Price is required' or contains(text(),'السعر مطلوب')]");
+    private final By Category_Error_Message = By.xpath("//div[normalize-space()='Category is required' or contains(text(),'إختيار القسم مطلوب')]");
     private final By Label_Name = By.xpath("//label[@for='name']");
     private final By Label_Name_Localized = By.xpath("//label[@for='name-localized']");
     private final By Label_Price = By.xpath("//label[@for='price']");
