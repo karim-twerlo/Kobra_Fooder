@@ -70,5 +70,9 @@ public class PropertiesLoader {
         File file = new File("src/config/product.properties");
         return getPropertyValue(key,file);
     }
+    public static String readModifierFile(String key){
+        File file = new File("src/config/modifier.properties");
+        return getPropertyValue(key,file);
+    }
 
 }
