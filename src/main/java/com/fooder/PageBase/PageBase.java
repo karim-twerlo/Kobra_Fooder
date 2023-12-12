@@ -20,6 +20,8 @@ public class PageBase {
     public By myAccount = By.xpath("//a[@id='menu-drop']//*[name()='svg']");
     public By logout = By.xpath("//a[@class='dropdown-item logout-color']");
     public By Success_Message = By.xpath("//p[text()='تم إنشاء السجل.' or text()='The record has been created.']") ;
+    public By Linked_Success_Message = By.xpath("//p[text()='تم ربط السجلات.' or text()='The records have been linked.']") ;
+    public By Unlinked_Success_Message = By.xpath("//p[text()='تم إلغاء ربط السجل.' or text()='The record has been unlinked.']") ;
     public By Success_Update_Message = By.xpath("//p[text()='تم تحديث السجل.' or text()='The record has been updated.']");
     public By Confirm_Delete_Message = By.xpath("//p[text()='تم حذف السجل.' or text()='The record has been deleted.']");
 
@@ -102,6 +104,10 @@ public class PageBase {
         clearInputField(by);
         driver.findElement(by).sendKeys(text);
     }
+    public void sendTextWithotClear(String text , By by){
+        waitForVisibilityOfElement(by);
+        driver.findElement(by).sendKeys(text);
+    }
     public void clearInputField(By by){
         driver.findElement(by).clear();
     }
@@ -169,6 +175,16 @@ public class PageBase {
         waitForInVisibilityOfElement(Success_Update_Message);
 
     }
+    public void validateLinkedSuccessMessage(){
+        Assert.assertTrue(assertElementDisplayed(Linked_Success_Message));
+        waitForInVisibilityOfElement(Linked_Success_Message);
+
+    }
+    public void validateUnLinkedSuccessMessage(){
+        Assert.assertTrue(assertElementDisplayed(Unlinked_Success_Message));
+        waitForInVisibilityOfElement(Unlinked_Success_Message);
+
+    }
     public void validateDeletedMessage(){
         Assert.assertTrue(assertElementDisplayed(Confirm_Delete_Message));
         waitForInVisibilityOfElement(Confirm_Delete_Message);
@@ -196,6 +212,14 @@ public class PageBase {
         }catch (Exception e){
             e.getStackTrace();
         }
+    }
+    public void sendImageUsingJS(String imagePath , By input){
+        WebElement element = driver.findElement(input);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].style.display='block';", element); // Ensure the file input is visible
+        js.executeScript("arguments[0].style.opacity=1;", element); // Ensure the file input is not transparent
+        js.executeScript("arguments[0].style.height='auto';", element); // Ensure the file input height is not restricted
+        element.sendKeys(imagePath);
     }
 
 
