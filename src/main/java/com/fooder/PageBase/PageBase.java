@@ -102,6 +102,10 @@ public class PageBase {
         clearInputField(by);
         driver.findElement(by).sendKeys(text);
     }
+    public void sendTextWithotClear(String text , By by){
+        waitForVisibilityOfElement(by);
+        driver.findElement(by).sendKeys(text);
+    }
     public void clearInputField(By by){
         driver.findElement(by).clear();
     }
@@ -196,6 +200,14 @@ public class PageBase {
         }catch (Exception e){
             e.getStackTrace();
         }
+    }
+    public void sendImageUsingJS(String imagePath , By input){
+        WebElement element = driver.findElement(input);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].style.display='block';", element); // Ensure the file input is visible
+        js.executeScript("arguments[0].style.opacity=1;", element); // Ensure the file input is not transparent
+        js.executeScript("arguments[0].style.height='auto';", element); // Ensure the file input height is not restricted
+        element.sendKeys(imagePath);
     }
 
 

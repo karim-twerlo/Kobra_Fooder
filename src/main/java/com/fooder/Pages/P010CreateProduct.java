@@ -15,41 +15,41 @@ public class P010CreateProduct extends PageBase {
         super(driver);
     }
     P009CreateCategory category = new P009CreateCategory(driver);
-    private final By Products_From_Menu = By.xpath("//span[normalize-space()='Products' or contains(text(),'المنتجات')]");
-    private final By Create_Product = By.xpath("//a[@routerlink='create']");
-    private final By DeleteIcon = By.xpath("(//*[name()='svg'][@class='icon-lg icon-danger'])[1]");
-    private final By Item = By.xpath("//th[normalize-space()='Item' or contains(text(),'العنصر')]");
-    private final By SKU = By.xpath("//th[normalize-space()='SKU' or contains(text(),'الرمز')]");
-    private final By Category = By.xpath("//th[normalize-space()='Category' or contains(text(),'فئة')]");
-    private final By Price = By.xpath("//th[normalize-space()='Price' or contains(text(),'السعر')]");
-    private final By Status = By.xpath("//th[normalize-space()='Status' or contains(text(),'الحالة')]");
-    private final By Input_Name = By.xpath("//input[@id='name']");
-    private final By Input_Name_Localized = By.xpath("//input[@id='name-localized']");
-    private final By Input_Price = By.xpath("//input[@id='price']");
-    private final By Input_SKU = By.xpath("//input[@id='sku']");
-    private final By Input_Calories = By.xpath("//input[@id='calories']");
-    private final By Input_Prep_Time = By.xpath("//input[@id='prep-time']");
-    private final By Input_Category = By.xpath("(//input[@type='text'])[3]");
-    private final By Input_Costing_Method = By.xpath("(//input[@type='text'])[5]");
-    private final By Input_Tax_Group = By.xpath("(//input[@type='text'])[6]");
-    private final By Input_Desc = By.xpath("//textarea[@id='desc']");
-    private final By Input_Desc_Localized = By.xpath("//textarea[@id='desc-localized']");
-    private final By Name_Error_Message = By.xpath("//div[normalize-space()='Name is required' or contains(text(),'الأسم مطلوب')]");
-    private final By Localized_Name_Error_Message = By.xpath("//div[normalize-space()='Localized name is required' or contains(text(),'الأسم المترجم مطلوب')]");
-    private final By Price_Error_Message = By.xpath("//div[normalize-space()='Price is required' or contains(text(),'السعر مطلوب')]");
-    private final By Category_Error_Message = By.xpath("//div[normalize-space()='Category is required' or contains(text(),'إختيار القسم مطلوب')]");
-    private final By Label_Name = By.xpath("//label[@for='name']");
-    private final By Label_Name_Localized = By.xpath("//label[@for='name-localized']");
-    private final By Label_Price = By.xpath("//label[@for='price']");
-    private final By Label_SKU = By.xpath("//label[@for='sku']");
-    private final By Label_Calories = By.xpath("//label[@for='calories']");
-    private final By Label_Prep_Time = By.xpath("//label[@for='prep-time']");
-    private final By Label_Category = By.xpath("//div[3]//div[1]//label[1]");
-    private final By Label_Costing_Method = By.xpath("//label[normalize-space()='Costing Method' or contains(text(),'طريقة حساب التكاليف')]");
-    private final By Label_Tax_Group = By.xpath("//label[normalize-space()='Tax Group' or contains(text(),'المجموعة الضريبية')]");
-    private final By Label_Desc = By.xpath("//label[@for='desc']");
-    private final By Label_Desc_Localized = By.xpath("//label[@for='desc-localized']");
-    private final By Submit_Product_Creation = By.xpath("//button[@type='submit']");
+    public final By Products_From_Menu = By.xpath("//span[normalize-space()='Products' or contains(text(),'المنتجات')]");
+    public final By Create_Product = By.xpath("//a[@routerlink='create']");
+    public final By DeleteIcon = By.xpath("(//*[name()='svg'][@class='icon-lg icon-danger'])[1]");
+    public final By Item = By.xpath("//th[normalize-space()='Item' or contains(text(),'العنصر')]");
+    public final By SKU = By.xpath("//th[normalize-space()='SKU' or contains(text(),'الرمز')]");
+    public final By Category = By.xpath("//th[normalize-space()='Category' or contains(text(),'فئة')]");
+    public final By Price = By.xpath("//th[normalize-space()='Price' or contains(text(),'السعر')]");
+    public final By Status = By.xpath("//th[normalize-space()='Status' or contains(text(),'الحالة')]");
+    public final By Input_Name = By.xpath("//input[@id='name']");
+    public final By Input_Name_Localized = By.xpath("//input[@id='name-localized']");
+    public final By Input_Price = By.xpath("//input[@id='price']");
+    public final By Input_SKU = By.xpath("//input[@id='sku']");
+    public final By Input_Calories = By.xpath("//input[@id='calories']");
+    public final By Input_Prep_Time = By.xpath("//input[@id='prep-time']");
+    public final By Input_Category = By.xpath("(//input[@type='text'])[3]");
+    public final By Input_Costing_Method = By.xpath("(//input[@type='text'])[5]");
+    public final By Input_Tax_Group = By.xpath("(//input[@type='text'])[6]");
+    public final By Input_Desc = By.xpath("//textarea[@id='desc']");
+    public final By Input_Desc_Localized = By.xpath("//textarea[@id='desc-localized']");
+    public final By Name_Error_Message = By.xpath("//div[normalize-space()='Name is required' or contains(text(),'الأسم مطلوب')]");
+    public final By Localized_Name_Error_Message = By.xpath("//div[normalize-space()='Localized name is required' or contains(text(),'الأسم المترجم مطلوب')]");
+    public final By Price_Error_Message = By.xpath("//div[normalize-space()='Price is required' or contains(text(),'السعر مطلوب')]");
+    public final By Category_Error_Message = By.xpath("//div[normalize-space()='Category is required' or contains(text(),'إختيار القسم مطلوب')]");
+    public final By Label_Name = By.xpath("//label[@for='name']");
+    public final By Label_Name_Localized = By.xpath("//label[@for='name-localized']");
+    public final By Label_Price = By.xpath("//label[@for='price']");
+    public final By Label_SKU = By.xpath("//label[@for='sku']");
+    public final By Label_Calories = By.xpath("//label[@for='calories']");
+    public final By Label_Prep_Time = By.xpath("//label[@for='prep-time']");
+    public final By Label_Category = By.xpath("//div[3]//div[1]//label[1]");
+    public final By Label_Costing_Method = By.xpath("//label[normalize-space()='Costing Method' or contains(text(),'طريقة حساب التكاليف')]");
+    public final By Label_Tax_Group = By.xpath("//label[normalize-space()='Tax Group' or contains(text(),'المجموعة الضريبية')]");
+    public final By Label_Desc = By.xpath("//label[@for='desc']");
+    public final By Label_Desc_Localized = By.xpath("//label[@for='desc-localized']");
+    public final By Submit_Product_Creation = By.xpath("//button[@type='submit']");
     private void validateProductsScreen(){
        Assert.assertTrue(assertElementDisplayed(Item));
        Assert.assertTrue(assertElementDisplayed(SKU));
@@ -60,13 +60,13 @@ public class P010CreateProduct extends PageBase {
        Assert.assertTrue(assertElementDisplayed(Create_Product));
 
    }
-    private void openProductsScreen(){
+    public void openProductsScreen(){
        category.validateMenuItems();
        scrollToElement(Products_From_Menu);
        clickOnelement(Products_From_Menu);
        validateProductsScreen();
    }
-    private void validateProductFormScreenInputs(){
+    public void validateProductFormScreenInputs(){
        validateEachItem(Input_Category);
        validateEachItem(Input_Name);
        validateEachItem(Input_Name_Localized);
@@ -79,7 +79,7 @@ public class P010CreateProduct extends PageBase {
        validateEachItem(Input_Costing_Method);
        validateEachItem(Input_Tax_Group);
     }
-    private void validateProductFormScreenLabels(){
+    public void validateProductFormScreenLabels(){
         validateEachItem(Label_Category);
         validateEachItem(Label_Name);
         validateEachItem(Label_Name_Localized);
