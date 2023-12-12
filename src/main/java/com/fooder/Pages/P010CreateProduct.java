@@ -115,7 +115,7 @@ public class P010CreateProduct extends PageBase {
         validateErrorMessage(Input_Price , Input_Category ,Price_Error_Message);
         validateErrorMessage(Input_Category , Input_Name ,Category_Error_Message);
     }
-    private void selectFromNgList(String text , By by){
+    public void selectFromNgList(String text , By by){
        scrollToElement(by);
         clickOnelement(by);
         By optionLocator = By.xpath("//div[@role='option' and contains(text(), ' " + text + " ')]");

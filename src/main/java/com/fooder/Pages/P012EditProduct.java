@@ -24,6 +24,14 @@ public class P012EditProduct extends P010CreateProduct{
     private final By Cover_Size = By.xpath("//div[contains(text(),'Max of 5 MB, at least 450 x 250 pixels.') or contains(text(),'بحد أقصى 5 ميجابايت ، على الأقل 450 × 250 بكسل.')]");
     private final By Profile_Size = By.xpath("//div[contains(text(),'550 x 440')]");
     private final By Update_Basic_Info = By.xpath("//span[@class='mx-50 align-middle']");
+    private final By Add_Modifier_Message = By.xpath("//h5[contains(text(),'Add modifiers to this product and configure the mi') or contains(text(),'أضف المُعدِّلات إلى هذا المنتج وقم بتكوين الحد الأ')]");
+    private final By Add_Modifier_Title = By.xpath("//p[normalize-space()='Modifiers' or contains(text(),'المعدلات')]");
+    private final By Add_Modifier_CTA = By.xpath("//button[normalize-space()='Add Modifier' or contains(text(),'إضافة معدل')]");
+    private final By Modifiers_List = By.xpath("(//label[1] | //*[contains(text(),'قائمة المعدلات')])[1]");
+    private final By Input_Modifiers_List = By.xpath("//input[@type='text']");
+    private final By Modifiers_Error_Message = By.xpath("//span[normalize-space()='At least one modifier is required' or @class='ng-star-inserted']");
+    private final By Save_Modifiers = By.xpath("//button[@type='submit']");
+    private final By Delete_Modifier_Icon = By.xpath("//tbody/tr[1]/td[5]/button[2]//*[name()='svg']");
     private void checkEditProductScreen(String index){
         Assert.assertTrue(assertElementDisplayed(Create_Product));
         By branchEditIcon = By.xpath("//tbody/tr[" + index + "]/td[8]/a[1]//*[name()='svg']");
@@ -57,10 +65,11 @@ public class P012EditProduct extends P010CreateProduct{
         Assert.assertTrue(checkForLocalization(ProductInActiveStatus,"Inactive","غير نشط"));
         Assert.assertTrue(checkForLocalization(Deactivate_Product,"Activate","تفعيل"));
     }
-    public void checkEditProduct(String index){
+    public void checkEditProduct(String index , String Modifier_Name){
         selectProductTOEditIt(index);
         checkEditProductScreen(index);
         editBasicInfo();
+        editModifiersSection(Modifier_Name);
     }
     private void editBasicInfo(){
         clickOnelement(Edit_Product_basic_info);
@@ -95,5 +104,22 @@ public class P012EditProduct extends P010CreateProduct{
         fileInput2.sendKeys(profilePath);
         validateUpdateMessage();
 
+    }
+    private void editModifiersSection(String ModifierName){
+        scrollToElement(Add_Modifier_Title);
+        Assert.assertTrue(assertElementDisplayed(Add_Modifier_Message));
+        addModifier(ModifierName);
+        clickOnelement(Delete_Modifier_Icon);
+        validateUnLinkedSuccessMessage();
+        addModifier(ModifierName);
+    }
+    private void addModifier(String ModifierName){
+        clickOnelement(Add_Modifier_CTA);
+        Assert.assertTrue(driver.findElement(Modifiers_List).getText().contains("*"));
+        validateErrorMessage(Input_Modifiers_List ,myAccount ,Modifiers_Error_Message);
+        selectFromNgList(ModifierName , Input_Modifiers_List);
+        scrollToElement(Save_Modifiers);
+        clickOnelement(Save_Modifiers);
+        validateLinkedSuccessMessage();
     }
 }

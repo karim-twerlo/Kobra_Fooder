@@ -20,6 +20,8 @@ public class PageBase {
     public By myAccount = By.xpath("//a[@id='menu-drop']//*[name()='svg']");
     public By logout = By.xpath("//a[@class='dropdown-item logout-color']");
     public By Success_Message = By.xpath("//p[text()='تم إنشاء السجل.' or text()='The record has been created.']") ;
+    public By Linked_Success_Message = By.xpath("//p[text()='تم ربط السجلات.' or text()='The records have been linked.']") ;
+    public By Unlinked_Success_Message = By.xpath("//p[text()='تم إلغاء ربط السجل.' or text()='The record has been unlinked.']") ;
     public By Success_Update_Message = By.xpath("//p[text()='تم تحديث السجل.' or text()='The record has been updated.']");
     public By Confirm_Delete_Message = By.xpath("//p[text()='تم حذف السجل.' or text()='The record has been deleted.']");
 
@@ -171,6 +173,16 @@ public class PageBase {
     public void validateUpdateMessage(){
         Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
         waitForInVisibilityOfElement(Success_Update_Message);
+
+    }
+    public void validateLinkedSuccessMessage(){
+        Assert.assertTrue(assertElementDisplayed(Linked_Success_Message));
+        waitForInVisibilityOfElement(Linked_Success_Message);
+
+    }
+    public void validateUnLinkedSuccessMessage(){
+        Assert.assertTrue(assertElementDisplayed(Unlinked_Success_Message));
+        waitForInVisibilityOfElement(Unlinked_Success_Message);
 
     }
     public void validateDeletedMessage(){
