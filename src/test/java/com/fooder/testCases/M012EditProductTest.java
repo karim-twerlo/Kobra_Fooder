@@ -31,7 +31,7 @@ public class M012EditProductTest extends BaseTest {
         product.validateProductCreation(Category_Name,Product_tax_Group,Product_costing_Method,Product_name,Product_desc,
                 Product_descLocalized,Product_localized_name,Product_calories,Product_price,Product_sku,Product_prepTime,false);
         editProduct.checkDeactivateProduct("1");
-//        dashboard.backToLoinScreen();
+        dashboard.backToLoinScreen();
     }
 
     @Test
@@ -40,6 +40,6 @@ public class M012EditProductTest extends BaseTest {
         product.validateProductCreation(Category_Name,Product_tax_Group,Product_costing_Method,Product_name,Product_desc,
                 Product_descLocalized,Product_localized_name,Product_calories,Product_price,Product_sku,Product_prepTime,false);
         editProduct.checkEditProduct("1");
-//        dashboard.backToLoinScreen();
+        dashboard.backToLoinScreen();
     }
 }
