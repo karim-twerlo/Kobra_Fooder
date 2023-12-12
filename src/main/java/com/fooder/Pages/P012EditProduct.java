@@ -3,7 +3,11 @@ package com.fooder.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 public class P012EditProduct extends P010CreateProduct{
     public P012EditProduct(WebDriver driver) {
@@ -32,6 +36,16 @@ public class P012EditProduct extends P010CreateProduct{
     private final By Modifiers_Error_Message = By.xpath("//span[normalize-space()='At least one modifier is required' or @class='ng-star-inserted']");
     private final By Save_Modifiers = By.xpath("//button[@type='submit']");
     private final By Delete_Modifier_Icon = By.xpath("//tbody/tr[1]/td[5]/button[2]//*[name()='svg']");
+    private final By Custom_Price_Title = By.xpath("//p[normalize-space()='Custom Price' or contains(text(),'سعر مخصص')]");
+    private final By Custom_Price_Explanation = By.xpath(" //h5[contains(text(),'حدد سعرًا مختلفًا لهذا المنتج في الفروع التي تحدده') or contains(text(),'Set a different price for this product in the bran')]");
+    private final By  Select_Branch_CTA = By.xpath("//button[@class='btn btn-primary ng-star-inserted' and (normalize-space()='Select branches' or contains(text(),'حدد الفروع'))]");
+    private final By Select_Branch_Dropdown = By.xpath("//input[@type='text']");
+    private final By Input_Price = By.xpath("//input[@placeholder='Enter the price' or @placeholder='أدخل السعر']");
+    private final By Price_Error_Message = By.xpath("//span[normalize-space()='Price is required' or contains(text(),'السعر مطلوب')]");
+    private final By Branches_Error_Message = By.xpath("//span[normalize-space()='At least one branch is required' or contains(text(),'مطلوب فرع واحد على الأقل')]");
+    private final By Save_Custom_Price_Section = By.xpath("//span[normalize-space()='Save' or contains(text(),'حفظ')]");
+
+
     private void checkEditProductScreen(String index){
         Assert.assertTrue(assertElementDisplayed(Create_Product));
         By branchEditIcon = By.xpath("//tbody/tr[" + index + "]/td[8]/a[1]//*[name()='svg']");
@@ -65,11 +79,12 @@ public class P012EditProduct extends P010CreateProduct{
         Assert.assertTrue(checkForLocalization(ProductInActiveStatus,"Inactive","غير نشط"));
         Assert.assertTrue(checkForLocalization(Deactivate_Product,"Activate","تفعيل"));
     }
-    public void checkEditProduct(String index , String Modifier_Name){
+    public void checkEditProduct(String index , String Modifier_Name , String Branch_Name){
         selectProductTOEditIt(index);
         checkEditProductScreen(index);
         editBasicInfo();
         editModifiersSection(Modifier_Name);
+        editCustomPriceSection(Branch_Name);
     }
     private void editBasicInfo(){
         clickOnelement(Edit_Product_basic_info);
@@ -118,8 +133,38 @@ public class P012EditProduct extends P010CreateProduct{
         Assert.assertTrue(driver.findElement(Modifiers_List).getText().contains("*"));
         validateErrorMessage(Input_Modifiers_List ,myAccount ,Modifiers_Error_Message);
         selectFromNgList(ModifierName , Input_Modifiers_List);
+        clickOnelement(myAccount);
         scrollToElement(Save_Modifiers);
         clickOnelement(Save_Modifiers);
         validateLinkedSuccessMessage();
+    }
+       private void validateCustomPriceSection(){
+        scrollToElement(Custom_Price_Title);
+        Assert.assertTrue(assertElementDisplayed(Custom_Price_Explanation));
+        Assert.assertTrue(assertElementDisplayed(Select_Branch_CTA));
+        clickOnelement(Select_Branch_CTA);
+        Assert.assertTrue(assertElementDisplayed(Select_Branch_Dropdown));
+        Assert.assertTrue(assertElementDisplayed(Input_Price));
+        validateErrorMessage(Select_Branch_Dropdown,Input_Price,Branches_Error_Message);
+        validateErrorMessage(Input_Price,Select_Branch_Dropdown,Price_Error_Message);
+
+    }
+    private void fillCustomPriceForm(String Branch_Name ){
+        SelectBranch(Branch_Name);
+        sendTextToInputField("10",Input_Price);
+        clickOnelement(Save_Custom_Price_Section);
+        validateLinkedSuccessMessage();
+    }
+    private void SelectBranch(String text){
+        clickOnelement(Select_Branch_Dropdown);
+        By optionLocator = By.xpath("//div[@role='option' and contains(text(), ' " + text + " ')]");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(optionLocator));
+        optionElement.click();
+
+    }
+    private void editCustomPriceSection(String Branch_Name){
+        validateCustomPriceSection();
+        fillCustomPriceForm(Branch_Name);
     }
 }

@@ -35,11 +35,11 @@ public class M012EditProductTest extends BaseTest {
     }
 
     @Test
-    public void TC_0validateEditProduct(){
+    public void TC_02validateEditProduct(){
         wlcPage.loginWithValidateData(username, password);
         product.validateProductCreation(Category_Name,Product_tax_Group,Product_costing_Method,Product_name,Product_desc,
                 Product_descLocalized,Product_localized_name,Product_calories,Product_price,Product_sku,Product_prepTime,false);
-        editProduct.checkEditProduct("1",New_Modifier_Name);
-//        dashboard.backToLoinScreen();
+        editProduct.checkEditProduct("1",New_Modifier_Name,Branch_Name_Localized);
+        dashboard.backToLoinScreen();
     }
 }
