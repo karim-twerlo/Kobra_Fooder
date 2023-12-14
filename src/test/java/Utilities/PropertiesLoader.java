@@ -74,5 +74,9 @@ public class PropertiesLoader {
         File file = new File("src/config/modifier.properties");
         return getPropertyValue(key,file);
     }
+    public static String readOptionFile(String key){
+        File file = new File("src/config/option.properties");
+        return getPropertyValue(key,file);
+    }
 
 }
