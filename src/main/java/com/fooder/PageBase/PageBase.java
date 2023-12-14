@@ -41,6 +41,10 @@ public class PageBase {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
+    public void waitForVisibilityOfWebElement(WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
     public void waitForInVisibilityOfElement(By by){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
@@ -56,6 +60,14 @@ public class PageBase {
     public void scrollToElement(By element){
         JavascriptExecutor jsExec = (JavascriptExecutor) driver;
         jsExec.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});" , driver.findElement(element));
+    }
+    public void scrollUp(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0, -500);");
+    }
+    public void scrollToEndOfScreen(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
     }
     public Boolean checkForLocalization(By by , String Eng , String arb){
         scrollToElement(language);
@@ -221,6 +233,7 @@ public class PageBase {
         js.executeScript("arguments[0].style.height='auto';", element); // Ensure the file input height is not restricted
         element.sendKeys(imagePath);
     }
+
 
 
 
