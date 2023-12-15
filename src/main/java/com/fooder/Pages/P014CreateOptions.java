@@ -34,13 +34,14 @@ public class P014CreateOptions extends P008CreateGroup {
     private final By Localized_Name_Error_Message = By.xpath("//span[normalize-space()='Localized name is required' or contains(text(),'الأسم المترجم مطلوب')]");
     private final By Price_Error_Message = By.xpath("//span[normalize-space()='Price is required' or contains(text(),'السعر مطلوب')]");
     private final By Modifier_Error_Message = By.xpath("//span[normalize-space()='Modifier is required' or contains(text(),'المعدل مطلوب')]");
+    private final By Confirm_Deleting = By.xpath("//button[@class='btn btn-danger mx-1']/span[contains(text(),' Yes, delete it! ') or contains(text(),'نعم ، إحذفها!')]");
 
     private void checkCreateOption(){
         validateMenuItems();
         validateOptionScreen();
         validateCreateOptionsScreen();
     }
-    private void validateOptionScreen(){
+    public void validateOptionScreen(){
         clickOnelement(Options);
         Assert.assertTrue(assertElementDisplayed(Crete_CTA));
     }
@@ -167,4 +168,24 @@ public class P014CreateOptions extends P008CreateGroup {
         optionElement.click();
 
     }
+    private void deleteModifier(String index){
+        if(!driver.findElement(Groups).isDisplayed()) {
+            validateMenuItems();
+            validateOptionScreen();
+        }else {
+            scrollToElement(Options);
+            clickOnelement(Options);
+        }
+        By DeleteIcon = By.xpath("//tbody/tr[" + index + "]/td[7]/button[1]//*[name()='svg']");
+        Assert.assertTrue(assertElementDisplayed(DeleteIcon));
+        clickOnelement(DeleteIcon);
+        Assert.assertTrue(assertElementDisplayed(Confirm_Deleting));
+        clickOnelement(Confirm_Deleting);
+        validateDeletedMessage();
+    }
+    public void checkDeleteModifier(){
+        deleteModifier("1");
+
+    }
+
 }

@@ -61,7 +61,7 @@ public class P012EditProduct extends P010CreateProduct{
     public void checkDeactivateProduct(String index){
         selectProductTOEditIt(index);
         checkEditProductScreen(index);
-        checkDeactivateProduct();
+        deactivateProduct();
     }
     private void selectProductTOEditIt(String index){
         if(!driver.findElement(Products_From_Menu).isDisplayed()) {
@@ -73,7 +73,7 @@ public class P012EditProduct extends P010CreateProduct{
             Assert.assertTrue(assertElementDisplayed(branchEditIcon));
         }
     }
-    private void checkDeactivateProduct(){
+    private void deactivateProduct(){
         clickOnelement(Deactivate_Product);
         validateUpdateMessage();
         Assert.assertTrue(checkForLocalization(ProductInActiveStatus,"Inactive","غير نشط"));

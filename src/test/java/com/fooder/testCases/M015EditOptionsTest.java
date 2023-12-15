@@ -8,33 +8,39 @@ import org.testng.annotations.Test;
 import static com.fooder.testBase.ReadProperties.*;
 import static com.fooder.testBase.ReadProperties.Branch_Name_Localized;
 
-public class M014OptionsTest extends BaseTest {
+public class M015EditOptionsTest extends BaseTest {
     P002DashBoardPage dashboard;
     P001WelcomePage wlcPage;
-    P010CreateProduct product;
-    P012EditProduct editProduct;
     P014CreateOptions option;
+    P015EditOptionsPage editOption;
 
 
     @BeforeClass
     public void initiateObject() {
         dashboard = new P002DashBoardPage(driver);
         wlcPage = new P001WelcomePage(driver);
-        product = new P010CreateProduct(driver);
-        editProduct = new P012EditProduct(driver);
         option = new P014CreateOptions(driver);
+        editOption = new P015EditOptionsPage(driver);
 
     }
-
-
     @Test
-    public void TC_02validateCreateOption(){
+    public void TC_01validateDeactivateProduct(){
         wlcPage.loginWithValidateData(username, password);
         option.validateProductCreation(Modifier_Name,Option_tax_Group,Option_costing_Method,Option_name,Option_localized_name,
                 Option_calories,Option_price,Option_sku,false);
+        editOption.checkDeactivateProduct("1");
         option.checkDeleteModifier();
-
         dashboard.backToLoinScreen();
     }
-}
 
+    @Test
+    public void TC_02validateEditProduct(){
+        wlcPage.loginWithValidateData(username, password);
+        option.validateProductCreation(Modifier_Name,Option_tax_Group,Option_costing_Method,Option_name,Option_localized_name,
+                Option_calories,Option_price,Option_sku,false);
+        editOption.checkEditOption("1",New_Modifier_Name,Branch_Name_Localized);
+        option.checkDeleteModifier();
+        dashboard.backToLoinScreen();
+    }
+
+}
