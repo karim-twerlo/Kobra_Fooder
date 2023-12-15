@@ -62,6 +62,13 @@ public class ReadProperties {
     public static final String New_Modifier_Name = getPropertyFromModifier("new_name");
     public static final String New_Modifier_Localized_Name = getPropertyFromModifier("new_localized_Name");
     public static final String New_Modifier_Reference = getPropertyFromModifier("new_reference");
+    public static final String Option_tax_Group = getPropertyFromOption("tax_Group");
+    public static final String Option_costing_Method = getPropertyFromOption("costing_Method");
+    public static final String Option_name = getPropertyFromOption("name");
+    public static final String Option_localized_name = getPropertyFromOption("localized_name");
+    public static final String Option_calories = getPropertyFromOption("calories");
+    public static final String Option_price = getPropertyFromOption("price");
+    public static final String Option_sku = getPropertyFromOption("sku");
 
     private static String getPropertyFromEnv(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readEnvFile(propertyName));
@@ -89,6 +96,9 @@ public class ReadProperties {
     }
     private static String getPropertyFromModifier(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readModifierFile(propertyName));
+    }
+    private static String getPropertyFromOption(String propertyName) {
+        return System.getProperty(propertyName, PropertiesLoader.readOptionFile(propertyName));
     }
 
 
