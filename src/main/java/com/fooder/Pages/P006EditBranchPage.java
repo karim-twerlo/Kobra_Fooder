@@ -187,10 +187,10 @@ public class P006EditBranchPage extends PageBase {
 
 
         // Set initial hours and minutes
-        sendTextToInputField("05", Start_Hour);
-        sendTextToInputField("12", End_Hour);
+        sendTextToInputField("00", Start_Hour);
+        sendTextToInputField("23", End_Hour);
         sendTextToInputField("00", Start_Minute);
-        sendTextToInputField("30", End_Minute);
+        sendTextToInputField("59", End_Minute);
 
         if (needExtraTime) {
             driver.findElement(By.xpath("(//div[@class='col p-0 ng-star-inserted']//button[@class='btn btn-icon btn-flat-primary ng-star-inserted'])[" + plus_index + "]")).click();
