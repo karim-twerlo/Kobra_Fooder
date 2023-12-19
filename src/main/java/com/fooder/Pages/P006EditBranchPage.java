@@ -232,13 +232,13 @@ public class P006EditBranchPage extends PageBase {
 
   }
   private void setTimeForEachDay(){
-      openTimingToggle("SUNDAY" ,sunday_Toggle , true  );
+      openTimingToggle("SUNDAY" ,sunday_Toggle , false  );
       openTimingToggle("MONDAY" , monday_Toggle , false );
       openTimingToggle("TUESDAY" , tuesday_Toggle , true );
       openTimingToggle("WEDNESDAY" , wednesday_Toggle , false );
       openTimingToggle("THURSDAY" , thursday_Toggle , false );
       openTimingToggle("FRIDAY" , friday_Toggle , false );
-      openTimingToggle("SATURDAY" , saturday_Toggle , true );
+      openTimingToggle("SATURDAY" , saturday_Toggle , false );
   }
     private  void openTimingToggle(String id , By by , Boolean needExtraTime ){
         scrollToElement(by);
@@ -250,7 +250,7 @@ public class P006EditBranchPage extends PageBase {
     public void checkOrderScheduling(){
         scrollToElement(Order_Scheduling);
         Assert.assertTrue(assertElementDisplayed(Order_Scheduling));
-        enableToggle(Accept_ASAP_orders_Toggle);
+//        enableToggle(Accept_ASAP_orders_Toggle);
         enableToggle(Accept_pre_orders_Toggle);
         waitForVisibilityOfElement(Accept_Pre_In_Day);
         scrollToElement(Accept_ASAP_orders_Toggle);
@@ -259,7 +259,7 @@ public class P006EditBranchPage extends PageBase {
         Assert.assertTrue(assertElementDisplayed(Max_Days_In_Advance));
         Assert.assertTrue(assertElementDisplayed(Slot_Length));
         scrollToElement(Slot_Length);
-        selectDays("5");
+        selectDays("29");
         selectHours("3");
         validateUpdateMessage();
     }

@@ -9,6 +9,9 @@ import org.testng.Assert;
 
 import java.security.spec.ECField;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class PageBase {
@@ -240,6 +243,22 @@ public class PageBase {
         }
         System.err.println("Error: No numeric value found in the input.");
         return 0;
+    }
+    public  int getCurrentHour() {
+        LocalTime currentTime = LocalTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
+        String formattedHour = currentTime.format(formatter);
+        int currentHour = Integer.parseInt(formattedHour);
+        System.out.println(currentHour);
+        return currentHour;
+    }
+    public  int nextDay() {
+        LocalDate today = LocalDate.now();
+        LocalDate nextDay = today.plusDays(1);
+        int nextDayAsInt = nextDay.getDayOfMonth();
+        System.out.println("Next day as an integer: " + nextDayAsInt);
+        return nextDayAsInt;
     }
 
 

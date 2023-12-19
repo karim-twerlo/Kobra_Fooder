@@ -26,7 +26,7 @@ public class M016LiverOrderTest extends BaseTest {
     @Test
     public void TC_01validateLiveOrder(){
         wlcPage.loginWithValidateData(username, password);
-        liveOrder.checkLiveOrderCreation("karim_twerlo","1270020414",Branch_Name , Category_Name,Product_name , 4);
+        liveOrder.checkLiveOrderCreation("karim_twerlo","1270020414",Branch_Name , Category_Name,Product_name , 4 , true , true);
 //        dashboard.backToLoinScreen();
     }
 
