@@ -225,13 +225,21 @@ public class PageBase {
             e.getStackTrace();
         }
     }
-    public void sendImageUsingJS(String imagePath , By input){
-        WebElement element = driver.findElement(input);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].style.display='block';", element); // Ensure the file input is visible
-        js.executeScript("arguments[0].style.opacity=1;", element); // Ensure the file input is not transparent
-        js.executeScript("arguments[0].style.height='auto';", element); // Ensure the file input height is not restricted
-        element.sendKeys(imagePath);
+    public  int extractAndConvertToInt(String input) {
+        String[] parts = input.split("\\D+");
+
+        for (String part : parts) {
+            if (!part.isEmpty()) {
+                try {
+                    return Integer.parseInt(part);
+                } catch (NumberFormatException e) {
+                    System.err.println("Error: Part is not a valid integer.");
+                    return 0;
+                }
+            }
+        }
+        System.err.println("Error: No numeric value found in the input.");
+        return 0;
     }
 
 
