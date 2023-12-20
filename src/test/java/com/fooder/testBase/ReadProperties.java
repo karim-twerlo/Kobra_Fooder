@@ -69,6 +69,8 @@ public class ReadProperties {
     public static final String Option_calories = getPropertyFromOption("calories");
     public static final String Option_price = getPropertyFromOption("price");
     public static final String Option_sku = getPropertyFromOption("sku");
+    public static final String Client_Name = getPropertyFromClient("name");
+    public static final String Client_Mobile = getPropertyFromClient("mobile");
 
     private static String getPropertyFromEnv(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readEnvFile(propertyName));
@@ -99,6 +101,9 @@ public class ReadProperties {
     }
     private static String getPropertyFromOption(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readOptionFile(propertyName));
+    }
+    private static String getPropertyFromClient(String propertyName) {
+        return System.getProperty(propertyName, PropertiesLoader.readClientFile(propertyName));
     }
 
 

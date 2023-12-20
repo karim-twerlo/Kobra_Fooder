@@ -78,5 +78,9 @@ public class PropertiesLoader {
         File file = new File("src/config/option.properties");
         return getPropertyValue(key,file);
     }
+    public static String readClientFile(String key){
+        File file = new File("src/config/client.properties");
+        return getPropertyValue(key,file);
+    }
 
 }

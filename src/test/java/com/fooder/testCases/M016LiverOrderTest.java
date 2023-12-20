@@ -24,10 +24,13 @@ public class M016LiverOrderTest extends BaseTest {
 
     }
     @Test
-    public void TC_01validateLiveOrder(){
+    public void TC_01validateLiveOrdersAllScenarios(){
         wlcPage.loginWithValidateData(username, password);
-        liveOrder.checkLiveOrderCreation("karim_twerlo","1270020414",Branch_Name , Category_Name,Product_name , 4 , true , true);
-//        dashboard.backToLoinScreen();
+        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 , false , true , true);
+        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 2 , false , false , false);
+        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 3 , true , true , false);
+        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 4 , true , false ,false);
+        dashboard.backToLoinScreen();
     }
 
 
