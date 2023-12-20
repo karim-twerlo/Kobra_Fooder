@@ -39,7 +39,57 @@ public class P016LiveOrder extends PageBase {
     private final By Place_Order = By.xpath("//button[normalize-space()='Create order' or contains(text(),'انشى الطلب')]");
     private final By Amount_Place_Holder = By.xpath("//cart-summary//div[@class='cart-items']//p[contains(text(),' SAR')]");
     private final By Order_Created_Msg =By.xpath("//h5[contains(text(),'You have') or contains(text(),'لديك')]");
-    private final By Close_Order_Msg = By.xpath("//button[contains(text(),'close') or contains(text(),'إغلاق')]");
+    private final By Close_Order_Msg = By.xpath("//button[contains(text(),'Close') or contains(text(),'إغلاق')]");
+    private final By Choose_Delivery = By.xpath("//label[@for='delivery' and @class='btn btn-outline-primary'][contains(normalize-space(.), 'Delivery') or contains(normalize-space(.), 'التوصيل')]");
+    private final By Choose_From_Map = By.xpath("//button[normalize-space()='Choose from map' or contains(text(),'اختر من الخريطة')]");
+    private final By Search_Into_Map = By.xpath("//input[@class='form-control']");
+    private final By Confirm_Location_On_Map = By.xpath("//span[normalize-space()='Choose location' or contains(text(),'اختر الموقع')]");
+    private final By Input_Location = By.xpath("(//input[@id='location'])[1]");
+    private final By Input_House_Number = By.xpath("(//input[@id='house_number'])[1]");
+    private final By Input_LandMark = By.xpath("(//input[@id='landmark'])[1]");
+    private final By Choose_Home = By.xpath("(//span[contains(text(),'Home') or contains(text(),'المنزل')])[1]");
+    private final By Choose_Scheduled = By.xpath("//label[@for='schedule' and @class='btn btn-outline-primary'][contains(normalize-space(.), 'Schedule') or contains(normalize-space(.), 'جدول')]");
+    private final By Hours = By.xpath("(//input[@placeholder='HH'])[1]");
+    private final By Minutes = By.xpath("(//input[@placeholder='MM'])[1]") ;
+    private final By Date = By.xpath("//form[@class='ng-invalid ng-touched ng-dirty']//div[@class='datePicker ng-star-inserted']//input[@type='text']");
+
+    private void selectDeliveryOrder(){
+        try {
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+        driver.findElement(Choose_Delivery).click();
+        scrollToElement(Choose_From_Map);
+        clickOnelement(Choose_From_Map);
+        Assert.assertTrue(assertElementDisplayed(Search_Into_Map));
+        sendTextToInputField("Alexandria , Egypt , bab sharqi" , Search_Into_Map);
+        SelectLocation("Alexandria");
+        scrollToElement(Confirm_Location_On_Map);
+        clickOnelement(Confirm_Location_On_Map);
+        Assert.assertTrue(assertElementDisplayed(Input_Location));
+        scrollToElement(Input_Location);
+        sendTextToInputField("6W29+2FH, Bab Sharqi WA Wabour Al Meyah",Input_Location);
+        sendTextToInputField("hambka cafe",Input_LandMark);
+        clickOnelement(Choose_Home);
+        sendTextToInputField("30",Input_House_Number);
+
+
+    }
+    private void selectScheduledOrder(){
+        String hours =String.valueOf( getCurrentHour() +2 );
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+        if(!(getCurrentHour() + 1 == 24)) {
+            driver.findElement(Choose_Scheduled).click();
+            sendTextToInputField(hours,Hours);
+            sendTextToInputField("00",Minutes);
+        }
+
+    }
     private void checkLiveOrderScreen(){
         navigateToLiveOrderScreen();
         clickOnelement(Live_Order_From_Menu);
@@ -59,11 +109,16 @@ public class P016LiveOrder extends PageBase {
         Assert.assertTrue(assertElementDisplayed(Input_Mobile_Number));
 
     }
-    public void checkLiveOrderCreation(String fullName , String mobileNumber , String branchName , String Category , String Product , int NumberOfProducts){
+    public void checkLiveOrderCreation(String fullName , String mobileNumber , String branchName , String Category , String Product , int NumberOfProducts  , Boolean isDelivery , Boolean isScheduled , Boolean IsEnglish){
+        if(IsEnglish){
+            selectEnglish();
+        }
         checkLiveOrderScreen();
         clickOnelement(Create_Order);
         checkCreateLiveOrderScreen();
         fillOrderForm(fullName , mobileNumber , branchName);
+        if(isScheduled)selectScheduledOrder();
+        if(isDelivery) selectDeliveryOrder();
         confirmFillOrder();
         validateOrderCartScreen(Category ,Product , NumberOfProducts );
     }
@@ -80,6 +135,12 @@ public class P016LiveOrder extends PageBase {
         sendTextToInputField(MobileNumber , Input_Mobile_Number);
         scrollToElement(Select_Branch_Dropdown);
         SelectBranch(BranchName);
+        try {
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+        driver.findElement(By.xpath("//span[normalize-space(text())='+20" + MobileNumber + "']")).click();
 
     }
     private void confirmFillOrder(){
@@ -89,17 +150,17 @@ public class P016LiveOrder extends PageBase {
     }
     private void validateOrderCartScreen(String category , String ProductName , int numberOfProducts){
         By Category = By.xpath("//button[normalize-space()='" + category + "']");
-        By product = By.xpath("//h4[normalize-space()='" + ProductName + "']");
+        By product = By.xpath("//h6[normalize-space()='" + ProductName + "']");
         Assert.assertTrue(assertElementDisplayed(Category));
         validatePaymentScreen();
-        selectProductFromCategory(Category , Product);
+        selectProductFromCategory(Category , product);
         validateBasketScreen(product);
         clickOnelement(Add_To_Basket);
         validateOrderIntoCard(numberOfProducts);
         clickOnelement(Complete_Order);
         validatePlaceOrderScreen();
         clickOnelement(Place_Order);
-        vlidateOrderCratedSccessfully();
+        validateOrderCratedSuccessfully();
         validateOrders();
 
     }
@@ -151,7 +212,7 @@ public class P016LiveOrder extends PageBase {
         scrollToElement(Complete_Order);
         Assert.assertTrue(assertElementDisplayed(Complete_Order));
     }
-    private void vlidateOrderCratedSccessfully(){
+    private void validateOrderCratedSuccessfully(){
         Assert.assertTrue(assertElementDisplayed(Order_Created_Msg));
         Assert.assertTrue(assertElementDisplayed(Close_Order_Msg));
         clickOnelement(Close_Order_Msg);
@@ -163,6 +224,15 @@ public class P016LiveOrder extends PageBase {
             System.out.println("======>> " + checkboxElements.get(i).getText());
         }
         System.out.println(checkboxElements.size());
+
+    }
+    private void SelectLocation(String text){
+        By optionLocator = By.xpath("//span[contains(normalize-space(.), '" + text + "')]");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(optionLocator));
+        optionElement.click();
+
+
 
     }
 
