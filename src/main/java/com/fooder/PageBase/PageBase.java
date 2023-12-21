@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PageBase {
     public WebDriver driver;
@@ -260,7 +262,21 @@ public class PageBase {
         System.out.println("Next day as an integer: " + nextDayAsInt);
         return nextDayAsInt;
     }
+    public  double extractNumber(String input) {
+        Pattern pattern = Pattern.compile("\\n([\\d.]+) SAR");
+        Matcher matcher = pattern.matcher(input);
 
+        // Find the first match in the input text
+        if (matcher.find()) {
+            // Extract the matched value and convert it to a double
+            String matchedValue = matcher.group(1);
+            return Double.parseDouble(matchedValue);
+        } else {
+            // Handle the case where no match is found
+            System.out.println("No value found in the input text: " + input);
+            return 0.0; // Or throw an exception, depending on your requirements
+        }
+    }
 
 
 

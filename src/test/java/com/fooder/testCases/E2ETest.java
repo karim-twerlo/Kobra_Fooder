@@ -65,20 +65,18 @@ public class E2ETest extends BaseTest {
         role.createRole( Role_name_c ,   Role_password_c ,  Role_email_c ,  Role_c ,Branch_Name_Localized);
         settings.checkBranchesSettings();
         category.checkCreateCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false);
-        //click on menu
         group.checkGroupCreation(Group_Name,Group_Localized_Name);
         editGroup.validateEditGroup(Product_name , true);
-        //click on menu
         option.validateProductCreation(Modifier_Name,Option_tax_Group,Option_costing_Method,Option_name,Option_localized_name,
                 Option_calories,Option_price,Option_sku,false);
         editOption.checkEditOption("1",New_Modifier_Name,Branch_Name_Localized);
         product.validateProductCreation(Category_Name,Product_tax_Group,Product_costing_Method,Product_name,Product_desc,
                 Product_descLocalized,Product_localized_name,Product_calories,Product_price,Product_sku,Product_prepTime,false);
         editProduct.checkEditProduct("1",Modifier_Name,Branch_Name_Localized);
-        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 , false , true ,true, false);
-        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 2 , false , false , false,false);
-        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 3 , true , true , true, false);
-        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 4 , true , false ,false,false);
+        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, false , true ,true, false);
+        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, false , false ,true, false);
+        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, true , true ,false, false);
+        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, true , false ,false, false);
 
     }
 
