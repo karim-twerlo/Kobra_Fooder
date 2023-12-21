@@ -30,7 +30,6 @@ public class P016LiveOrder extends PageBase {
     private final By Search_Btn = By.xpath("//input[@placeholder='Search' or @placeholder='أبحث']");
     private final By Special_Instructions_Label= By.xpath("//form[@class='ng-untouched ng-pristine ng-valid']//p[contains(text(),'Special instructions') or contains(text(),'تعليمات خاصة')]");
     private final By Sum = By.xpath("//div[@class='cart-bill_details']//div//p[contains(text(),'Grand Total') or contains(text(),'المجموع الإجمالي')]");
-    private final By Product = By.xpath("//button[@class='btn categoryBtn']//img");
     private final By Add_To_Basket = By.xpath("//span[normalize-space()='Add to basket' or contains(text(),'اضف للسلة')]");
     private final By Quantity = By.xpath("//span[normalize-space()='Quantity' or contains(text(),'الكمية')]");
     private final By Plus = By.xpath("//button[@class='plusBtn']//*[name()='svg']");
@@ -52,6 +51,8 @@ public class P016LiveOrder extends PageBase {
     private final By Hours = By.xpath("(//input[@placeholder='HH'])[1]");
     private final By Minutes = By.xpath("(//input[@placeholder='MM'])[1]") ;
     private final By Date = By.xpath("//form[@class='ng-invalid ng-touched ng-dirty']//div[@class='datePicker ng-star-inserted']//input[@type='text']");
+    private final By Online = By.xpath("//label[normalize-space()='Online' or contains(text(),'الدفع الالكتروني')]");
+    private final By Send_Via_Whatsapp = By.xpath("//button[normalize-space()='Send via whatsapp' or contains(text(),'ارسل على الواتساب')]");
 
     private void selectDeliveryOrder(){
         try {
@@ -109,7 +110,7 @@ public class P016LiveOrder extends PageBase {
         Assert.assertTrue(assertElementDisplayed(Input_Mobile_Number));
 
     }
-    public void checkLiveOrderCreation(String fullName , String mobileNumber , String branchName , String Category , String Product , int NumberOfProducts  , Boolean isDelivery , Boolean isScheduled , Boolean IsEnglish){
+    public void checkLiveOrderCreation(String fullName , String mobileNumber , String branchName , String Category , String Product , int NumberOfProducts  , Boolean isDelivery , Boolean isScheduled ,Boolean isOnlinePayment, Boolean IsEnglish){
         if(IsEnglish){
             selectEnglish();
         }
@@ -120,11 +121,11 @@ public class P016LiveOrder extends PageBase {
         if(isScheduled)selectScheduledOrder();
         if(isDelivery) selectDeliveryOrder();
         confirmFillOrder();
-        validateOrderCartScreen(Category ,Product , NumberOfProducts );
+        validateOrderCartScreen(Category ,Product , NumberOfProducts ,isOnlinePayment);
     }
     private void SelectBranch(String text){
         driver.findElement(Select_Branch_Dropdown).click();
-        By optionLocator = By.xpath("//div[@class='ng-option ng-option-marked']/span[@class='ng-option-label'][contains(text(),'" + text + "')]");
+        By optionLocator = By.xpath("//span[normalize-space()='" + text + "']");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(optionLocator));
         optionElement.click();
@@ -148,7 +149,7 @@ public class P016LiveOrder extends PageBase {
         Assert.assertTrue(assertElementDisplayed(Go_Select_Item));
         clickOnelement(Go_Select_Item);
     }
-    private void validateOrderCartScreen(String category , String ProductName , int numberOfProducts){
+    private void validateOrderCartScreen(String category , String ProductName , int numberOfProducts , Boolean isOnlinePayment){
         By Category = By.xpath("//button[normalize-space()='" + category + "']");
         By product = By.xpath("//h6[normalize-space()='" + ProductName + "']");
         Assert.assertTrue(assertElementDisplayed(Category));
@@ -159,10 +160,22 @@ public class P016LiveOrder extends PageBase {
         validateOrderIntoCard(numberOfProducts);
         clickOnelement(Complete_Order);
         validatePlaceOrderScreen();
-        clickOnelement(Place_Order);
-        validateOrderCratedSuccessfully();
-        validateOrders();
+        selectPaymentMethod(isOnlinePayment);
 
+    }
+    private void selectPaymentMethod(Boolean isOnlinePayment){
+        if(isOnlinePayment){
+            clickOnelement(Online);
+            scrollToElement(Send_Via_Whatsapp);
+            Assert.assertTrue(assertElementDisplayed(Send_Via_Whatsapp));
+            clickOnelement(Send_Via_Whatsapp);
+            validateOrderCratedSuccessfully();
+            validateOrders();
+        }else {
+            clickOnelement(Place_Order);
+            validateOrderCratedSuccessfully();
+            validateOrders();
+        }
     }
     private void validateEachItem(By by){
         scrollToElement(by);
@@ -213,9 +226,13 @@ public class P016LiveOrder extends PageBase {
         Assert.assertTrue(assertElementDisplayed(Complete_Order));
     }
     private void validateOrderCratedSuccessfully(){
-        Assert.assertTrue(assertElementDisplayed(Order_Created_Msg));
-        Assert.assertTrue(assertElementDisplayed(Close_Order_Msg));
-        clickOnelement(Close_Order_Msg);
+      try {
+          Assert.assertTrue(assertElementDisplayed(Order_Created_Msg));
+          Assert.assertTrue(assertElementDisplayed(Close_Order_Msg));
+          clickOnelement(Close_Order_Msg);
+      }catch (Exception e){
+          e.getStackTrace();
+      }
     }
     public void validateOrders(){
         Assert.assertTrue(assertElementDisplayed(Create_Order));

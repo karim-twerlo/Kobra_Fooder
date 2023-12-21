@@ -84,6 +84,7 @@ public class P015EditOptionsPage extends P014CreateOptions {
     private void fillCustomPriceForm(String Branch_Name ){
         SelectBranch(Branch_Name);
         sendTextToInputField("10",Input_Price);
+        clickOnelement(myAccount);
         clickOnelement(Save_Custom_Price_Section);
         validateLinkedSuccessMessage();
     }

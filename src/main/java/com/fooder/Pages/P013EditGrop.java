@@ -101,10 +101,10 @@ public class P013EditGrop extends P008CreateGroup{
         By Start_Minute = By.xpath("(//input[@placeholder='MM'])[" + index + "]");
         By End_Minute = By.xpath("(//input[@placeholder='MM'])[" + (index + 1) + "]");
 
-        sendTextToInputField("05", Start_Hour);
-        sendTextToInputField("12", End_Hour);
+        sendTextToInputField("00", Start_Hour);
+        sendTextToInputField("23", End_Hour);
         sendTextToInputField("00", Start_Minute);
-        sendTextToInputField("30", End_Minute);
+        sendTextToInputField("59", End_Minute);
 
         incrementIndex(2);
     }

@@ -61,7 +61,7 @@ public class P010CreateProduct extends PageBase {
 
    }
     public void openProductsScreen(){
-       category.validateMenuItems();
+        if(!driver.findElement(Products_From_Menu).isDisplayed()) category.validateMenuItems();
        scrollToElement(Products_From_Menu);
        clickOnelement(Products_From_Menu);
        validateProductsScreen();

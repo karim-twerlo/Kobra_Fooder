@@ -31,6 +31,7 @@ public class P005DeliveryAreaPage extends PageBase {
     private final By deliveryAreaTypeInput = By.xpath("//input[@aria-autocomplete='list']");
 
     private final By submit = By.xpath("//button[@type='submit']");
+    private final By DeliveryAreaRadiusInput = By.xpath("//input[@placeholder='Enter delivery area radius' or @placeholder='أدخل نصف قطر منطقة التسليم']");
 
     private void validateDeliveryAreaElements(){
         waitForVisibilityOfElement(deliveryAreaNameLabel);
@@ -48,6 +49,7 @@ public class P005DeliveryAreaPage extends PageBase {
         selectInput(deliveryFeesInput ,deliveryFees );
         selectInput(extraDistanceFeesInput ,extraDistanceFees );
         selectInput(deliveryAreaNameInput ,deliveryAreaName );
+        if(deliveryAreaType.contains("Radius"))selectInput(DeliveryAreaRadiusInput ,"50" );
 
     }
     private void selectInput(By by , String text){

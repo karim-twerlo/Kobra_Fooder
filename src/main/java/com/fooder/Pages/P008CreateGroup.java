@@ -37,7 +37,7 @@ public class P008CreateGroup extends PageBase {
     public void validateMenuItems(){
         scrollToElement(Menu);
         waitForVisibilityOfElement(Menu);
-        clickOnelement(Menu);
+        if(!driver.findElement(Groups).isDisplayed())clickOnelement(Menu);
         validateEachItem(Options);
         validateEachItem(Modifiers);
         validateEachItem(Products);
