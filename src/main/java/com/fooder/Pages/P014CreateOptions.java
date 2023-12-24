@@ -57,7 +57,7 @@ public class P014CreateOptions extends P008CreateGroup {
         validateModifierFormScreenLabels();
         validateModifierFormScreenInputs();
         validateMandatoryFields();
-        fillModifierForm(ModifierName ,tax_Group ,costing_Method,name,localized_name,calories,price,sku + generateRandomDigits(3));
+        fillModifierForm(ModifierName ,tax_Group ,costing_Method,name,localized_name,calories,price,sku + generateRandomDigits(5));
         submitModifierCreation();
     }
     private void validateModifierFormScreenLabels(){

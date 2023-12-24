@@ -29,7 +29,6 @@ public class P008CreateGroup extends PageBase {
     private final By Submit_Creation = By.xpath("//span[@class='mx-50 align-middle']");
     private final By Name_Error_Message = By.xpath("//span[normalize-space()='Name is required' or contains(text(),'الأسم مطلوب')]");
     private final By Name_Localized_Error_Message = By.xpath("//span[normalize-space()='Localized name is required' or contains(text(),'الأسم المترجم مطلوب')]");
-
     private void validateErrorMessages(){
         validateErrorMessage(Name_Input, Name_Localized_Input , Name_Error_Message);
         validateErrorMessage(Name_Localized_Input , Name_Input , Name_Localized_Error_Message);
@@ -37,7 +36,7 @@ public class P008CreateGroup extends PageBase {
     public void validateMenuItems(){
         scrollToElement(Menu);
         waitForVisibilityOfElement(Menu);
-        clickOnelement(Menu);
+        if(!driver.findElement(Groups).isDisplayed())clickOnelement(Menu);
         validateEachItem(Options);
         validateEachItem(Modifiers);
         validateEachItem(Products);

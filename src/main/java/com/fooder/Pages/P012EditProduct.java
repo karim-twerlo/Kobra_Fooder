@@ -152,6 +152,7 @@ public class P012EditProduct extends P010CreateProduct{
     private void fillCustomPriceForm(String Branch_Name ){
         SelectBranch(Branch_Name);
         sendTextToInputField("10",Input_Price);
+        clickOnelement(myAccount);
         clickOnelement(Save_Custom_Price_Section);
         validateLinkedSuccessMessage();
     }

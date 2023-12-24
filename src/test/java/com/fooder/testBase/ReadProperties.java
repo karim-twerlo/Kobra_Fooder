@@ -71,6 +71,8 @@ public class ReadProperties {
     public static final String Option_sku = getPropertyFromOption("sku");
     public static final String Client_Name = getPropertyFromClient("name");
     public static final String Client_Mobile = getPropertyFromClient("mobile");
+    public static final String Client_Location = getPropertyFromClient("location");
+    public static final String Client_Notes = getPropertyFromClient("notes");
 
     private static String getPropertyFromEnv(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readEnvFile(propertyName));

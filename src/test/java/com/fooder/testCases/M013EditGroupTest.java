@@ -36,7 +36,7 @@ public class M013EditGroupTest extends BaseTest {
     public void TC_002validateEditGroup(){
         wlcPage.loginWithValidateData(username, password);
         group.checkGroupCreation(Group_Name,Group_Localized_Name);
-        editGroup.validateEditGroup(Product_name , false);
+        editGroup.validateEditGroup(Product_name , true);
         dashboard.backToLoinScreen();
 
     }

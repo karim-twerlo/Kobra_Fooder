@@ -22,14 +22,16 @@ public class M016LiverOrderTest extends BaseTest {
         wlcPage = new P001WelcomePage(driver);
         liveOrder = new P016LiveOrder(driver);
 
+
     }
     @Test
     public void TC_01validateLiveOrdersAllScenarios(){
         wlcPage.loginWithValidateData(username, password);
-        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 , false , true , true);
-        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 2 , false , false , false);
-        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 3 , true , true , false);
-        liveOrder.checkLiveOrderCreation(Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 4 , true , false ,false);
+        liveOrder.checkLiveOrderScreen();
+        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, false , true ,false, false);
+        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, false , false ,true, false);
+        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, true , true ,true, false);
+        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, true , false ,false, false);
         dashboard.backToLoinScreen();
     }
 

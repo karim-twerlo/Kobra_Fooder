@@ -234,7 +234,7 @@ public class P006EditBranchPage extends PageBase {
   private void setTimeForEachDay(){
       openTimingToggle("SUNDAY" ,sunday_Toggle , false  );
       openTimingToggle("MONDAY" , monday_Toggle , false );
-      openTimingToggle("TUESDAY" , tuesday_Toggle , true );
+      openTimingToggle("TUESDAY" , tuesday_Toggle , false );
       openTimingToggle("WEDNESDAY" , wednesday_Toggle , false );
       openTimingToggle("THURSDAY" , thursday_Toggle , false );
       openTimingToggle("FRIDAY" , friday_Toggle , false );
