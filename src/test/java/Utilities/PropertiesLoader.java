@@ -82,5 +82,9 @@ public class PropertiesLoader {
         File file = new File("src/config/client.properties");
         return getPropertyValue(key,file);
     }
+    public static String readDriverFile(String key){
+        File file = new File("src/config/driver.properties");
+        return getPropertyValue(key,file);
+    }
 
 }

@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.internal.junit.ArrayAsserts;
 
 import java.time.Duration;
 import java.util.List;
@@ -60,7 +59,7 @@ public class P016LiveOrder extends PageBase {
     private final By accept_order = By.xpath("//button[@type='button']");
     private final By Call_Center = By.xpath("//p[normalize-space()='Call Center' or contains(text(),'مركز الإتصال')]");
     private final By delivered_Payment = By.xpath("//p[@class='mb-0 font-small-1' and (normalize-space()='Cash on delivery' or contains(text(),'الدفع عند التوصيل') )]");
-    private final By online_Payment = By.xpath("//p[@class='mb-0 font-small-1' and (normalize-space()='Online' or contains(text(),'دفع إلكتروني') )]");
+    private final By online_Payment = By.xpath("//p[normalize-space()='Online' or contains(text(),'دفع إلكتروني')]");
     private final By number_of_items = By.xpath("(//span[@class='font-small-1 font-weight-bolder'])[1]");
     private final By notes = By.xpath("//span[normalize-space()='test']");
     private final By sum = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25'])[1]");
@@ -102,7 +101,7 @@ public class P016LiveOrder extends PageBase {
         } catch (Exception e) {
             e.getStackTrace();
         }
-        if (!(getCurrentHour() + 1 == 24)) {
+        if (!(getCurrentHour() + 1 == 24) && ! (getCurrentHour() == 24) && ! (getCurrentHour() + 2 == 24)) {
             driver.findElement(Choose_Scheduled).click();
             sendTextToInputField(hours, Hours);
             sendTextToInputField("00", Minutes);
@@ -144,7 +143,20 @@ public class P016LiveOrder extends PageBase {
         if (isDelivery) selectDeliveryOrder(LocationOnMap);
         confirmFillOrder();
         validateOrderCartScreen(Category, Product, NumberOfProducts, isOnlinePayment, Notes);
+        navigateToReportsAndNavigateToOrdersAgain();
         validateOrdersDashboard(isOnlinePayment, isDelivery, fullName, mobileNumber, branchName, String.valueOf(NumberOfProducts), Notes, LocationOnMap);
+        checkAcceptOrder(isOnlinePayment);
+    }
+    private void navigateToReportsAndNavigateToOrdersAgain(){
+        Assert.assertTrue(assertElementDisplayed(Reports));
+        clickOnelement(Reports);
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+        scrollToElement(Live_Order_From_Menu);
+        clickOnelement(Live_Order_From_Menu);
     }
 
     private void SelectBranch(String text) {
@@ -299,14 +311,22 @@ public class P016LiveOrder extends PageBase {
     }
 
     private double validateAndExtractPrice(By by) {
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
         Assert.assertTrue(assertElementDisplayed(by));
         System.out.println(driver.findElement(by).getText());
         return extractNumber(driver.findElement(by).getText());
     }
+    public String order_number_value = "";
 
     private void validateOrdersDashboard(Boolean isOnline, Boolean isDelivery, String name, String mobile, String branch, String numberOfProducts, String Notes, String LocationOnMAp) {
         validateOrders();
         Assert.assertTrue(assertElementDisplayed(order_number));
+        order_number_value = driver.findElement(order_number).getText();
+        System.out.println(order_number_value);
         Assert.assertTrue(assertElementDisplayed(Reject_CTA));
         Assert.assertTrue(assertElementDisplayed(By.xpath("//p[normalize-space()='" + name + ", +20" + mobile + "']")));
         Assert.assertTrue(assertElementDisplayed(By.xpath("//p[normalize-space()='" + branch + "']")));
@@ -338,6 +358,23 @@ public class P016LiveOrder extends PageBase {
         Total_amount = validateAndExtractPrice(total_amount);
         Assert.assertEquals(Total_amount, deliverFees + deliveryTaxes + Taxes_amount + deduction_amount + sum_amount);
 
+    }
+
+    private final By accept_scheduled_CTA = By.xpath("(//span[@class='mx-50 align-middle'])[1]");
+    private final By Scheduled  = By.xpath("(//div[@class='font-small-1 font-weight-bolder badge badge-pill rounded badge-light-dark' and (normalize-space()='Scheduled' or contains(text(),'الطلبات المجدولة'))])[2]");
+    private final By Scheduled_orders = By.xpath("//a[contains(text(),'الطلبات المجدولة') or contains(text(),'Schedul')]");
+    private final By order_number_from_scheduled = By.xpath("(//p[@class='font-small-2 font-weight-bolder text-primary mb-0'])[1]");
+    private void checkAcceptOrder(Boolean isOnline){
+        if(!isOnline){
+            Assert.assertTrue(assertElementDisplayed(accept_scheduled_CTA));
+            clickOnelement(accept_scheduled_CTA);
+            validateUpdateMessage();
+            Assert.assertTrue(assertElementDisplayed(Scheduled));
+            clickOnelement(Scheduled_orders);
+            Assert.assertTrue(assertElementDisplayed(order_number_from_scheduled));
+//            System.out.println(driver.findElement(order_number_from_scheduled).getText());
+//            Assert.assertTrue(driver.findElement(order_number_from_scheduled).getText().contains(order_number_value));
+        }
     }
 
 }

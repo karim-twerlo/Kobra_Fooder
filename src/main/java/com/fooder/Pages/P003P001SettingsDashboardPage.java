@@ -57,7 +57,7 @@ public class P003P001SettingsDashboardPage extends PageBase {
 //        Assert.assertTrue(assertElementDisplayed(Branch_Name));
 //        scrollToElement(Branch_Name);
     }
-    private void checkNumberOfOrdersSettings(){
+    public void checkNumberOfOrdersSettings(){
         scrollToElement(DeliveryManagement);
         Assert.assertTrue(assertElementDisplayed(DeliveryManagement));
         clickOnelement(DeliveryManagement);

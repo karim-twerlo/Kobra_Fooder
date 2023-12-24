@@ -73,6 +73,8 @@ public class ReadProperties {
     public static final String Client_Mobile = getPropertyFromClient("mobile");
     public static final String Client_Location = getPropertyFromClient("location");
     public static final String Client_Notes = getPropertyFromClient("notes");
+    public static final String Driver_Name = getPropertyFromDriver("name");
+    public static final String Driver_Mobile = getPropertyFromDriver("mobile");
 
     private static String getPropertyFromEnv(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readEnvFile(propertyName));
@@ -106,6 +108,9 @@ public class ReadProperties {
     }
     private static String getPropertyFromClient(String propertyName) {
         return System.getProperty(propertyName, PropertiesLoader.readClientFile(propertyName));
+    }
+    private static String getPropertyFromDriver(String propertyName) {
+        return System.getProperty(propertyName, PropertiesLoader.readDriverFile(propertyName));
     }
 
 
