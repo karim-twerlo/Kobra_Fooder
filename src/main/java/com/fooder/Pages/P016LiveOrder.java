@@ -58,15 +58,15 @@ public class P016LiveOrder extends PageBase {
     private final By Reject_CTA = By.xpath("//span[normalize-space()='Reject' or contains(text(),'رفض الطلب')]");
     private final By accept_order = By.xpath("//button[@type='button']");
     private final By Call_Center = By.xpath("//p[normalize-space()='Call Center' or contains(text(),'مركز الإتصال')]");
-    private final By delivered_Payment = By.xpath("//p[@class='mb-0 font-small-1' and (normalize-space()='Cash on delivery' or contains(text(),'الدفع عند التوصيل') )]");
+    private final By delivered_Payment = By.xpath("//p[normalize-space()='Cash on delivery' or contains(text(),'الدفع عند التوصيل')]");
     private final By online_Payment = By.xpath("//p[normalize-space()='Online' or contains(text(),'دفع إلكتروني')]");
     private final By number_of_items = By.xpath("(//span[@class='font-small-1 font-weight-bolder'])[1]");
     private final By notes = By.xpath("//span[normalize-space()='test']");
     private final By sum = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25'])[1]");
     private final By deduction = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25 text-danger'])[1]");
     private final By taxes = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25'])[2]");
-    private final By delivery_fees = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25'])[3]");
-    private final By delivery_taxes = By.xpath("(//div[@class='d-flex align-items-center justify-content-between'])[2]");
+    private final By delivery_fees = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25 ng-star-inserted'])[1]");
+    private final By delivery_taxes = By.xpath("//div[@class='d-flex align-items-center justify-content-between ng-star-inserted']");
     private final By total_amount = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mt-1 font-weight-bolder'])[1]");
     private final By Reports = By.xpath("//span[normalize-space()='Reports' or contains(text(),'التقارير')]");
 
@@ -143,21 +143,11 @@ public class P016LiveOrder extends PageBase {
         if (isDelivery) selectDeliveryOrder(LocationOnMap);
         confirmFillOrder();
         validateOrderCartScreen(Category, Product, NumberOfProducts, isOnlinePayment, Notes);
-        navigateToReportsAndNavigateToOrdersAgain();
+        refreshDriver(driver.getCurrentUrl());
         validateOrdersDashboard(isOnlinePayment, isDelivery, fullName, mobileNumber, branchName, String.valueOf(NumberOfProducts), Notes, LocationOnMap);
         checkAcceptOrder(isOnlinePayment);
     }
-    private void navigateToReportsAndNavigateToOrdersAgain(){
-        Assert.assertTrue(assertElementDisplayed(Reports));
-        clickOnelement(Reports);
-        try{
-            Thread.sleep(2000);
-        }catch (Exception e){
-            e.getStackTrace();
-        }
-        scrollToElement(Live_Order_From_Menu);
-        clickOnelement(Live_Order_From_Menu);
-    }
+
 
     private void SelectBranch(String text) {
         driver.findElement(Select_Branch_Dropdown).click();
@@ -320,6 +310,20 @@ public class P016LiveOrder extends PageBase {
         System.out.println(driver.findElement(by).getText());
         return extractNumber(driver.findElement(by).getText());
     }
+    private double validateAndExtractPriceForDelivery(By by  , By by2) {
+        try {
+//            Thread.sleep(2000);
+            Assert.assertTrue(assertElementDisplayed(by));
+            System.out.println(driver.findElement(by).getText());
+            return extractNumber(driver.findElement(by).getText());
+        }catch (Exception e){
+        e.getStackTrace();
+            Assert.assertTrue(assertElementDisplayed(by2));
+            System.out.println(driver.findElement(by2).getText());
+            return extractNumber(driver.findElement(by2).getText());
+    }
+    }
+
     public String order_number_value = "";
 
     private void validateOrdersDashboard(Boolean isOnline, Boolean isDelivery, String name, String mobile, String branch, String numberOfProducts, String Notes, String LocationOnMAp) {
@@ -351,8 +355,8 @@ public class P016LiveOrder extends PageBase {
         Taxes_amount = validateAndExtractPrice(taxes);
         if (isDelivery) {
             Assert.assertTrue(assertElementDisplayed(By.xpath("//span[contains(text(),'" + LocationOnMAp + "')]")));
-            deliverFees = validateAndExtractPrice(delivery_fees);
-            deliveryTaxes = validateAndExtractPrice(delivery_taxes);
+            deliverFees = validateAndExtractPriceForDelivery(delivery_fees,By.xpath ("(//div[@class='d-flex align-items-center justify-content-between mb-25'])[3]"));
+            deliveryTaxes = validateAndExtractPriceForDelivery(delivery_taxes,By.xpath("(//div[@class='d-flex align-items-center justify-content-between'])[2]"));
         }
 
         Total_amount = validateAndExtractPrice(total_amount);

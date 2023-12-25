@@ -23,6 +23,7 @@ public class E2ETest extends BaseTest {
     P012EditProduct editProduct;
     P014CreateOptions option;
     P015EditOptionsPage editOption;
+    P017DeliveryManagement delivery;
 
     @BeforeClass
     public void initiateObject() {
@@ -41,6 +42,7 @@ public class E2ETest extends BaseTest {
         editProduct = new P012EditProduct(driver);
         option = new P014CreateOptions(driver);
         editOption = new P015EditOptionsPage(driver);
+        delivery = new P017DeliveryManagement(driver);
 
     }
     @Test
@@ -63,6 +65,8 @@ public class E2ETest extends BaseTest {
         role.createRole( Role_name_m ,   Role_password_m ,  Role_email_m ,  Role_m ,Branch_Name_Localized);
         role.createRole( Role_name_l ,   Role_password_l ,  Role_email_l ,  Role_l ,Branch_Name_Localized);
         role.createRole( Role_name_c ,   Role_password_c ,  Role_email_c ,  Role_c ,Branch_Name_Localized);
+//        dashboard.openSettingsMenu();
+        delivery.checkCreateDelivery(Driver_Name, Branch_Name);
         settings.checkBranchesSettings();
         category.checkCreateCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false);
         group.checkGroupCreation(Group_Name,Group_Localized_Name);
