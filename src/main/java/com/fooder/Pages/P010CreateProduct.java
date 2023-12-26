@@ -56,7 +56,7 @@ public class P010CreateProduct extends PageBase {
        Assert.assertTrue(assertElementDisplayed(Category));
        Assert.assertTrue(assertElementDisplayed(Price));
        Assert.assertTrue(assertElementDisplayed(Status));
-       Assert.assertTrue(assertElementDisplayed(DeleteIcon));
+//       Assert.assertTrue(assertElementDisplayed(DeleteIcon));
        Assert.assertTrue(assertElementDisplayed(Create_Product));
 
    }

@@ -49,7 +49,7 @@ public class PageBase {
 
     }
     public void waitForVisibilityOfElement(By by){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
     public void waitForVisibilityOfWebElement(WebElement element){
@@ -293,6 +293,7 @@ public class PageBase {
             driver.navigate().refresh();
             Thread.sleep(6000);
             waitForPageToLoad(url);
+            Thread.sleep(6000);
         } catch (Exception e) {
             e.printStackTrace();
         }
