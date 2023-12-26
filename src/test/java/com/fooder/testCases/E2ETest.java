@@ -23,6 +23,8 @@ public class E2ETest extends BaseTest {
     P012EditProduct editProduct;
     P014CreateOptions option;
     P015EditOptionsPage editOption;
+    P017DeliveryManagement delivery;
+    P011CreateModifiers modifier;
 
     @BeforeClass
     public void initiateObject() {
@@ -41,6 +43,8 @@ public class E2ETest extends BaseTest {
         editProduct = new P012EditProduct(driver);
         option = new P014CreateOptions(driver);
         editOption = new P015EditOptionsPage(driver);
+        delivery = new P017DeliveryManagement(driver);
+        modifier = new P011CreateModifiers(driver);
 
     }
     @Test
@@ -63,21 +67,28 @@ public class E2ETest extends BaseTest {
         role.createRole( Role_name_m ,   Role_password_m ,  Role_email_m ,  Role_m ,Branch_Name_Localized);
         role.createRole( Role_name_l ,   Role_password_l ,  Role_email_l ,  Role_l ,Branch_Name_Localized);
         role.createRole( Role_name_c ,   Role_password_c ,  Role_email_c ,  Role_c ,Branch_Name_Localized);
+        delivery.checkCreateDelivery(Driver_Name, Branch_Name);
         settings.checkBranchesSettings();
         category.checkCreateCategory(Category_Name ,Category_localizedName , Category_description , Category_localizedDescription , false);
-        group.checkGroupCreation(Group_Name,Group_Localized_Name);
-        editGroup.validateEditGroup(Product_name , true);
+        editGroup.validateDefaultGroup();
+        modifier.checkModifierCreation(Modifier_Name ,Modifier_Localized_Name ,Modifier_Reference );
+
         option.validateProductCreation(Modifier_Name,Option_tax_Group,Option_costing_Method,Option_name,Option_localized_name,
                 Option_calories,Option_price,Option_sku,false);
         editOption.checkEditOption("1",New_Modifier_Name,Branch_Name_Localized);
         product.validateProductCreation(Category_Name,Product_tax_Group,Product_costing_Method,Product_name,Product_desc,
                 Product_descLocalized,Product_localized_name,Product_calories,Product_price,Product_sku,Product_prepTime,false);
         editProduct.checkEditProduct("1",Modifier_Name,Branch_Name_Localized);
-        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, false , true ,true, false);
-        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, false , false ,true, false);
-        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, true , true ,false, false);
-        liveOrder.checkLiveOrderCreation(Client_Location ,Client_Name,Client_Mobile,Branch_Name , Category_Name,Product_name , 1 ,Client_Notes, true , false ,false, false);
+        group.checkGroupCreation(Group_Name,Group_Localized_Name);
+        editGroup.validateEditGroup(Product_name , true);
+        liveOrder.checkLiveOrderCreation("fawzydriver" ,Client_Location ,"karim","1270020414","34015MoonValley","29539category","35606Chicken","55036Option", 1 ,Client_Notes, false , true ,false, false);
+        liveOrder.checkLiveOrderCreation("fawzydriver" ,Client_Location ,"karim","1270020414","34015MoonValley","29539category","35606Chicken","55036Option", 1 ,Client_Notes, false , false ,true, false);
+        liveOrder.checkLiveOrderCreation("fawzydriver" ,Client_Location ,"karim","1270020414","34015MoonValley","29539category","35606Chicken","55036Option", 1 ,Client_Notes, true , true ,true, false);
+        liveOrder.checkLiveOrderCreation("fawzydriver" , Client_Location ,"karim","1270020414","34015MoonValley","29539category","35606Chicken","55036Option", 1 ,Client_Notes, true , false ,false, false);
 
     }
+
+
+    
 
 }

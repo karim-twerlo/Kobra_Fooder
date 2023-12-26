@@ -115,7 +115,7 @@ public class P007CreateRolesPage extends PageBase {
 
 
     }
-    private void SelectBranch(String text){
+    public void SelectBranch(String text){
         clickOnelement(Branches);
 
         By optionLocator = By.xpath("//div[@role='option' and contains(text(), ' " + text + " ')]");

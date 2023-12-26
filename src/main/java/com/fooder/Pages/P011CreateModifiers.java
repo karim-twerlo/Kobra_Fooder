@@ -36,7 +36,7 @@ public class P011CreateModifiers extends PageBase {
 
 
     private void openModifierScreen(){
-        category.validateMenuItems();
+        if(!driver.findElement(Modifiers_From_Menu).isDisplayed()) category.validateMenuItems();
         scrollToElement(Modifiers_From_Menu);
         Assert.assertTrue(assertElementDisplayed(Modifiers_From_Menu));
         clickOnelement(Modifiers_From_Menu);

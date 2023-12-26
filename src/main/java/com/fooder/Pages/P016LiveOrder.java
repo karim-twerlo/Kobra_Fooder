@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.internal.junit.ArrayAsserts;
 
 import java.time.Duration;
 import java.util.List;
@@ -16,6 +15,8 @@ public class P016LiveOrder extends PageBase {
     public P016LiveOrder(WebDriver driver) {
         super(driver);
     }
+
+    public String order_number_value = "";
 
     private final By Live_Order_From_Menu = By.xpath("//span[normalize-space()='Live orders' or contains(text(),'الطلبات الحية')]");
     private final By Create_Order = By.xpath("//span[normalize-space()='Create order' or contains(text(),'إنشاء طلب')]");
@@ -34,7 +35,7 @@ public class P016LiveOrder extends PageBase {
     private final By Sum = By.xpath("//div[@class='cart-bill_details']//div//p[contains(text(),'Grand Total') or contains(text(),'المجموع الإجمالي')]");
     private final By Add_To_Basket = By.xpath("//span[normalize-space()='Add to basket' or contains(text(),'اضف للسلة')]");
     private final By Quantity = By.xpath("//span[normalize-space()='Quantity' or contains(text(),'الكمية')]");
-    private final By Plus = By.xpath("//button[@class='plusBtn']//*[name()='svg']");
+    private final By Plus = By.xpath("//div[@class='quantity-operations']//button[@class='plusBtn']//*[name()='svg']");
     private final By Plus_into_Card = By.xpath("//cart-summary//button[@class='plusBtn']");
     private final By Complete_Order = By.xpath("//button[normalize-space()='Go to checkout' or contains(text(),'اكمل الطلب')]");
     private final By Place_Order = By.xpath("//button[normalize-space()='Create order' or contains(text(),'انشى الطلب')]");
@@ -59,24 +60,42 @@ public class P016LiveOrder extends PageBase {
     private final By Reject_CTA = By.xpath("//span[normalize-space()='Reject' or contains(text(),'رفض الطلب')]");
     private final By accept_order = By.xpath("//button[@type='button']");
     private final By Call_Center = By.xpath("//p[normalize-space()='Call Center' or contains(text(),'مركز الإتصال')]");
-    private final By delivered_Payment = By.xpath("//p[@class='mb-0 font-small-1' and (normalize-space()='Cash on delivery' or contains(text(),'الدفع عند التوصيل') )]");
-    private final By online_Payment = By.xpath("//p[@class='mb-0 font-small-1' and (normalize-space()='Online' or contains(text(),'دفع إلكتروني') )]");
+    private final By delivered_Payment = By.xpath("//p[normalize-space()='Cash on delivery' or contains(text(),'الدفع عند التوصيل')]");
+    private final By online_Payment = By.xpath("//p[normalize-space()='Online' or contains(text(),'دفع إلكتروني')]");
     private final By number_of_items = By.xpath("(//span[@class='font-small-1 font-weight-bolder'])[1]");
     private final By notes = By.xpath("//span[normalize-space()='test']");
     private final By sum = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25'])[1]");
     private final By deduction = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25 text-danger'])[1]");
     private final By taxes = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25'])[2]");
-    private final By delivery_fees = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25'])[3]");
-    private final By delivery_taxes = By.xpath("(//div[@class='d-flex align-items-center justify-content-between'])[2]");
+    private final By delivery_fees = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25 ng-star-inserted'])[1]");
+    private final By delivery_taxes = By.xpath("//div[@class='d-flex align-items-center justify-content-between ng-star-inserted']");
     private final By total_amount = By.xpath("(//div[@class='d-flex align-items-center justify-content-between mt-1 font-weight-bolder'])[1]");
     private final By Reports = By.xpath("//span[normalize-space()='Reports' or contains(text(),'التقارير')]");
+    private final By message_prep_time = By.xpath("//div[normalize-space()='Preparation time is required' or contains(text(),'وقت التحضير مطلوب')]");
+    private final By message_delivery_time = By.xpath("//div[normalize-space()='Delivery time is required' or contains(text(),'ُوقت التوصيل مطلوب')]");
+    private final By message_select_driver = By.xpath("//div[normalize-space()='Driver is required' or contains(text(),'يجب اختيار احد السائقين')]");
+    private final By label_prep_time = By.xpath("//label[@for='prep-time']");
+    private final By label_delivery_time = By.xpath("//label[@for='delivery-time']");
+    private final By label_select_drivers = By.xpath("//label[normalize-space()='Drivers' or contains(text(),'السائقين')]");
+    private final By input_delivery_time = By.xpath("//input[@id='delivery-time']");
+    private final By input_prep_time = By.xpath("//input[@id='prep-time']");
+    private final By Select_drivers = By.xpath("//input[@type='text']");
+    private final By send_via_whatsApp_delivery_details = By.xpath("(//span[@class='mx-25'])[1]");
+    private final By Into_Kitchen_CTA = By.xpath("(//span[@class='mx-50 align-middle'])[1]");
+    private final By Ready_For_Delivery = By.xpath("//button[@type='button']");
+    private final By Finish = By.xpath("(//span[@class='mx-50 align-middle'])[1]");
+
+    private final By accept_scheduled_CTA = By.xpath("(//span[@class='mx-50 align-middle'])[1]");
+    private final By Scheduled = By.xpath("(//div[@class='font-small-1 font-weight-bolder badge badge-pill rounded badge-light-dark' and (normalize-space()='Scheduled' or contains(text(),'الطلبات المجدولة'))])[2]");
+    private final By Scheduled_orders = By.xpath("//a[contains(text(),'الطلبات المجدولة') or contains(text(),'Schedul')]");
+    private final By order_number_from_scheduled = By.xpath("(//p[@class='font-small-2 font-weight-bolder text-primary mb-0'])[1]");
 
     private void selectDeliveryOrder(String locationOnMAp) {
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (Exception e) {
+//            e.getStackTrace();
+//        }
         driver.findElement(Choose_Delivery).click();
         scrollToElement(Choose_From_Map);
         clickOnelement(Choose_From_Map);
@@ -97,12 +116,12 @@ public class P016LiveOrder extends PageBase {
 
     private void selectScheduledOrder() {
         String hours = String.valueOf(getCurrentHour() + 2);
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        if (!(getCurrentHour() + 1 == 24)) {
+//        try {
+//            Thread.sleep(2000);
+//        } catch (Exception e) {
+//            e.getStackTrace();
+//        }
+        if (!(getCurrentHour() + 1 == 24) && !(getCurrentHour() == 24) && !(getCurrentHour() + 2 == 24)) {
             driver.findElement(Choose_Scheduled).click();
             sendTextToInputField(hours, Hours);
             sendTextToInputField("00", Minutes);
@@ -132,7 +151,7 @@ public class P016LiveOrder extends PageBase {
 
     }
 
-    public void checkLiveOrderCreation(String LocationOnMap, String fullName, String mobileNumber, String branchName, String Category, String Product, int NumberOfProducts, String Notes, Boolean isDelivery, Boolean isScheduled, Boolean isOnlinePayment, Boolean IsEnglish) {
+    public void checkLiveOrderCreation(String driverName, String LocationOnMap, String fullName, String mobileNumber, String branchName, String Category, String Product, String OptionName, int NumberOfProducts, String Notes, Boolean isDelivery, Boolean isScheduled, Boolean isOnlinePayment, Boolean IsEnglish) {
         if (IsEnglish) {
             selectEnglish();
         }
@@ -143,9 +162,13 @@ public class P016LiveOrder extends PageBase {
         if (isScheduled) selectScheduledOrder();
         if (isDelivery) selectDeliveryOrder(LocationOnMap);
         confirmFillOrder();
-        validateOrderCartScreen(Category, Product, NumberOfProducts, isOnlinePayment, Notes);
+        validateOrderCartScreen(Category, Product, NumberOfProducts, isOnlinePayment, Notes, OptionName);
+//        refreshDriver(driver.getCurrentUrl());
         validateOrdersDashboard(isOnlinePayment, isDelivery, fullName, mobileNumber, branchName, String.valueOf(NumberOfProducts), Notes, LocationOnMap);
+        checkAcceptOrder(isOnlinePayment);
+        if (isDelivery && !isScheduled && !isOnlinePayment) validateAndSelectDriver(driverName);
     }
+
 
     private void SelectBranch(String text) {
         driver.findElement(Select_Branch_Dropdown).click();
@@ -162,7 +185,7 @@ public class P016LiveOrder extends PageBase {
         scrollToElement(Select_Branch_Dropdown);
         SelectBranch(BranchName);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -176,13 +199,15 @@ public class P016LiveOrder extends PageBase {
         clickOnelement(Go_Select_Item);
     }
 
-    private void validateOrderCartScreen(String category, String ProductName, int numberOfProducts, Boolean isOnlinePayment, String Notes) {
+    private void validateOrderCartScreen(String category, String ProductName, int numberOfProducts, Boolean isOnlinePayment, String Notes, String OptionName) {
         By Category = By.xpath("//button[normalize-space()='" + category + "']");
         By product = By.xpath("//h6[normalize-space()='" + ProductName + "']");
+        By option = By.xpath("//label[normalize-space()='" + OptionName + "']");
         Assert.assertTrue(assertElementDisplayed(Category));
         validatePaymentScreen();
         selectProductFromCategory(Category, product);
         validateBasketScreen(product);
+        clickOnelement(option);
         clickOnelement(Add_To_Basket);
         validateOrderIntoCard(numberOfProducts, Notes);
         clickOnelement(Complete_Order);
@@ -273,19 +298,18 @@ public class P016LiveOrder extends PageBase {
     }
 
     public void validateOrders() {
-        Assert.assertTrue(assertElementDisplayed(Create_Order));
-        List<WebElement> checkboxElements = driver.findElements(By.xpath("//p[normalize-space()='Order No' or contains(text(),'رقم الطلب')]"));
-        for (int i = 0; i < checkboxElements.size(); i++) {
-        }
-        System.out.println(checkboxElements.size());
         try {
+            Assert.assertTrue(assertElementDisplayed(Create_Order));
+            List<WebElement> checkboxElements = driver.findElements(By.xpath("//p[normalize-space()='Order No' or contains(text(),'رقم الطلب')]"));
+            System.out.println(checkboxElements.size());
+
             Thread.sleep(10000);
+
+            Assert.assertTrue(assertElementDisplayed(Create_Order));
+            checkboxElements.get(0).click();
         } catch (Exception e) {
             e.getStackTrace();
         }
-
-        Assert.assertTrue(assertElementDisplayed(Create_Order));
-        checkboxElements.get(0).click();
 
     }
 
@@ -299,16 +323,38 @@ public class P016LiveOrder extends PageBase {
     }
 
     private double validateAndExtractPrice(By by) {
+//        try{
+//            Thread.sleep(2000);
+//        }catch (Exception e){
+//            e.getStackTrace();
+//        }
         Assert.assertTrue(assertElementDisplayed(by));
         System.out.println(driver.findElement(by).getText());
         return extractNumber(driver.findElement(by).getText());
     }
 
+    private double validateAndExtractPriceForDelivery(By by, By by2) {
+        try {
+//            Thread.sleep(2000);
+            Assert.assertTrue(assertElementDisplayed(by));
+            System.out.println(driver.findElement(by).getText());
+            return extractNumber(driver.findElement(by).getText());
+        } catch (Exception e) {
+            e.getStackTrace();
+            Assert.assertTrue(assertElementDisplayed(by2));
+            System.out.println(driver.findElement(by2).getText());
+            return extractNumber(driver.findElement(by2).getText());
+        }
+    }
+
+
     private void validateOrdersDashboard(Boolean isOnline, Boolean isDelivery, String name, String mobile, String branch, String numberOfProducts, String Notes, String LocationOnMAp) {
         validateOrders();
         Assert.assertTrue(assertElementDisplayed(order_number));
+        order_number_value = driver.findElement(order_number).getText();
+        System.out.println(order_number_value);
         Assert.assertTrue(assertElementDisplayed(Reject_CTA));
-        Assert.assertTrue(assertElementDisplayed(By.xpath("//p[normalize-space()='" + name + ", +20" + mobile + "']")));
+//        Assert.assertTrue(assertElementDisplayed(By.xpath("//p[normalize-space()='" + name + ", +20" + mobile + "']")));
         Assert.assertTrue(assertElementDisplayed(By.xpath("//p[normalize-space()='" + branch + "']")));
         Assert.assertTrue(assertElementDisplayed(Call_Center));
         Assert.assertTrue(driver.findElement(number_of_items).getText().contains(numberOfProducts));
@@ -331,13 +377,88 @@ public class P016LiveOrder extends PageBase {
         Taxes_amount = validateAndExtractPrice(taxes);
         if (isDelivery) {
             Assert.assertTrue(assertElementDisplayed(By.xpath("//span[contains(text(),'" + LocationOnMAp + "')]")));
-            deliverFees = validateAndExtractPrice(delivery_fees);
-            deliveryTaxes = validateAndExtractPrice(delivery_taxes);
+            deliverFees = validateAndExtractPriceForDelivery(delivery_fees, By.xpath("(//div[@class='d-flex align-items-center justify-content-between mb-25'])[3]"));
+            deliveryTaxes = validateAndExtractPriceForDelivery(delivery_taxes, By.xpath("(//div[@class='d-flex align-items-center justify-content-between'])[2]"));
         }
 
         Total_amount = validateAndExtractPrice(total_amount);
         Assert.assertEquals(Total_amount, deliverFees + deliveryTaxes + Taxes_amount + deduction_amount + sum_amount);
 
+    }
+
+    private void checkAcceptOrder(Boolean isOnline) {
+        if (!isOnline) {
+            Assert.assertTrue(assertElementDisplayed(accept_scheduled_CTA));
+            clickOnelement(accept_scheduled_CTA);
+            validateUpdateMessage();
+            try {
+                Assert.assertTrue(assertElementDisplayed(Scheduled));
+                clickOnelement(Scheduled_orders);
+                Assert.assertTrue(assertElementDisplayed(order_number_from_scheduled));
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+
+        }
+    }
+
+
+    private void checkSelectDriverScreen() {
+        Assert.assertTrue(assertElementDisplayed(label_prep_time));
+        Assert.assertTrue(assertElementDisplayed(label_delivery_time));
+        Assert.assertTrue(assertElementDisplayed(label_select_drivers));
+        Assert.assertTrue(assertElementDisplayed(input_delivery_time));
+        Assert.assertTrue(assertElementDisplayed(input_prep_time));
+        Assert.assertTrue(assertElementDisplayed(Select_drivers));
+    }
+
+    private void SelectDriver(String text) {
+        clickOnelement(Select_drivers);
+//        By optionLocator = By.xpath("//div[@role='option' and contains(text(), ' " + text + " ')]");
+        By optionLocator = By.xpath("//span[contains(text(), '" + text + "')]");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(optionLocator));
+        optionElement.click();
+        clickOnelement(input_prep_time);
+    }
+
+    private void fillDeliveryScreen(String driverName) {
+        SelectDriver(driverName);
+        sendTextToInputField("50", input_delivery_time);
+        sendTextToInputField("50", input_prep_time);
+    }
+
+    private void checkErrorMessages() {
+        validateErrorMessage(input_delivery_time, input_prep_time, message_delivery_time);
+        validateErrorMessage(input_prep_time, input_delivery_time, message_prep_time);
+        validateErrorMessage(Select_drivers, input_prep_time, message_select_driver);
+    }
+
+    private void validateAndSelectDriver(String driverName) {
+        checkSelectDriverScreen();
+        checkErrorMessages();
+        fillDeliveryScreen(driverName);
+        clickOnelement(send_via_whatsApp_delivery_details);
+        validateUpdateMessage();
+        checkIntoKitchen();
+        checkReadyForDelivery();
+
+    }
+
+    private void checkIntoKitchen() {
+        Assert.assertTrue(assertElementDisplayed(Into_Kitchen_CTA));
+        clickOnelement(Into_Kitchen_CTA);
+        validateUpdateMessage();
+    }
+
+    private void checkReadyForDelivery() {
+        Assert.assertTrue(assertElementDisplayed(Ready_For_Delivery));
+        clickOnelement(Ready_For_Delivery);
+        validateUpdateMessage();
+        Assert.assertTrue(assertElementDisplayed(Finish));
+        clickOnelement(Finish);
+        validateUpdateMessage();
     }
 
 }

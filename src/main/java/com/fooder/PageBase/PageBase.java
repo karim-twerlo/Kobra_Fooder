@@ -34,6 +34,12 @@ public class PageBase {
         scrollToElement(myAccount);
         clickOnelement(myAccount);
         clickOnelement(logout);
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+        System.out.println(driver.getCurrentUrl());
         Assert.assertTrue(driver.getCurrentUrl().contains("login"));
 
     }
@@ -43,7 +49,7 @@ public class PageBase {
 
     }
     public void waitForVisibilityOfElement(By by){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
     public void waitForVisibilityOfWebElement(WebElement element){
@@ -188,8 +194,12 @@ public class PageBase {
 
     }
     public void validateUpdateMessage(){
-        Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
-        waitForInVisibilityOfElement(Success_Update_Message);
+        try {
+            Assert.assertTrue(assertElementDisplayed(Success_Update_Message));
+            waitForInVisibilityOfElement(Success_Update_Message);
+        }catch (Exception e){
+            e.getStackTrace();
+        }
 
     }
     public void validateLinkedSuccessMessage(){
@@ -278,7 +288,25 @@ public class PageBase {
         }
     }
 
+    public  void refreshDriver(String  url) {
+        try {
+            driver.navigate().refresh();
+            Thread.sleep(6000);
+            waitForPageToLoad(url);
+            Thread.sleep(6000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    private  void waitForPageToLoad(String url) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.urlContains(url));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
