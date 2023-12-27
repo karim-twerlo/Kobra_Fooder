@@ -9,7 +9,7 @@ public class P003P001SettingsDashboardPage extends PageBase {
     public P003P001SettingsDashboardPage(WebDriver driver) {
         super(driver);
     }
-    private final By BusinessSettings = By.xpath("(//span[@class='menu-title text-truncate mx-75' and contains(text(),'Business settings') or contains(text(),'الإعدادات')])[2]");
+    public final By BusinessSettings = By.xpath("(//span[@class='menu-title text-truncate mx-75' and contains(text(),'Business settings') or contains(text(),'الإعدادات')])[2]");
     private final By Profile = By.xpath("//a[@class='font-small-2 font-weight-bold nav-link active' and (contains(text(),'حساب تعريفي') or contains(text(),'Profile'))]");
     private final By MyAccount = By.xpath("//span[@class='menu-title text-truncate mx-75' and (contains(text(),'My account') or contains(text(),'حسابي'))]");
     private final By Email = By.xpath("//input[@id='email']");
@@ -29,7 +29,7 @@ public class P003P001SettingsDashboardPage extends PageBase {
         checkNumberOfOrdersSettings();
         checkSystemLogs();
     }
-    private void checkBusinessSettings(){
+   public void checkBusinessSettings(){
         scrollToElement(BusinessSettings);
         Assert.assertTrue(assertElementDisplayed(BusinessSettings));
         clickOnelement(BusinessSettings);
